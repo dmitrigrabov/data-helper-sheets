@@ -1,4 +1,6 @@
+/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
-  globalSetup: './test/global-setup.js',
-  globalTeardown: './test/global-teardown.js'
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  moduleDirectories: ['node_modules', 'src']
 }

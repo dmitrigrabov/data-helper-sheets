@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["gas-types-detailed", "jest"],
     "jsx": "react",
     "baseUrl": "src",
     "esModuleInterop": true,
