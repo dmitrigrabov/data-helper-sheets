@@ -4,9 +4,14 @@ import {
   openDialogBootstrap,
   openAboutSidebar,
   openInitialiseSheet,
-} from './ui';
+} from 'server/lib/ui';
 
-import { getSheetsData, addSheet, deleteSheet, setActiveSheet } from './sheets';
+import {
+  getSheetsData,
+  addSheet,
+  deleteSheet,
+  setActiveSheet,
+} from 'server/lib/sheets';
 
 // Public functions must be exported as named exports
 export {

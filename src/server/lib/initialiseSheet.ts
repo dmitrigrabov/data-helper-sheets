@@ -1,8 +1,9 @@
-import { addSheet } from '../sheets';
-import format from '../format';
+import { addSheet, getSheets } from './sheets';
+import format from 'server/format';
 
 export const initialiseSheet = () => {
-  Object.keys(format).forEach((tabName) => {
+  const sheets = getSheets();
+  Object.keys(format).forEach(tabName => {
     addSheet(tabName);
   });
 };

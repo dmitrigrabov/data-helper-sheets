@@ -109,6 +109,10 @@ const clientConfig = ({ isDevClientWrapper }) => ({
     filename: 'main.js',
   },
   resolve: {
+    alias: {
+      client: path.resolve(__dirname, 'src/client'),
+      server: path.resolve(__dirname, 'src/server')
+    },
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
   },
   module: {
@@ -292,6 +296,10 @@ const serverConfig = {
     libraryTarget: 'this',
   },
   resolve: {
+    alias: {
+      client: path.resolve(__dirname, 'src/client'),
+      server: path.resolve(__dirname, 'src/server')
+    },
     extensions: ['.ts', '.js', '.json'],
   },
   module: {

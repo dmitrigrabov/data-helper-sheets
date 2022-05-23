@@ -2,6 +2,12 @@
   "compilerOptions": {
     "types": ["gas-types-detailed"],
     "jsx": "react",
-    "esModuleInterop": true
-  }
+    "baseUrl": "src",
+    "esModuleInterop": true,
+    "paths": {
+      "src/*": ["src/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
 }

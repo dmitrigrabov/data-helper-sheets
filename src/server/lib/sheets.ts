@@ -1,4 +1,4 @@
-const getSheets = () => SpreadsheetApp.getActive().getSheets();
+export const getSheets = () => SpreadsheetApp.getActive().getSheets();
 
 const getActiveSheetName = () => SpreadsheetApp.getActive().getSheetName();
 

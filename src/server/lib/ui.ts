@@ -1,4 +1,4 @@
-import { initialiseSheet } from './lib/initialiseSheet';
+import { initialiseSheet } from './initialiseSheet';
 
 export const onOpen = () => {
   const menu = SpreadsheetApp.getUi()
