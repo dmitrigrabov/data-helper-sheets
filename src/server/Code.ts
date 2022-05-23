@@ -7,9 +7,6 @@
  */
 
 function GET_SOURCE(sourceUrl) {
-  Logger.clear();
-  Logger.log(sourceUrl);
-
   const sheet = SpreadsheetApp.getActiveSpreadsheet();
 
   const sourcesRange = sheet.getRange('Sources!A:P');
@@ -17,7 +14,7 @@ function GET_SOURCE(sourceUrl) {
   const sourcesByUrl = arraysToObjects(sourcesValues, 'Source Url');
 
   return Array.isArray(sourceUrl)
-    ? sourceUrl.map(row => getSource(row[0], sourcesByUrl))
+    ? sourceUrl.map((row) => getSource(row[0], sourcesByUrl))
     : getSource(sourceUrl, sourcesByUrl);
 }
 
@@ -40,7 +37,7 @@ function GET_LOCATION(eventIdInput) {
   const sitesBySiteKey = arraysToObjects(sitesValues, 'Site Key');
 
   return Array.isArray(eventIdInput)
-    ? eventIdInput.map(row => getLocation(row[0], eventsById, sitesBySiteKey))
+    ? eventIdInput.map((row) => getLocation(row[0], eventsById, sitesBySiteKey))
     : getLocation(eventIdInput, eventsById, sitesBySiteKey);
 }
 
@@ -65,7 +62,7 @@ function GET_LATLNG(eventIdInput) {
   const sitesBySiteKey = arraysToObjects(sitesValues, 'Site Key');
 
   const latLng = Array.isArray(eventIdInput)
-    ? eventIdInput.map(row => getLatLng(row[0], eventsById, sitesBySiteKey))
+    ? eventIdInput.map((row) => getLatLng(row[0], eventsById, sitesBySiteKey))
     : getLatLng(eventIdInput, eventsById, sitesBySiteKey);
 
   Logger.log(latLng);
@@ -116,7 +113,7 @@ function getLatLng(eventId, eventsMap, sitesMap) {
   const eventLatLng = event['Lat Lng'];
 
   if (eventLatLng) {
-    return eventLatLng.split(',').map(chunk => chunk.trim());
+    return eventLatLng.split(',').map((chunk) => chunk.trim());
   }
 
   const site = sitesMap[event['Site Key']];
@@ -128,7 +125,7 @@ function getLatLng(eventId, eventsMap, sitesMap) {
   const siteLatLng = site['Lat Lng'];
 
   if (siteLatLng) {
-    return siteLatLng.split(',').map(chunk => chunk.trim());
+    return siteLatLng.split(',').map((chunk) => chunk.trim());
   }
 
   return [];

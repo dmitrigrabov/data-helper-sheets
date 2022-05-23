@@ -1,12 +1,17 @@
+import { initialiseSheet } from './lib/initialiseSheet';
+
 export const onOpen = () => {
   const menu = SpreadsheetApp.getUi()
     .createMenu('My Sample React Project') // edit me!
     .addItem('Sheet Editor', 'openDialog')
     .addItem('Sheet Editor (Bootstrap)', 'openDialogBootstrap')
-    .addItem('About me', 'openAboutSidebar');
+    .addItem('About me', 'openAboutSidebar')
+    .addItem('Initialise sheet', 'openInitialiseSheet');
 
   menu.addToUi();
 };
+
+export const openInitialiseSheet = () => initialiseSheet();
 
 export const openDialog = () => {
   const html = HtmlService.createHtmlOutputFromFile('dialog-demo')

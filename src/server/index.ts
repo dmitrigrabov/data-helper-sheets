@@ -3,6 +3,7 @@ import {
   openDialog,
   openDialogBootstrap,
   openAboutSidebar,
+  openInitialiseSheet,
 } from './ui';
 
 import { getSheetsData, addSheet, deleteSheet, setActiveSheet } from './sheets';
@@ -13,6 +14,7 @@ export {
   openDialog,
   openDialogBootstrap,
   openAboutSidebar,
+  openInitialiseSheet,
   getSheetsData,
   addSheet,
   deleteSheet,
