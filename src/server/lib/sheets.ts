@@ -1,33 +1,34 @@
-export const getSheets = () => SpreadsheetApp.getActive().getSheets();
+export const getSheets = () => SpreadsheetApp.getActive().getSheets()
 
-const getActiveSheetName = () => SpreadsheetApp.getActive().getSheetName();
+export const getActiveSheetName = () =>
+  SpreadsheetApp.getActive().getSheetName()
 
 export const getSheetsData = () => {
-  const activeSheetName = getActiveSheetName();
+  const activeSheetName = getActiveSheetName()
   return getSheets().map((sheet, index) => {
-    const name = sheet.getName();
+    const name = sheet.getName()
+
     return {
       name,
       index,
-      isActive: name === activeSheetName,
-    };
-  });
-};
+      isActive: name === activeSheetName
+    }
+  })
+}
 
-export const addSheet = sheetTitle => {
-  SpreadsheetApp.getActive().insertSheet(sheetTitle);
-  return getSheetsData();
-};
+export const addSheet = (sheetTitle: number) => {
+  SpreadsheetApp.getActive().insertSheet(sheetTitle)
 
-export const deleteSheet = sheetIndex => {
-  const sheets = getSheets();
-  SpreadsheetApp.getActive().deleteSheet(sheets[sheetIndex]);
-  return getSheetsData();
-};
+  return getSheetsData()
+}
 
-export const setActiveSheet = sheetName => {
-  SpreadsheetApp.getActive()
-    .getSheetByName(sheetName)
-    .activate();
-  return getSheetsData();
-};
+export const deleteSheet = (sheetIndex: number) => {
+  const sheets = getSheets()
+  SpreadsheetApp.getActive().deleteSheet(sheets[sheetIndex])
+  return getSheetsData()
+}
+
+export const setActiveSheet = (sheetName: string) => {
+  SpreadsheetApp.getActive().getSheetByName(sheetName).activate()
+  return getSheetsData()
+}

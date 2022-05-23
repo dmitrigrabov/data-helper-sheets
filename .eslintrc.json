@@ -1,14 +1,143 @@
 {
   "root": true,
-  "parser": "@babel/eslint-parser",
-  "extends": ["airbnb-base", "plugin:prettier/recommended"],
-  "plugins": ["prettier"],
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "prettier",
+    "react-hooks",
+    "jest",
+    "googleappsscript"
+  ],
   "rules": {
-    "prettier/prettier": "error",
-    "camelcase": "warn",
-    "import/prefer-default-export": "warn",
-    "import/no-extraneous-dependencies": "warn",
-    "prefer-object-spread": "warn",
-    "spaced-comment":"off"
+    "curly": "error",
+    "semi": "off",
+    "@typescript-eslint/semi": [2, "never"],
+    "comma-dangle": [2, "never"],
+    "import/extensions": 0,
+    "no-console": 1,
+    "no-debugger": 0,
+    "no-lonely-if": 0,
+    "consistent-return": 0,
+    "no-unused-expressions": 0,
+    "import/no-unresolved": 0, // used to side-step linting failure in ci
+    "jsx-a11y/label-has-for": 0,
+    "import/prefer-default-export": 0,
+    "eol-last": [2, "always"],
+    "prettier/prettier": [
+      2,
+      {
+        "tabWidth": 2,
+        "useTabs": false,
+        "semi": false,
+        "singleQuote": true,
+        "trailingComma": "none",
+        "bracketSpacing": true,
+        "arrowParens": "avoid"
+      }
+    ],
+    "react/display-name": 0,
+    "react/prop-types": 0,
+    "react/button-has-type": 0,
+    "react/no-unescaped-entities": 0,
+    "react-hooks/rules-of-hooks": "error",
+    "react/jsx-uses-react": 0,
+    "react/react-in-jsx-scope": 0,
+    "@typescript-eslint/no-unused-vars": [
+      2,
+      { "ignoreRestSiblings": true, "varsIgnorePattern": "^jsx$" }
+    ],
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "@typescript-eslint/no-empty-function": 0,
+    "@typescript-eslint/ban-ts-comment": 2,
+    "@typescript-eslint/member-delimiter-style": [
+      2,
+      {
+        "multiline": {
+          "delimiter": "none",
+          "requireLast": false
+        },
+        "singleline": {
+          "delimiter": "semi",
+          "requireLast": false
+        }
+      }
+    ],
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "no-shadow": 0,
+    "@typescript-eslint/no-shadow": ["error"],
+    "no-restricted-imports": [
+      2,
+      {
+        "patterns": [
+          ".",
+          "./*",
+          "./**/*",
+          "../*",
+          "../**/*",
+          "../../*",
+          "../../**/*",
+          "../../../*",
+          "../../../**/*"
+        ],
+        "paths": [
+          {
+            "name": "rebass",
+            "message": "Please import from components/Rebass instead."
+          },
+          {
+            "name": "@rebass/forms",
+            "message": "Please import from components/Rebass instead."
+          },
+          {
+            "name": "@testing-library/react",
+            "importNames": ["render"],
+            "message": "Please use \"import { render } from 'lib/testing'\""
+          },
+          {
+            "name": "react",
+            "importNames": ["default", "*"],
+            "message": "React 17 has made this unnecessary."
+          }
+        ]
+      }
+    ]
+  },
+  "globals": {
+    "describe": false,
+    "it": false,
+    "expect": false,
+    "fail": false,
+    "window": false,
+    "fetch": false,
+    "navigator": false,
+    "document": false,
+    "jest": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2019,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    },
+    "react": {
+      "version": "detect"
+    }
   }
 }

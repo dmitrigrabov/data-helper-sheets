@@ -4,6 +4,7 @@
     "jsx": "react",
     "baseUrl": "src",
     "esModuleInterop": true,
+    "noImplicitAny": true,
     "paths": {
       "src/*": ["src/*"]
     }

@@ -1,4 +1,29 @@
 {
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": ["typescript"],
+  "[typescript]": {
+    "editor.formatOnSave": false
+  },
+  "[json]": {
+    "editor.formatOnSave": true
+  },
+  "files.associations": {
+    "*.snap": "jest-snapshot"
+  },
+  "files.exclude": {
+    ".next": true,
+    "**/node_modules": true
+  },
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.preferences.importModuleSpecifierEnding": "minimal",
+  "emmet.triggerExpansionOnTab": false,
+  "emmet.showAbbreviationSuggestions": false,
+  "emmet.showSuggestionsAsSnippets": false,
+  "emmet.showExpandedAbbreviation": "never",
+  "editor.tabSize": 2,
+  "typescript.tsdk": "node_modules/typescript/lib",
   "json.schemas": [
     {
       "fileMatch": ["appsscript.json"],
