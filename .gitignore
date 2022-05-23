@@ -17,3 +17,5 @@ dist/
 
 #secret
 .env
+
+.coverage
