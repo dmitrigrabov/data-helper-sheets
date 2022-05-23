@@ -1,0 +1,10 @@
+TODO 
+
+[ ] - Generate ranges from objects
+[ ] - Generate objects from sheets
+[ ] - Set up sheets from config
+[ ] - Generate exports
+[ ] - Plain video and photo imports and exports
+[ ] - Twitter and YouTube imports
+
+[ ] - Entry forms - nice to have

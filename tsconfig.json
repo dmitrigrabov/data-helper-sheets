@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "types": ["gas-types-detailed"],
     "jsx": "react",
     "baseUrl": "src",
     "esModuleInterop": true,
     "noImplicitAny": true,
+    "strict": true,
     "paths": {
       "src/*": ["src/*"]
     }

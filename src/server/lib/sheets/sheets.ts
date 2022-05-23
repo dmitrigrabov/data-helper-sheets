@@ -5,6 +5,7 @@ export const getActiveSheetName = () =>
 
 export const getSheetsData = () => {
   const activeSheetName = getActiveSheetName()
+
   return getSheets().map((sheet, index) => {
     const name = sheet.getName()
 
@@ -24,11 +25,18 @@ export const addSheet = (sheetTitle: number) => {
 
 export const deleteSheet = (sheetIndex: number) => {
   const sheets = getSheets()
+
   SpreadsheetApp.getActive().deleteSheet(sheets[sheetIndex])
+
   return getSheetsData()
 }
 
 export const setActiveSheet = (sheetName: string) => {
-  SpreadsheetApp.getActive().getSheetByName(sheetName).activate()
+  const sheet = SpreadsheetApp.getActive().getSheetByName(sheetName)
+
+  if (sheet) {
+    sheet.activate()
+  }
+
   return getSheetsData()
 }

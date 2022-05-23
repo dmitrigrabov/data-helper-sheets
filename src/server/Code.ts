@@ -6,16 +6,16 @@
  * @customfunction
  */
 
-function GET_SOURCE(sourceUrl) {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet();
+const GET_SOURCE = (sourceUrl: string) => {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet()
 
-  const sourcesRange = sheet.getRange('Sources!A:P');
-  const sourcesValues = sourcesRange.getValues();
-  const sourcesByUrl = arraysToObjects(sourcesValues, 'Source Url');
+  const sourcesRange = sheet.getRange('Sources!A:P')
+  const sourcesValues = sourcesRange.getValues()
+  const sourcesByUrl = arraysToObjects(sourcesValues, 'Source Url')
 
   return Array.isArray(sourceUrl)
-    ? sourceUrl.map((row) => getSource(row[0], sourcesByUrl))
-    : getSource(sourceUrl, sourcesByUrl);
+    ? sourceUrl.map(row => getSource(row[0], sourcesByUrl))
+    : getSource(sourceUrl, sourcesByUrl)
 }
 
 /**
@@ -25,22 +25,22 @@ function GET_SOURCE(sourceUrl) {
  * @return Concatenated location name and oblast
  * @customfunction
  */
-function GET_LOCATION(eventIdInput) {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet();
+const GET_LOCATION = (eventIdInput: string) => {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet()
 
-  const eventsRange = sheet.getRange('Events!A:F');
-  const eventsValues = eventsRange.getValues();
-  const eventsById = arraysToObjects(eventsValues, 'Id');
+  const eventsRange = sheet.getRange('Events!A:F')
+  const eventsValues = eventsRange.getValues()
+  const eventsById = arraysToObjects(eventsValues, 'Id')
 
-  const sitesRange = sheet.getRange('Sites!A:D');
-  const sitesValues = sitesRange.getValues();
-  const sitesBySiteKey = arraysToObjects(sitesValues, 'Site Key');
+  const sitesRange = sheet.getRange('Sites!A:D')
+  const sitesValues = sitesRange.getValues()
+  const sitesBySiteKey = arraysToObjects(sitesValues, 'Site Key')
 
   return Array.isArray(eventIdInput)
-    ? eventIdInput.map((row) => getLocation(row[0], eventsById, sitesBySiteKey))
-    : getLocation(eventIdInput, eventsById, sitesBySiteKey);
+    ? eventIdInput.map(row => getLocation(row[0], eventsById, sitesBySiteKey))
+    : getLocation(eventIdInput, eventsById, sitesBySiteKey)
 }
-
+ 
 /**
  * Looks up coordinates based on event id
  *
@@ -48,110 +48,110 @@ function GET_LOCATION(eventIdInput) {
  * @return Range of latitudes of event based on event location or site.
  * @customfunction
  */
-function GET_LATLNG(eventIdInput) {
-  Logger.clear();
+const GET_LATLNG = (eventIdInput: string) => {
+  Logger.clear()
 
-  const sheet = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = SpreadsheetApp.getActiveSpreadsheet()
 
-  const eventsRange = sheet.getRange('Events!A:F');
-  const eventsValues = eventsRange.getValues();
-  const eventsById = arraysToObjects(eventsValues, 'Id');
+  const eventsRange = sheet.getRange('Events!A:F')
+  const eventsValues = eventsRange.getValues()
+  const eventsById = arraysToObjects(eventsValues, 'Id')
 
-  const sitesRange = sheet.getRange('Sites!A:D');
-  const sitesValues = sitesRange.getValues();
-  const sitesBySiteKey = arraysToObjects(sitesValues, 'Site Key');
+  const sitesRange = sheet.getRange('Sites!A:D')
+  const sitesValues = sitesRange.getValues()
+  const sitesBySiteKey = arraysToObjects(sitesValues, 'Site Key')
 
   const latLng = Array.isArray(eventIdInput)
-    ? eventIdInput.map((row) => getLatLng(row[0], eventsById, sitesBySiteKey))
-    : getLatLng(eventIdInput, eventsById, sitesBySiteKey);
+    ? eventIdInput.map(row => getLatLng(row[0], eventsById, sitesBySiteKey))
+    : getLatLng(eventIdInput, eventsById, sitesBySiteKey)
 
-  Logger.log(latLng);
+  Logger.log(latLng)
 
-  return latLng;
+  return latLng
 }
 
-function getSource(sourceUrl, sourcesMap) {
-  const source = sourcesMap[sourceUrl];
+const getSource = (sourceUrl:string , sourcesMap) {
+  const source = sourcesMap[sourceUrl]
 
   if (!source) {
-    return '';
+    return ''
   }
 
   // title, thumbnail, description, type, paths
-  return ['', '', source['Description'], source['Type'], sourceUrl];
+  return ['', '', source['Description'], source['Type'], sourceUrl]
 }
 
 function getLocation(eventId, eventsMap, sitesMap) {
-  const event = eventsMap[eventId];
+  const event = eventsMap[eventId]
 
   if (!event) {
-    return '';
+    return ''
   }
 
-  const eventSiteKey = event['Site Key'];
+  const eventSiteKey = event['Site Key']
 
   if (!eventSiteKey) {
-    return '';
+    return ''
   }
 
-  const site = sitesMap[event['Site Key']];
+  const site = sitesMap[event['Site Key']]
 
   if (!site) {
-    return '';
+    return ''
   }
 
-  return `${site['Town']}, ${site['Oblast']}`;
+  return `${site['Town']}, ${site['Oblast']}`
 }
 
 function getLatLng(eventId, eventsMap, sitesMap) {
-  const event = eventsMap[eventId];
+  const event = eventsMap[eventId]
 
   if (!event) {
-    return [];
+    return []
   }
 
-  const eventLatLng = event['Lat Lng'];
+  const eventLatLng = event['Lat Lng']
 
   if (eventLatLng) {
-    return eventLatLng.split(',').map((chunk) => chunk.trim());
+    return eventLatLng.split(',').map(chunk => chunk.trim())
   }
 
-  const site = sitesMap[event['Site Key']];
+  const site = sitesMap[event['Site Key']]
 
   if (!site) {
-    return [];
+    return []
   }
 
-  const siteLatLng = site['Lat Lng'];
+  const siteLatLng = site['Lat Lng']
 
   if (siteLatLng) {
-    return siteLatLng.split(',').map((chunk) => chunk.trim());
+    return siteLatLng.split(',').map(chunk => chunk.trim())
   }
 
-  return [];
+  return []
 }
 
 function rowToObject(labels, row) {
   return labels.reduce((acc, label, index) => {
-    acc[label] = row[index];
+    acc[label] = row[index]
 
-    return acc;
-  }, {});
+    return acc
+  }, {})
 }
 
 function arraysToObjects(input, keyName) {
-  const [labels, ...rows] = input;
+  const [labels, ...rows] = input
 
   return rows.reduce((acc, row) => {
-    const object = rowToObject(labels, row);
-    const key = object[keyName];
+    const object = rowToObject(labels, row)
+    const key = object[keyName]
 
     if (!key) {
-      return acc;
+      return acc
     }
 
-    acc[key] = object;
+    acc[key] = object
 
-    return acc;
-  }, {});
+    return acc
+  }, {})
 }
