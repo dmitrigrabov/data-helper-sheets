@@ -1,5 +1,7 @@
-export default {
-  Source: [
+import { Format } from 'server/model/types'
+
+const format: Format = {
+  Sources: [
     { name: 'timestamp', label: 'Timestamp' },
     { name: 'dateOfPost', label: 'Date of post' },
     { name: 'sourceUrl', label: 'Source Url' },
@@ -60,9 +62,7 @@ export default {
     { name: 'thumbnail', label: 'thumbnail' },
     { name: 'description', label: 'description' },
     { name: 'type', label: 'type' },
-    { name: 'path1', label: 'path1' },
-    { name: 'path2', label: 'path2' },
-    { name: 'path3', label: 'path3' }
+    { name: 'path1', label: 'path1' }
   ],
   EXPORT_ASSOCIATIONS: [
     { name: 'id', label: 'id' },
@@ -75,6 +75,8 @@ export default {
     { name: 'filter_path3', label: 'filter_path3' }
   ]
 }
+
+export default format
 
 export const dateFormat = 'dd/MM/yyyy'
 export const timeFormat = 'HH:mm:ss'
