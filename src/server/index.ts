@@ -3,15 +3,15 @@ import {
   openDialog,
   openDialogBootstrap,
   openAboutSidebar,
-  openInitialiseSheet,
-} from 'server/lib/ui';
+  openInitialiseSheet
+} from 'server/lib/sheets/ui'
 
 import {
   getSheetsData,
   addSheet,
   deleteSheet,
-  setActiveSheet,
-} from 'server/lib/sheets';
+  setActiveSheet
+} from 'server/lib/sheets/sheets'
 
 // Public functions must be exported as named exports
 export {
@@ -23,5 +23,5 @@ export {
   getSheetsData,
   addSheet,
   deleteSheet,
-  setActiveSheet,
-};
+  setActiveSheet
+}

@@ -17,10 +17,8 @@ export const getSheetsData = () => {
   })
 }
 
-export const addSheet = (sheetTitle: number) => {
-  SpreadsheetApp.getActive().insertSheet(sheetTitle)
-
-  return getSheetsData()
+export const addSheet = (sheetTitle: string) => {
+  return SpreadsheetApp.getActive().insertSheet(sheetTitle)
 }
 
 export const deleteSheet = (sheetIndex: number) => {

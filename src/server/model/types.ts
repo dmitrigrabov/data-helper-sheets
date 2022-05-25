@@ -21,50 +21,46 @@ export const associationMode = t.keyof({
   FILTER: null
 })
 
+const cellType = t.keyof({
+  string: null,
+  number: null,
+  boolean: null,
+  date: null
+})
+
+const sheetFormat = <
+  D extends {
+    [key: string]: unknown
+  }
+>(
+  upstreamProps: t.KeyofC<D>
+) =>
+  t.type({
+    columns: t.array(
+      t.type({
+        name: upstreamProps,
+        label: t.string,
+        type: cellType
+      })
+    ),
+    key: upstreamProps
+  })
+
 export const format = t.type({
-  Sources: t.array(
-    t.type({
-      name: t.keyof(sourceUpstream.props),
-      label: t.string
-    })
-  ),
-  Events: t.array(
-    t.type({
-      name: t.keyof(eventUpstream.props),
-      label: t.string
-    })
-  ),
-  Sites: t.array(
-    t.type({
-      name: t.keyof(siteUpstream.props),
-      label: t.string
-    })
-  ),
-  Categories: t.array(t.unknown),
-  Associations: t.array(
-    t.type({
-      name: t.keyof(associationUpstream.props),
-      label: t.string
-    })
-  ),
-  EXPORT_EVENTS: t.array(
-    t.type({
-      name: t.keyof(exportEventDownstream.props),
-      label: t.string
-    })
-  ),
-  EXPORT_SOURCES: t.array(
-    t.type({
-      name: t.keyof(exportSourceDownstream.props),
-      label: t.string
-    })
-  ),
-  EXPORT_ASSOCIATIONS: t.array(
-    t.type({
-      name: t.keyof(exportAssociationDownstream.props),
-      label: t.string
-    })
-  )
+  Sources: sheetFormat(t.keyof(sourceUpstream.props)),
+  Events: sheetFormat(t.keyof(eventUpstream.props)),
+  Sites: sheetFormat(t.keyof(siteUpstream.props)),
+  Categories: sheetFormat(t.keyof({})),
+  Associations: sheetFormat(t.keyof(associationUpstream.props)),
+  EXPORT_EVENTS: sheetFormat(t.keyof(exportEventDownstream.props)),
+  EXPORT_SOURCES: sheetFormat(t.keyof(exportSourceDownstream.props)),
+  EXPORT_ASSOCIATIONS: sheetFormat(t.keyof(exportAssociationDownstream.props))
 })
 
 export type Format = t.TypeOf<typeof format>
+
+const sheetName = t.keyof(format.props)
+export type SheetName = t.TypeOf<typeof sheetName>
+
+export type CellTypeName = t.TypeOf<typeof cellType>
+export type CellType = number | string | boolean | Date

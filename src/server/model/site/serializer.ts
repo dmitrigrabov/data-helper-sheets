@@ -1,7 +1,7 @@
 import { pipe } from 'fp-ts/lib/function'
 import { fold } from 'fp-ts/lib/Either'
-import { reportTypeErrors } from 'server/lib/reportTypeErrors'
-import returnValidModel from 'server/lib/returnValidModel'
+import { reportTypeErrors } from 'server/lib/reportTypeErrors/reportTypeErrors'
+import returnValidModel from 'server/lib/returnValidModel/returnValidModel'
 import toLatLng from 'server/model/latLng/serializer'
 import {
   siteModel,

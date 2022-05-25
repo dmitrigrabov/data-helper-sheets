@@ -1,28 +1,28 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { Form, Button, Col, Row } from 'react-bootstrap';
+import { useState, ChangeEvent, FormEvent } from 'react'
+import { Form, Button, Col, Row } from 'react-bootstrap'
 
 interface FormInputProps {
-  submitNewSheet: (
-    sheetName: string
-  ) => {
-    name: string;
-    index: number;
-    isActive: boolean;
-  };
+  submitNewSheet: (sheetName: string) => {
+    name: string
+    index: number
+    isActive: boolean
+  }
 }
 
 const FormInput = ({ submitNewSheet }: FormInputProps) => {
-  const [newSheetName, setNewSheetName] = useState('');
+  const [newSheetName, setNewSheetName] = useState('')
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) =>
-    setNewSheetName(event.target.value);
+    setNewSheetName(event.target.value)
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (newSheetName.length === 0) return;
-    submitNewSheet(newSheetName);
-    setNewSheetName('');
-  };
+    event.preventDefault()
+    if (newSheetName.length === 0) {
+      return
+    }
+    submitNewSheet(newSheetName)
+    setNewSheetName('')
+  }
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -51,7 +51,7 @@ const FormInput = ({ submitNewSheet }: FormInputProps) => {
         </Form.Text>
       </Form.Group>
     </Form>
-  );
-};
+  )
+}
 
-export default FormInput;
+export default FormInput

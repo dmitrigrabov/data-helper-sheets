@@ -40,7 +40,7 @@ const GET_LOCATION = (eventIdInput: string) => {
     ? eventIdInput.map(row => getLocation(row[0], eventsById, sitesBySiteKey))
     : getLocation(eventIdInput, eventsById, sitesBySiteKey)
 }
- 
+
 /**
  * Looks up coordinates based on event id
  *
@@ -70,7 +70,7 @@ const GET_LATLNG = (eventIdInput: string) => {
   return latLng
 }
 
-const getSource = (sourceUrl:string , sourcesMap) {
+const getSource = (sourceUrl: string, sourcesMap) => {
   const source = sourcesMap[sourceUrl]
 
   if (!source) {

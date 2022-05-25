@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "types": ["gas-types-detailed", "jest"],
-    "jsx": "react",
+    "lib": ["ESNext", "dom"],
+    "jsx": "react-jsx",
     "baseUrl": "src",
     "esModuleInterop": true,
     "noImplicitAny": true,
