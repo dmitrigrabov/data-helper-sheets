@@ -1,9 +1,9 @@
 import * as t from 'io-ts'
 import { associationUpstream } from 'server/model/association/types'
 import { eventUpstream } from 'server/model/event/types'
-import { exportAssociationDownstream } from 'server/model/exportAssociation/types'
+// import { exportAssociationDownstream } from 'server/model/exportAssociation/types'
+// import { exportSourceDownstream } from 'server/model/exportSource/types'
 import { exportEventDownstream } from 'server/model/exportEvent/types'
-import { exportSourceDownstream } from 'server/model/exportSource/types'
 import { siteUpstream } from 'server/model/site/types'
 import { sourceUpstream } from 'server/model/source/types'
 
@@ -47,14 +47,14 @@ const sheetFormat = <
   })
 
 export const format = t.type({
-  Sources: sheetFormat(t.keyof(sourceUpstream.props)),
-  Events: sheetFormat(t.keyof(eventUpstream.props)),
-  Sites: sheetFormat(t.keyof(siteUpstream.props)),
-  Categories: sheetFormat(t.keyof({})),
-  Associations: sheetFormat(t.keyof(associationUpstream.props)),
-  EXPORT_EVENTS: sheetFormat(t.keyof(exportEventDownstream.props)),
-  EXPORT_SOURCES: sheetFormat(t.keyof(exportSourceDownstream.props)),
-  EXPORT_ASSOCIATIONS: sheetFormat(t.keyof(exportAssociationDownstream.props))
+  // Sources: sheetFormat(t.keyof(sourceUpstream.props)),
+  Events: sheetFormat(t.keyof(eventUpstream.props))
+  // Sites: sheetFormat(t.keyof(siteUpstream.props)),
+  // Categories: sheetFormat(t.keyof({})),
+  // Associations: sheetFormat(t.keyof(associationUpstream.props)),
+  // EXPORT_EVENTS: sheetFormat(t.keyof(exportEventDownstream.props))
+  // EXPORT_SOURCES: sheetFormat(t.keyof(exportSourceDownstream.props)),
+  // EXPORT_ASSOCIATIONS: sheetFormat(t.keyof(exportAssociationDownstream.props))
 })
 
 export type Format = t.TypeOf<typeof format>

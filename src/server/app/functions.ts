@@ -13,13 +13,14 @@ export const EXPORT_EVENTS = () => {
     const eventsMap = readSheet('Events')
 
     Logger.log('eventsMap')
-    Logger.log(eventsMap)
+    Logger.log(JSON.stringify(eventsMap, undefined, 2))
 
-    return Object.values(eventsMap)
+    const out = Object.values(eventsMap)
       .map(event => {
         const exportEvent = toExportEventModel(event as EventModel)
 
         if (!exportEvent) {
+          Logger.log('No valid event')
           return null
         }
 
@@ -50,6 +51,11 @@ export const EXPORT_EVENTS = () => {
         ]
       })
       .filter(item => item)
+
+    Logger.log('out')
+    Logger.log(out)
+
+    return out
 
     // const sites = readSheet('Sites')
     // const associations = readSheet('Associations')

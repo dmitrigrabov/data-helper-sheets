@@ -17,7 +17,7 @@ export const sourceUpstream = t.type({
   possibleLocationName: t.string,
   possibleAddress: t.string,
   possibleLatLng: t.string,
-  type: sourceType,
+  type: t.string,
   manualLocation: t.string,
   manualLatLng: t.string,
   mapLink: t.string,

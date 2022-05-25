@@ -1,16 +1,7 @@
 import format from 'server/format'
-import { AssociationModel } from 'server/model/association/types'
 import toEvent from 'server/model/event/serializer'
 import { EventModel } from 'server/model/event/types'
-import { SiteModel } from 'server/model/site/types'
-import { SourceModel } from 'server/model/source/types'
-import { CellType, CellTypeName, SheetName } from 'server/model/types'
-
-interface Column<D> {
-  name: D
-  label: string
-  type: CellTypeName
-}
+import { CellType, SheetName } from 'server/model/types'
 
 function rowToObject(sheetName: SheetName, row: CellType[]) {
   const { columns } = format[sheetName]
@@ -71,9 +62,7 @@ function arraysToObjects({ sheetName, values, key }: ArraysToObjectsArgs) {
 
   validateLabels(labels, sheetName)
 
-  return rows.reduce<
-    Record<string, EventModel | SourceModel | SiteModel | AssociationModel>
-  >((acc, row) => {
+  return rows.reduce<Record<string, EventModel>>((acc, row) => {
     const object = rowToObject(sheetName, row)
 
     Logger.log('object')
@@ -85,16 +74,10 @@ function arraysToObjects({ sheetName, values, key }: ArraysToObjectsArgs) {
       return acc
     }
 
-    acc[key] = model
+    acc[model[key as 'id']] = model
 
     return acc
   }, {})
-}
-
-const getKeyColumn = <D>(columns: Column<D>[], key: D) => {
-  const column = columns.find(item => item.name === key) as Column<D>
-
-  return column.label
 }
 
 export const readSheet = (sheetName: SheetName) => {
@@ -111,11 +94,6 @@ export const readSheet = (sheetName: SheetName) => {
 
   Logger.log('values')
   Logger.log(values)
-
-  const keyLabel = getKeyColumn(sheetFormat.columns, sheetFormat.key)
-
-  Logger.log('keyLabel')
-  Logger.log({ keyLabel })
 
   return arraysToObjects({ sheetName, values, key: sheetFormat.key })
 }

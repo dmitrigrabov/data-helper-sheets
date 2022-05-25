@@ -8,6 +8,8 @@ import { reportTypeErrors } from 'server/lib/reportTypeErrors/reportTypeErrors'
 import returnValidModel from 'server/lib/returnValidModel/returnValidModel'
 
 export const toExportEventModel = (event: EventModel) => {
+  Logger.log(JSON.stringify(event, undefined, 2))
+
   const {
     id,
     description,
@@ -20,7 +22,7 @@ export const toExportEventModel = (event: EventModel) => {
     includeInMap
   } = event
 
-  if (includeInMap) {
+  if (!includeInMap) {
     return null
   }
 
@@ -30,12 +32,15 @@ export const toExportEventModel = (event: EventModel) => {
     date: format(date, dateFormat),
     time: format(date, timeFormat),
     location: 'Add location',
-    latitude: latLng ? latLng.lat : '',
-    longitude: latLng ? latLng.lng : '',
+    latitude: latLng ? latLng.lat + '' : '',
+    longitude: latLng ? latLng.lng + '' : '',
     association1: meansOfAttack[0],
     association2: incidentTypes[0],
     source1: sources[0]
   }
+
+  Logger.log('exportModel')
+  Logger.log(exportModel)
 
   return pipe(
     exportEventDownstream.decode(exportModel),

@@ -54,7 +54,7 @@ const toEvent: ToEvent = (input: unknown) => {
         })
       : date,
     siteKey,
-    latLng: toLatLng(latLng),
+    latLng: latLng ? toLatLng(latLng) : { lat: 0, lng: 0 },
     incidentTypes: splitTrim(incidentTypes),
     meansOfAttack: splitTrim(meansOfAttack),
     sources: splitTrim(sources),
