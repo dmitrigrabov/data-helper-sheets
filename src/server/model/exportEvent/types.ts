@@ -49,3 +49,5 @@ export const exportEventDownstreamExtended = t.intersection([
     source9: t.string
   })
 ])
+
+export type ExportEventDownstream = t.TypeOf<typeof exportEventDownstream>

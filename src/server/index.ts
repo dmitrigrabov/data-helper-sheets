@@ -12,9 +12,11 @@ import {
   deleteSheet,
   setActiveSheet
 } from 'server/lib/sheets/sheets'
+import { EXPORT_EVENTS } from 'server/app/functions'
 
 // Public functions must be exported as named exports
 export {
+  EXPORT_EVENTS,
   onOpen,
   openDialog,
   openDialogBootstrap,

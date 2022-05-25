@@ -42,7 +42,7 @@
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
     "@google/clasp": "2.3.1",
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.4",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
     "@types/google-apps-script": "^1.0.47",
     "@types/jest": "^27.5.1",
     "@typescript-eslint/eslint-plugin": "^5.25.0",
@@ -91,7 +91,7 @@
     "ts-jest": "^28.0.2",
     "ts-loader": "^8.3.0",
     "typescript": "^4.6.4",
-    "webpack": "^4.44.1",
+    "webpack": "^4.46.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.3"
   }

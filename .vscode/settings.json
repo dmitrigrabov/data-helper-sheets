@@ -13,8 +13,7 @@
     "*.snap": "jest-snapshot"
   },
   "files.exclude": {
-    ".next": true,
-    "**/node_modules": true
+    ".next": true
   },
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.preferences.importModuleSpecifierEnding": "minimal",

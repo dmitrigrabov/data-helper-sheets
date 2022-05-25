@@ -10,8 +10,7 @@ import {
 } from 'server/model/event/types'
 import { splitTrim } from 'server/lib/util/splitTrim'
 import toLatLng from 'server/model/latLng/serializer'
-import { parse } from 'date-fns'
-import { dateFormat, dateTimeFormat } from 'server/format'
+import { add } from 'date-fns'
 
 type ToEvent = (input: unknown) => EventModel | null
 
@@ -48,8 +47,12 @@ const toEvent: ToEvent = (input: unknown) => {
     id,
     description,
     date: time
-      ? parse(`${date} ${time}`, dateTimeFormat, new Date())
-      : parse(`${date}`, dateFormat, new Date()),
+      ? add(date, {
+          hours: time.getUTCHours(),
+          minutes: time.getUTCMinutes(),
+          seconds: time.getUTCSeconds()
+        })
+      : date,
     siteKey,
     latLng: toLatLng(latLng),
     incidentTypes: splitTrim(incidentTypes),

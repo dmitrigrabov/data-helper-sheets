@@ -1,5 +1,9 @@
 import format from 'server/format'
-import { getNthChar } from 'server/lib/sheets/getNthChar'
+import { AssociationModel } from 'server/model/association/types'
+import toEvent from 'server/model/event/serializer'
+import { EventModel } from 'server/model/event/types'
+import { SiteModel } from 'server/model/site/types'
+import { SourceModel } from 'server/model/source/types'
 import { CellType, CellTypeName, SheetName } from 'server/model/types'
 
 interface Column<D> {
@@ -10,6 +14,7 @@ interface Column<D> {
 
 function rowToObject(sheetName: SheetName, row: CellType[]) {
   const { columns } = format[sheetName]
+
   const names = columns.map(({ name }) => name)
 
   return names.reduce<Record<string, CellType>>((acc, name, index) => {
@@ -23,6 +28,9 @@ const validateLabels = (labels: CellType[], sheetName: SheetName) => {
   const sheetFormat = format[sheetName]
   const columns = sheetFormat.columns
 
+  Logger.log(labels)
+  Logger.log(columns)
+
   return columns.map((column, index) => {
     const label = labels[index]
     if (typeof label === 'string' && label[index] !== column.label) {
@@ -33,26 +41,51 @@ const validateLabels = (labels: CellType[], sheetName: SheetName) => {
   })
 }
 
+const toModel = (sheetName: SheetName, rowObject: Record<string, CellType>) => {
+  switch (sheetName) {
+    case 'Events':
+      return toEvent(rowObject)
+
+    // case 'Sources':
+    //   return toSource(rowObject)
+
+    // case 'Sites':
+    //   return toSite(rowObject)
+
+    // case 'Associations':
+    //   return toAssociation(rowObject)
+
+    default:
+      throw new Error(`Unsupport model type: ${sheetName}`)
+  }
+}
+
 interface ArraysToObjectsArgs {
   sheetName: SheetName
   values: CellType[][]
-  keyLabel: string
+  key: string
 }
 
-function arraysToObjects({ sheetName, values, keyLabel }: ArraysToObjectsArgs) {
+function arraysToObjects({ sheetName, values, key }: ArraysToObjectsArgs) {
   const [labels, ...rows] = values
 
   validateLabels(labels, sheetName)
 
-  return rows.reduce<Record<string, Record<string, CellType>>>((acc, row) => {
+  return rows.reduce<
+    Record<string, EventModel | SourceModel | SiteModel | AssociationModel>
+  >((acc, row) => {
     const object = rowToObject(sheetName, row)
-    const key = object[keyLabel]
 
-    if (!key || typeof key !== 'string') {
+    Logger.log('object')
+    Logger.log(object)
+
+    const model = toModel(sheetName, object)
+
+    if (!model) {
       return acc
     }
 
-    acc[key] = object
+    acc[key] = model
 
     return acc
   }, {})
@@ -66,13 +99,23 @@ const getKeyColumn = <D>(columns: Column<D>[], key: D) => {
 
 export const readSheet = (sheetName: SheetName) => {
   const sheetFormat = format[sheetName]
-  const lastColumnName = getNthChar(sheetFormat.columns.length)
-  const rangeName = `${sheetName}A:${lastColumnName}`
 
-  const sheet = SpreadsheetApp.getActiveSpreadsheet()
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName)
 
-  const range = sheet.getRange(rangeName)
-  const values = range.getValues() as CellType[][]
+  const values = sheet.getSheetValues(
+    1,
+    1,
+    sheet.getLastRow(),
+    sheet.getLastColumn()
+  ) as CellType[][]
+
+  Logger.log('values')
+  Logger.log(values)
+
   const keyLabel = getKeyColumn(sheetFormat.columns, sheetFormat.key)
-  return arraysToObjects({ sheetName, values, keyLabel })
+
+  Logger.log('keyLabel')
+  Logger.log({ keyLabel })
+
+  return arraysToObjects({ sheetName, values, key: sheetFormat.key })
 }

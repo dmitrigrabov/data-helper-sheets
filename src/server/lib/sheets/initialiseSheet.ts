@@ -14,6 +14,7 @@ export const initialiseSheet = () => {
     if (existingSheetNames[sheetName]) {
       return
     }
+    console.log('INSERTING ', sheetName)
 
     const sheet = addSheet(sheetName)
 

@@ -5,10 +5,10 @@ import { latLngModel } from 'server/model/latLng/types'
 export const eventUpstream = t.type({
   id: t.number,
   description: t.string,
-  date: t.string,
-  time: t.string,
+  date: date,
+  time: t.union([date, t.literal('')]),
   siteKey: t.string,
-  latLng: t.string,
+  latLng: t.union([t.string, t.literal('')]),
   incidentTypes: t.string,
   meansOfAttack: t.string,
   sources: t.string,
