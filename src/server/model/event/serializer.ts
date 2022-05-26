@@ -7,17 +7,38 @@ import {
   EventModel,
   eventUpstream,
   EventUpstream,
-  eventExport
+  eventExport,
+  EventProperties
 } from 'server/model/event/types'
 import { splitTrim } from 'server/lib/util/splitTrim'
 import toLatLng from 'server/model/latLng/serializer'
 import { add } from 'date-fns'
 import { format } from 'date-fns'
 import { dateFormat, timeFormat } from 'server/format'
+import { CellType } from 'server/model/types'
+import { AssociationModel } from 'server/model/association/types'
+import { SiteModel } from 'server/model/site/types'
+import { SourceModel } from 'server/model/source/types'
+import {
+  validateIncidentTypes,
+  validateMeansOfAttack
+} from 'server/model/association/utilities'
 
-type ToEvent = (input: unknown) => EventModel | null
+interface ToEventArgs {
+  event: Record<EventProperties, CellType>
+  associationModelMap: Record<string, AssociationModel>
+  siteModelMap: Record<string, SiteModel>
+  sourceModelMap: Record<string, SourceModel>
+}
 
-const toEvent: ToEvent = (input: unknown) => {
+type ToEvent = (args: ToEventArgs) => EventModel | null
+
+const toEvent: ToEvent = ({
+  event: input,
+  associationModelMap,
+  siteModelMap,
+  sourceModelMap
+}) => {
   const event: EventUpstream | null = pipe(
     eventUpstream.decode(input),
     fold(
@@ -58,8 +79,14 @@ const toEvent: ToEvent = (input: unknown) => {
       : date,
     siteKey,
     latLng: latLng ? toLatLng(latLng) : { lat: 0, lng: 0 },
-    incidentTypes: splitTrim(incidentTypes),
-    meansOfAttack: splitTrim(meansOfAttack),
+    incidentTypes: validateIncidentTypes({
+      associationIds: splitTrim(incidentTypes),
+      associationModelMap
+    }),
+    meansOfAttack: validateMeansOfAttack({
+      associationIds: splitTrim(meansOfAttack),
+      associationModelMap
+    }),
     sources: splitTrim(sources),
     includeInMap
   }

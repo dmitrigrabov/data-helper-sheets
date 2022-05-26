@@ -1,6 +1,7 @@
 import * as t from 'io-ts'
 import { date } from 'server/lib/types/date'
 import { latLngModel } from 'server/model/latLng/types'
+import { siteModel } from 'server/model/site/types'
 
 export const eventUpstream = t.type({
   id: t.number,
@@ -19,8 +20,8 @@ export const eventModel = t.type({
   id: t.number,
   description: t.string,
   date,
-  siteKey: t.string,
-  latLng: latLngModel,
+  site: siteModel,
+  latLng: t.union([latLngModel, t.null]),
   incidentTypes: t.array(t.string),
   meansOfAttack: t.array(t.string),
   sources: t.array(t.string),
