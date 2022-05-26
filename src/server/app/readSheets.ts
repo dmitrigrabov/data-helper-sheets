@@ -1,3 +1,4 @@
+import { bookConfig } from 'server/model/book/config'
 import { CellType, SheetConfig, SheetName } from 'server/model/types'
 
 const rowToObject = <D extends string>(
@@ -68,4 +69,18 @@ export const readSheet = (sheetName: SheetName) => {
     sheet.getLastRow(),
     sheet.getLastColumn()
   ) as CellType[][]
+}
+
+export const parseSheet = (sheetName: SheetName) => {
+  const sheetConfig = bookConfig[sheetName]
+  const values = readSheet(sheetName)
+
+  const [labels, ...rows] = values
+
+  validateLabels({ labels, sheetConfig, sheetName })
+
+  return arraysToObjects({
+    rows,
+    sheetConfig
+  })
 }

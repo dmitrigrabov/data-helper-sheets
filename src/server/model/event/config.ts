@@ -1,7 +1,8 @@
 import { EventProperties } from 'server/model/event/types'
 import { SheetConfig } from 'server/model/types'
 
-export const eventsConfig: SheetConfig<EventProperties> = {
+export const eventConfig: SheetConfig<EventProperties> = {
+  sheetName: 'Events',
   columns: [
     { name: 'id', label: 'Id', type: 'string' },
     { name: 'description', label: 'Description', type: 'string' },

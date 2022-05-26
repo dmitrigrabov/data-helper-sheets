@@ -44,3 +44,6 @@ export const siteModel = t.type({
 
 export type SiteUpstream = t.TypeOf<typeof siteUpstream>
 export type SiteModel = t.TypeOf<typeof siteModel>
+
+const siteProperties = t.keyof(siteUpstream.props)
+export type SiteProperties = t.TypeOf<typeof siteProperties>

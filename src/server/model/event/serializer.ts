@@ -6,11 +6,14 @@ import {
   eventModel,
   EventModel,
   eventUpstream,
-  EventUpstream
+  EventUpstream,
+  exportEventDownstream
 } from 'server/model/event/types'
 import { splitTrim } from 'server/lib/util/splitTrim'
 import toLatLng from 'server/model/latLng/serializer'
 import { add } from 'date-fns'
+import { format } from 'date-fns'
+import { dateFormat, timeFormat } from 'server/format'
 
 type ToEvent = (input: unknown) => EventModel | null
 
@@ -74,3 +77,50 @@ const toEvent: ToEvent = (input: unknown) => {
 }
 
 export default toEvent
+
+export const toExportEventModel = (event: EventModel) => {
+  Logger.log(JSON.stringify(event, undefined, 2))
+
+  const {
+    id,
+    description,
+    date,
+    //siteKey,
+    latLng,
+    incidentTypes,
+    meansOfAttack,
+    sources,
+    includeInMap
+  } = event
+
+  if (!includeInMap) {
+    return null
+  }
+
+  const exportModel = {
+    id,
+    description,
+    date: format(date, dateFormat),
+    time: format(date, timeFormat),
+    location: 'Add location',
+    latitude: latLng ? latLng.lat + '' : '',
+    longitude: latLng ? latLng.lng + '' : '',
+    association1: meansOfAttack[0],
+    association2: incidentTypes[0],
+    source1: sources[0]
+  }
+
+  Logger.log('exportModel')
+  Logger.log(exportModel)
+
+  return pipe(
+    exportEventDownstream.decode(exportModel),
+    fold(
+      reportTypeErrors({
+        model: 'EventExport',
+        fallback: null
+      }),
+      returnValidModel
+    )
+  )
+}

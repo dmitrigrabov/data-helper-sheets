@@ -31,6 +31,7 @@ export interface ColumnConfig<D> {
 }
 
 export interface SheetConfig<D extends string> {
+  sheetName: string
   columns: ColumnConfig<D>[]
   key: D
 }

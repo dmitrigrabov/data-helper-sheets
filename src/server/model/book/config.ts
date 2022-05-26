@@ -1,54 +1,15 @@
-import { eventsConfig } from 'server/model/event/config'
+import { associationConfig } from 'server/model/association/config'
+import { eventConfig } from 'server/model/event/config'
+import { siteConfig } from 'server/model/site/config'
+import { sourceConfig } from 'server/model/source/config'
 
 export const bookConfig = {
-  // Sources: {
-  //   columns: [
-  //     { name: 'timestamp', label: 'Timestamp', type: 'date' },
-  //     { name: 'dateOfPost', label: 'Date of post', type: 'date' },
-  //     { name: 'sourceUrl', label: 'Source Url', type: 'string' },
-  //     { name: 'embedLinks', label: 'Embed links', type: 'string' },
-  //     { name: 'googleDriveLinks', label: 'Google Drive Links', type: 'string' },
-  //     { name: 'postCaption', label: 'Post caption', type: 'string' },
-  //     {
-  //       name: 'possibleLocationName',
-  //       label: 'Possible location name',
-  //       type: 'string'
-  //     },
-  //     { name: 'possibleAddress', label: 'Possible address', type: 'string' },
-  //     { name: 'possibleLatLng', label: 'Possible lat, lng', type: 'string' },
-  //     { name: 'type', label: 'Type', type: 'string' },
-  //     { name: 'manualLocation', label: 'Manual location', type: 'string' },
-  //     { name: 'manualLatLng', label: 'Manual lat, lng', type: 'string' },
-  //     { name: 'mapLink', label: 'Map link', type: 'string' },
-  //     { name: 'archiveLink', label: 'Archive link', type: 'string' },
-  //     { name: 'description', label: 'Description', type: 'string' },
-  //     { name: 'comment', label: 'Comment', type: 'string' }
-  //   ],
-  //   key: 'sourceUrl'
-  // },
-  Events: eventsConfig
-  // Sites: {
-  //   columns: [
-  //     { name: 'siteKey', label: 'Site Key', type: 'string' },
-  //     { name: 'town', label: 'Town', type: 'string' },
-  //     { name: 'oblast', label: 'Oblast', type: 'string' },
-  //     { name: 'latLng', label: 'Lat Lng', type: 'string' }
-  //   ],
-  //   key: 'siteKey'
-  // },
-  // Categories: {
-  //   columns: [],
-  //   key: '' as never
-  // },
-  // Associations: {
-  //   columns: [
-  //     { name: 'id', label: 'Id', type: 'string' },
-  //     { name: 'description', label: 'Description', type: 'string' },
-  //     { name: 'mode', label: 'Mode', type: 'string' },
-  //     { name: 'filterPath', label: 'Filter Path', type: 'string' }
-  //   ],
-  //   key: 'id'
-  // },
+  Sources: sourceConfig,
+  Events: eventConfig,
+  Sites: siteConfig,
+  Associations: associationConfig
+  // Categories are skipped for now since they are not in use
+
   // EXPORT_EVENTS: {
   //   columns: [
   //     { name: 'id', label: 'id', type: 'string' },
