@@ -31,8 +31,8 @@ export const eventExportConfig: ExportSheetConfig<EventExportProperties> = {
     { name: 'location', label: 'location', type: 'string' },
     { name: 'latitude', label: 'latitude', type: 'string' },
     { name: 'longitude', label: 'longitude', type: 'string' },
-    { name: 'association1', label: 'association1', type: 'string' },
-    { name: 'association2', label: 'association2', type: 'string' },
-    { name: 'source1', label: 'source1', type: 'string' }
+    { name: 'meansOfAttack', label: 'association[m]', type: 'string' },
+    { name: 'incidentTypes', label: 'association[m]', type: 'string' },
+    { name: 'sources', label: 'source[n]', type: 'string' }
   ]
 }

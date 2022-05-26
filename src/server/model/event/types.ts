@@ -45,12 +45,13 @@ export const eventExport = t.type({
   date: t.string,
   time: t.string,
   location: t.string,
-  latitude: t.string,
-  longitude: t.string,
-  association1: t.string,
-  association2: t.string,
-  source1: t.string
+  latitude: t.number,
+  longitude: t.number,
+  incidentTypes: t.array(t.string),
+  meansOfAttack: t.array(t.string),
+  sources: t.array(t.string)
 })
+export type EventExport = t.TypeOf<typeof eventExport>
 
 export type EventUpstream = t.TypeOf<typeof eventUpstream>
 export type EventModel = t.TypeOf<typeof eventModel>
