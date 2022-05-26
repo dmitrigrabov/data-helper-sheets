@@ -9,3 +9,9 @@ export const bookConfig = {
   Sites: siteConfig,
   Associations: associationConfig
 }
+
+export const exportSheets = [
+  'EXPORT_EVENTS',
+  'EXPORT_SOURCES',
+  'EXPORT_ASSOCIATIONS'
+]

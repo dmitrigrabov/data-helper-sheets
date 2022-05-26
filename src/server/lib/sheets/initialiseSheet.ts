@@ -1,24 +1,18 @@
 import { addSheet, getSheets } from 'server/lib/sheets/sheets'
-import format from 'server/format'
+import { bookConfig, exportSheets } from 'server/model/book/config'
 import { SheetName } from 'server/model/types'
 
-export const initialiseSheet = () => {
-  const existingSheetNames = getSheets().reduce<Record<string, true>>(
-    (acc, sheetName) => ({ ...acc, [sheetName.getName()]: true }),
-    {}
-  )
+const initialiseImportSheets = (existingSheetNames: Record<string, true>) => {
+  const importSheets = Object.keys(bookConfig) as SheetName[]
 
-  const sheetNames = Object.keys(format) as SheetName[]
-
-  sheetNames.forEach(sheetName => {
+  importSheets.forEach(sheetName => {
     if (existingSheetNames[sheetName]) {
       return
     }
-    console.log('INSERTING ', sheetName)
 
     const sheet = addSheet(sheetName)
 
-    const { columns } = format[sheetName]
+    const { columns } = bookConfig[sheetName]
 
     if (!columns.length) {
       return
@@ -28,4 +22,26 @@ export const initialiseSheet = () => {
 
     sheet.appendRow(columnLabels as unknown as object[])
   })
+}
+
+const initialiseExportSheets = (existingSheetNames: Record<string, true>) => {
+  exportSheets.forEach(sheetName => {
+    if (existingSheetNames[sheetName]) {
+      return
+    }
+
+    const sheet = addSheet(sheetName)
+
+    sheet.appendRow([`=${sheetName}()` as unknown as object])
+  })
+}
+
+export const initialiseSheet = () => {
+  const existingSheetNames = getSheets().reduce<Record<string, true>>(
+    (acc, sheetName) => ({ ...acc, [sheetName.getName()]: true }),
+    {}
+  )
+
+  initialiseImportSheets(existingSheetNames)
+  initialiseExportSheets(existingSheetNames)
 }

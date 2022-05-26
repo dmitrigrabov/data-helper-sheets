@@ -1,8 +1,9 @@
 import { parseSheet } from 'server/lib/sheets/parseSheet'
 import { toAssociationModelMap } from 'server/model/association/serializer'
+import { exportEvents } from 'server/model/event/export'
 import { toEventModelMap } from 'server/model/event/serializer'
-import { toSiteModelMap } from 'server/model/site/utilities'
-import { toSourceModelMap } from 'server/model/source/utilities'
+import { toSiteModelMap } from 'server/model/site/serializer'
+import { toSourceModelMap } from 'server/model/source/serializer'
 
 /**
  * Generate EXPORT_EVENTS data
@@ -27,4 +28,6 @@ export const EXPORT_EVENTS = () => {
     siteModelMap,
     associationModelMap
   })
+
+  return exportEvents(Object.values(eventModelMap))
 }
