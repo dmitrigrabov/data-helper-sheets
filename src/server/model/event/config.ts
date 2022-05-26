@@ -1,5 +1,8 @@
-import { EventProperties } from 'server/model/event/types'
-import { SheetConfig } from 'server/model/types'
+import {
+  EventExportProperties,
+  EventProperties
+} from 'server/model/event/types'
+import { ExportSheetConfig, SheetConfig } from 'server/model/types'
 
 export const eventConfig: SheetConfig<EventProperties> = {
   sheetName: 'Events',
@@ -16,4 +19,20 @@ export const eventConfig: SheetConfig<EventProperties> = {
     { name: 'includeInMap', label: 'Include in map', type: 'boolean' }
   ],
   key: 'id'
+}
+
+export const eventExportConfig: ExportSheetConfig<EventExportProperties> = {
+  sheetName: 'EXPORT_EVENTS',
+  columns: [
+    { name: 'id', label: 'id', type: 'string' },
+    { name: 'description', label: 'description', type: 'string' },
+    { name: 'date', label: 'date', type: 'string' },
+    { name: 'time', label: 'time', type: 'string' },
+    { name: 'location', label: 'location', type: 'string' },
+    { name: 'latitude', label: 'latitude', type: 'string' },
+    { name: 'longitude', label: 'longitude', type: 'string' },
+    { name: 'association1', label: 'association1', type: 'string' },
+    { name: 'association2', label: 'association2', type: 'string' },
+    { name: 'source1', label: 'source1', type: 'string' }
+  ]
 }

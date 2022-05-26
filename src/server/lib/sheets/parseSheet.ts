@@ -22,7 +22,7 @@ interface ValidateLabelsArgs<D extends string> {
   sheetName: SheetName
 }
 
-export const validateLabels = <D extends string>({
+const validateLabels = <D extends string>({
   labels,
   sheetConfig,
   sheetName
@@ -46,7 +46,7 @@ interface ArraysToObjectsArgs<D extends string> {
   sheetConfig: SheetConfig<D>
 }
 
-export const arraysToObjects = <D extends string>({
+const arraysToObjects = <D extends string>({
   rows,
   sheetConfig
 }: ArraysToObjectsArgs<D>): Record<string, Record<D, CellType>> => {
@@ -60,7 +60,7 @@ export const arraysToObjects = <D extends string>({
   }, {})
 }
 
-export const readSheet = (sheetName: SheetName) => {
+const readSheet = (sheetName: SheetName) => {
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName)
 
   return sheet.getSheetValues(

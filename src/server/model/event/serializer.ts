@@ -7,7 +7,7 @@ import {
   EventModel,
   eventUpstream,
   EventUpstream,
-  exportEventDownstream
+  eventExport
 } from 'server/model/event/types'
 import { splitTrim } from 'server/lib/util/splitTrim'
 import toLatLng from 'server/model/latLng/serializer'
@@ -114,7 +114,7 @@ export const toExportEventModel = (event: EventModel) => {
   Logger.log(exportModel)
 
   return pipe(
-    exportEventDownstream.decode(exportModel),
+    eventExport.decode(exportModel),
     fold(
       reportTypeErrors({
         model: 'EventExport',

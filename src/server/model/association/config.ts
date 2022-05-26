@@ -1,5 +1,8 @@
-import { AssociationProperties } from 'server/model/association/types'
-import { SheetConfig } from 'server/model/types'
+import {
+  AssociationExportProperties,
+  AssociationProperties
+} from 'server/model/association/types'
+import { ExportSheetConfig, SheetConfig } from 'server/model/types'
 
 export const associationConfig: SheetConfig<AssociationProperties> = {
   sheetName: 'Association',
@@ -11,3 +14,18 @@ export const associationConfig: SheetConfig<AssociationProperties> = {
   ],
   key: 'id'
 }
+
+export const associationExportConfig: ExportSheetConfig<AssociationExportProperties> =
+  {
+    sheetName: 'EXPORT_ASSOCIATION',
+    columns: [
+      { name: 'id', label: 'id', type: 'string' },
+      { name: 'title', label: 'title', type: 'string' },
+      { name: 'desc', label: 'desc', type: 'string' },
+      { name: 'mode', label: 'mode', type: 'string' },
+      { name: 'filter_path0', label: 'filter_path0', type: 'string' },
+      { name: 'filter_path1', label: 'filter_path1', type: 'string' },
+      { name: 'filter_path2', label: 'filter_path2', type: 'string' },
+      { name: 'filter_path3', label: 'filter_path3', type: 'string' }
+    ]
+  }

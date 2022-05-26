@@ -1,5 +1,8 @@
-import { SourceProperties } from 'server/model/source/types'
-import { SheetConfig } from 'server/model/types'
+import {
+  SourceExportProperties,
+  SourceProperties
+} from 'server/model/source/types'
+import { ExportSheetConfig, SheetConfig } from 'server/model/types'
 
 export const sourceConfig: SheetConfig<SourceProperties> = {
   sheetName: 'Events',
@@ -26,4 +29,16 @@ export const sourceConfig: SheetConfig<SourceProperties> = {
     { name: 'comment', label: 'Comment', type: 'string' }
   ],
   key: 'sourceUrl'
+}
+
+export const sourceExportConfig: ExportSheetConfig<SourceExportProperties> = {
+  sheetName: 'EXPORT_SOURCES',
+  columns: [
+    { name: 'id', label: 'id', type: 'string' },
+    { name: 'title', label: 'title', type: 'string' },
+    { name: 'thumbnail', label: 'thumbnail', type: 'string' },
+    { name: 'description', label: 'description', type: 'string' },
+    { name: 'type', label: 'type', type: 'string' },
+    { name: 'path1', label: 'path1', type: 'string' }
+  ]
 }

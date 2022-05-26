@@ -1,4 +1,4 @@
-import { parseSheet } from 'server/app/readSheets'
+import { parseSheet } from 'server/lib/sheets/parseSheet'
 
 /**
  * Generate EXPORT_EVENTS data

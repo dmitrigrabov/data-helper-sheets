@@ -54,7 +54,7 @@ export const sourceModel = t.type({
 //   paths: t.array(t.string)
 // })
 
-export const exportSourceDownstream = t.type({
+export const sourceExport = t.type({
   id: t.string,
   title: t.string,
   thumbnail: t.string,
@@ -63,19 +63,8 @@ export const exportSourceDownstream = t.type({
   path1: t.string
 })
 
-export const exportSourceDownstreamExtended = t.intersection([
-  exportSourceDownstream,
-  t.partial({
-    path2: t.string,
-    path3: t.string,
-    path4: t.string,
-    path5: t.string,
-    path6: t.string,
-    path7: t.string,
-    path8: t.string,
-    path9: t.string
-  })
-])
+const sourceExportProperties = t.keyof(sourceExport.props)
+export type SourceExportProperties = t.TypeOf<typeof sourceExportProperties>
 
 export type SourceUpstream = t.TypeOf<typeof sourceUpstream>
 export type SourceModel = t.TypeOf<typeof sourceModel>

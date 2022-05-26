@@ -30,9 +30,12 @@ export interface ColumnConfig<D> {
   type: CellTypeName
 }
 
-export interface SheetConfig<D extends string> {
+export interface ExportSheetConfig<D extends string> {
   sheetName: string
   columns: ColumnConfig<D>[]
+}
+
+export interface SheetConfig<D extends string> extends ExportSheetConfig<D> {
   key: D
 }
 
