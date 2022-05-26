@@ -23,6 +23,8 @@ import {
   validateIncidentTypes,
   validateMeansOfAttack
 } from 'server/model/association/utilities'
+import { validateSiteKey } from 'server/model/site/utilities'
+import { validateSources } from 'server/model/source/utilities'
 
 interface ToEventArgs {
   event: Record<EventProperties, CellType>
@@ -67,7 +69,7 @@ const toEvent: ToEvent = ({
     includeInMap
   } = event
 
-  const model = {
+  const model: Partial<EventModel> = {
     id,
     description,
     date: time
@@ -77,17 +79,20 @@ const toEvent: ToEvent = ({
           seconds: time.getUTCSeconds()
         })
       : date,
-    siteKey,
-    latLng: latLng ? toLatLng(latLng) : { lat: 0, lng: 0 },
+    site: validateSiteKey({ siteKey, siteModelMap }),
+    latLng: latLng ? toLatLng(latLng) : null,
     incidentTypes: validateIncidentTypes({
-      associationIds: splitTrim(incidentTypes),
+      associationKeys: splitTrim(incidentTypes),
       associationModelMap
     }),
     meansOfAttack: validateMeansOfAttack({
-      associationIds: splitTrim(meansOfAttack),
+      associationKeys: splitTrim(meansOfAttack),
       associationModelMap
     }),
-    sources: splitTrim(sources),
+    sources: validateSources({
+      sourceKeys: splitTrim(sources),
+      sourceModelMap
+    }),
     includeInMap
   }
 

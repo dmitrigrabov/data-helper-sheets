@@ -23,34 +23,34 @@ export const toAssociationModelMap = (
 }
 
 interface ValidateAssociationArgs {
-  associationId: string
+  associationKey: string
   filterType: 'Type of incident' | 'Means of attack'
   associationModelMap: Record<string, AssociationModel>
 }
 
 export const validateAssociation = ({
-  associationId,
+  associationKey,
   filterType,
   associationModelMap
 }: ValidateAssociationArgs) => {
-  const association = associationModelMap[associationId]
+  const association = associationModelMap[associationKey]
   const associationType = association?.filterPath?.[0]
 
-  return associationType === filterType ? associationId : ''
+  return associationType === filterType ? associationKey : ''
 }
 
 interface ValidateAssociationsArgs {
-  associationIds: string[]
+  associationKeys: string[]
   associationModelMap: Record<string, AssociationModel>
 }
 
 export const validateIncidentTypes = ({
-  associationIds,
+  associationKeys,
   associationModelMap
 }: ValidateAssociationsArgs) => {
-  return associationIds.filter(associationId => {
+  return associationKeys.filter(associationKey => {
     return validateAssociation({
-      associationId,
+      associationKey,
       filterType: 'Type of incident',
       associationModelMap
     })
@@ -58,12 +58,12 @@ export const validateIncidentTypes = ({
 }
 
 export const validateMeansOfAttack = ({
-  associationIds,
+  associationKeys,
   associationModelMap
 }: ValidateAssociationsArgs) => {
-  return associationIds.filter(associationId => {
+  return associationKeys.filter(associationKey => {
     return validateAssociation({
-      associationId,
+      associationKey,
       filterType: 'Means of attack',
       associationModelMap
     })
