@@ -29,3 +29,6 @@ export const eventModel = t.type({
 
 export type EventUpstream = t.TypeOf<typeof eventUpstream>
 export type EventModel = t.TypeOf<typeof eventModel>
+
+const eventProperties = t.keyof(eventUpstream.props)
+export type EventProperties = t.TypeOf<typeof eventProperties>
