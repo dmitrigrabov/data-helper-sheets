@@ -1,26 +1,4 @@
-import toAssociation from 'server/model/association/serializer'
-import {
-  AssociationModel,
-  AssociationProperties
-} from 'server/model/association/types'
-import { CellType } from 'server/model/types'
-
-export const toAssociationModelMap = (
-  associationMap: Record<string, Record<AssociationProperties, CellType>>
-) => {
-  return Object.keys(associationMap).reduce<Record<string, AssociationModel>>(
-    (acc, associationKey) => {
-      const associationModel = toAssociation(associationMap[associationKey])
-
-      if (associationModel) {
-        acc[associationKey] = associationModel
-      }
-
-      return acc
-    },
-    {}
-  )
-}
+import { AssociationModel } from 'server/model/association/types'
 
 interface ValidateAssociationArgs {
   associationKey: string

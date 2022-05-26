@@ -6,13 +6,15 @@ import toLatLng from 'server/model/latLng/serializer'
 import {
   siteModel,
   SiteModel,
+  SiteProperties,
   siteUpstream,
   SiteUpstream
 } from 'server/model/site/types'
+import { CellType } from 'server/model/types'
 
 type ToSite = (input: unknown) => SiteModel | null
 
-const toSite: ToSite = (input: unknown) => {
+export const toSite: ToSite = (input: unknown) => {
   const site: SiteUpstream | null = pipe(
     siteUpstream.decode(input),
     fold(
@@ -49,4 +51,19 @@ const toSite: ToSite = (input: unknown) => {
   )
 }
 
-export default toSite
+export const toSiteModelMap = (
+  siteMap: Record<string, Record<SiteProperties, CellType>>
+) => {
+  return Object.keys(siteMap).reduce<Record<string, SiteModel>>(
+    (acc, siteKey) => {
+      const model = toSite(siteMap[siteKey])
+
+      if (model) {
+        acc[siteKey] = model
+      }
+
+      return acc
+    },
+    {}
+  )
+}

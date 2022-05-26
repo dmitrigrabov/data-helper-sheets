@@ -6,12 +6,14 @@ import {
   associationModel,
   AssociationModel,
   associationUpstream,
-  AssociationUpstream
+  AssociationUpstream,
+  AssociationProperties
 } from 'server/model/association/types'
+import { CellType } from 'server/model/types'
 
 type ToAssociation = (input: unknown) => AssociationModel | null
 
-const toAssociation: ToAssociation = (input: unknown) => {
+export const toAssociation: ToAssociation = (input: unknown) => {
   const association: AssociationUpstream | null = pipe(
     associationUpstream.decode(input),
     fold(
@@ -48,4 +50,19 @@ const toAssociation: ToAssociation = (input: unknown) => {
   )
 }
 
-export default toAssociation
+export const toAssociationModelMap = (
+  associationMap: Record<string, Record<AssociationProperties, CellType>>
+) => {
+  return Object.keys(associationMap).reduce<Record<string, AssociationModel>>(
+    (acc, associationKey) => {
+      const model = toAssociation(associationMap[associationKey])
+
+      if (model) {
+        acc[associationKey] = model
+      }
+
+      return acc
+    },
+    {}
+  )
+}

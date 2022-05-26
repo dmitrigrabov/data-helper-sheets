@@ -22,8 +22,8 @@ import { SourceModel } from 'server/model/source/types'
 import {
   validateIncidentTypes,
   validateMeansOfAttack
-} from 'server/model/association/utilities'
-import { validateSiteKey } from 'server/model/site/utilities'
+} from 'server/model/association/validate'
+import { validateSiteKey } from 'server/model/site/validate'
 import { validateSources } from 'server/model/source/utilities'
 
 interface ToEventArgs {
@@ -35,7 +35,7 @@ interface ToEventArgs {
 
 type ToEvent = (args: ToEventArgs) => EventModel | null
 
-const toEvent: ToEvent = ({
+export const toEvent: ToEvent = ({
   event: input,
   associationModelMap,
   siteModelMap,
@@ -80,7 +80,7 @@ const toEvent: ToEvent = ({
         })
       : date,
     site: validateSiteKey({ siteKey, siteModelMap }),
-    latLng: latLng ? toLatLng(latLng) : null,
+    latLng: toLatLng(latLng),
     incidentTypes: validateIncidentTypes({
       associationKeys: splitTrim(incidentTypes),
       associationModelMap
@@ -108,7 +108,37 @@ const toEvent: ToEvent = ({
   )
 }
 
-export default toEvent
+interface ToEventModelMapArgs {
+  eventMap: Record<string, Record<EventProperties, CellType>>
+  associationModelMap: Record<string, AssociationModel>
+  siteModelMap: Record<string, SiteModel>
+  sourceModelMap: Record<string, SourceModel>
+}
+
+export const toEventModelMap = ({
+  eventMap,
+  associationModelMap,
+  siteModelMap,
+  sourceModelMap
+}: ToEventModelMapArgs) => {
+  return Object.keys(eventMap).reduce<Record<string, EventModel>>(
+    (acc, eventKey) => {
+      const model = toEvent({
+        event: eventMap[eventKey],
+        associationModelMap,
+        siteModelMap,
+        sourceModelMap
+      })
+
+      if (model) {
+        acc[eventKey] = model
+      }
+
+      return acc
+    },
+    {}
+  )
+}
 
 export const toExportEventModel = (event: EventModel) => {
   Logger.log(JSON.stringify(event, undefined, 2))

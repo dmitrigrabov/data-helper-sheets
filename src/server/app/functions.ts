@@ -1,6 +1,6 @@
 import { parseSheet } from 'server/lib/sheets/parseSheet'
-import { toAssociationModelMap } from 'server/model/association/utilities'
-import { toEventModelMap } from 'server/model/event/utilities'
+import { toAssociationModelMap } from 'server/model/association/serializer'
+import { toEventModelMap } from 'server/model/event/serializer'
 import { toSiteModelMap } from 'server/model/site/utilities'
 import { toSourceModelMap } from 'server/model/source/utilities'
 
