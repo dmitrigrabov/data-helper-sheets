@@ -12,7 +12,7 @@ export const validateAssociation = ({
   associationModelMap
 }: ValidateAssociationArgs) => {
   const association = associationModelMap[associationKey]
-  const associationType = association?.filterPath?.[0]
+  const associationType = association?.filterPaths?.[0]
 
   return associationType === filterType ? associationKey : ''
 }

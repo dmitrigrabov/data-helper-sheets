@@ -24,11 +24,8 @@ export const associationExportConfig: ExportSheetConfig<AssociationExportPropert
     columns: [
       { name: 'id', label: 'id', type: 'string' },
       { name: 'title', label: 'title', type: 'string' },
-      { name: 'desc', label: 'desc', type: 'string' },
+      { name: 'description', label: 'desc', type: 'string' },
       { name: 'mode', label: 'mode', type: 'string' },
-      { name: 'filter_path0', label: 'filter_path0', type: 'string' },
-      { name: 'filter_path1', label: 'filter_path1', type: 'string' },
-      { name: 'filter_path2', label: 'filter_path2', type: 'string' },
-      { name: 'filter_path3', label: 'filter_path3', type: 'string' }
+      { name: 'filterPaths', label: 'filter_path[n]', type: 'string' }
     ]
   }

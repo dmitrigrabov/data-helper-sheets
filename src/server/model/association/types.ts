@@ -22,19 +22,17 @@ export const associationModel = t.type({
   id: t.string,
   description: t.string,
   mode: associationMode,
-  filterPath: t.array(t.string)
+  filterPaths: t.array(t.string)
 })
 
 export const associationExport = t.type({
   id: t.string,
   title: t.string,
-  desc: t.string,
+  description: t.string,
   mode: associationMode,
-  filter_path0: t.string,
-  filter_path1: t.string,
-  filter_path2: t.string,
-  filter_path3: t.string
+  filterPaths: t.array(t.string)
 })
+export type AssociationExport = t.TypeOf<typeof associationExport>
 
 const associationExportProperties = t.keyof(associationExport.props)
 export type AssociationExportProperties = t.TypeOf<
