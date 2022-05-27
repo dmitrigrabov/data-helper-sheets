@@ -15,7 +15,7 @@ interface Acc {
 
 const buildLabels = (maxCounts: MaxCounts) => {
   // TODO generate based on config
-  return [
+  const labels = [
     'id',
     'description',
     'date',
@@ -31,11 +31,12 @@ const buildLabels = (maxCounts: MaxCounts) => {
       { length: maxCounts.meansOfAttack },
       (v, i) => `association${i + maxCounts.incidentTypes + 1}`
     ),
-    ...Array.from(
-      { length: maxCounts.sources },
-      (v, i) => `association${i + 1}`
-    )
+    ...Array.from({ length: maxCounts.sources }, (v, i) => `source${i + 1}`)
   ]
+
+  Logger.log(labels)
+
+  return labels
 }
 
 export const exportEvents = (eventModels: EventModel[]) => {
@@ -86,9 +87,9 @@ export const exportEvents = (eventModels: EventModel[]) => {
         eventExport.meansOfAttack.length
       )
 
-      acc.maxCounts.incidentTypes = Math.max(
-        acc.maxCounts.incidentTypes,
-        eventExport.incidentTypes.length
+      acc.maxCounts.sources = Math.max(
+        acc.maxCounts.sources,
+        eventExport.sources.length
       )
 
       return acc

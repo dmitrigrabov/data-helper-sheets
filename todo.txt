@@ -1,9 +1,10 @@
 TODO 
 
-[ ] - Generate ranges from objects
-[ ] - Generate objects from sheets
-[ ] - Set up sheets from config
-[ ] - Generate exports
+[ ] - Check that timezone is UTC
+[x] - Generate ranges from objects
+[x] - Generate objects from sheets
+[x] - Set up sheets from config
+[x] - Generate exports
 [ ] - Plain video and photo imports and exports
 [ ] - Twitter and YouTube imports
 
