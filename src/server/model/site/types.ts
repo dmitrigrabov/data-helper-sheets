@@ -31,7 +31,7 @@ const Oblast = t.keyof({
 export const siteUpstream = t.type({
   siteKey: t.string,
   town: t.string,
-  oblast: Oblast,
+  oblast: t.string,
   latLng: t.string
 })
 
