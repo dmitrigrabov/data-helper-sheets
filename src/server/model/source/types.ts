@@ -1,15 +1,11 @@
 import * as t from 'io-ts'
 import { date } from 'server/lib/types/date'
+import { latLngModel } from 'server/model/latLng/types'
 import { sourceType } from 'server/model/types'
 
-export const latLng = t.type({
-  lat: t.number,
-  lng: t.number
-})
-
 export const sourceUpstream = t.type({
-  timestamp: t.string,
-  dateOfPost: t.string,
+  timestamp: date,
+  dateOfPost: date,
   sourceUrl: t.string,
   embedLinks: t.string,
   googleDriveLinks: t.string,
@@ -35,10 +31,10 @@ export const sourceModel = t.type({
   postCaption: t.string,
   possibleLocationName: t.string,
   possibleAddress: t.string,
-  possibleLatLng: t.union([latLng, t.null]),
+  possibleLatLng: t.union([latLngModel, t.null]),
   type: sourceType,
   manualLocation: t.string,
-  manualLatLng: t.union([latLng, t.null]),
+  manualLatLng: t.union([latLngModel, t.null]),
   mapLink: t.string,
   archiveLink: t.string,
   description: t.string,

@@ -1,4 +1,4 @@
-import format from 'date-fns/format'
+import { format } from 'date-fns-tz'
 import { dateFormat, timeFormat } from 'server/format'
 import { EventExport, EventModel } from 'server/model/event/types'
 
@@ -51,11 +51,17 @@ export const exportEvents = (eventModels: EventModel[]) => {
         return acc
       }
 
+      const time = format(eventModel.date, timeFormat, {
+        timeZone: 'UTC'
+      })
+
       const eventExport: EventExport = {
         id: eventModel.id,
         description: eventModel.description,
-        date: format(eventModel.date, dateFormat),
-        time: format(eventModel.date, timeFormat),
+        date: format(eventModel.date, dateFormat, {
+          timeZone: 'UTC'
+        }),
+        time: time === '00:00:00' ? '' : time,
         location: `${eventModel.site.town}, ${eventModel.site.oblast}`,
         latitude: eventModel.latLng
           ? eventModel.latLng.lat

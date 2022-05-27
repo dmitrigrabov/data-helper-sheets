@@ -51,8 +51,8 @@ export const toSource: ToSource = (input: unknown) => {
   } = source
 
   const model = {
-    timestamp: Date.parse(timestamp),
-    dateOfPost: Date.parse(dateOfPost),
+    timestamp,
+    dateOfPost,
     sourceUrl,
     embedLinks: splitTrim(embedLinks),
     googleDriveLinks: splitTrim(googleDriveLinks),

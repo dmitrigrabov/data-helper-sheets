@@ -1,11 +1,21 @@
 import * as t from 'io-ts'
 import { associationMode } from 'server/model/types'
 
+const filterType = t.keyof({
+  'Type of incident': null,
+  'Means of attack': null
+})
+
+export type FilterType = t.TypeOf<typeof filterType>
+
 export const associationUpstream = t.type({
   id: t.string,
   description: t.string,
   mode: associationMode,
-  filterPath: t.array(t.string)
+  filterPath0: filterType,
+  filterPath1: t.string,
+  filterPath2: t.string,
+  filterPath3: t.string
 })
 
 export const associationModel = t.type({
@@ -14,14 +24,6 @@ export const associationModel = t.type({
   mode: associationMode,
   filterPath: t.array(t.string)
 })
-
-// export const exportAssociationModel = t.type({
-//   id: t.string,
-//   title: t.string,
-//   desc: t.string,
-//   mode: associationMode,
-//   filterPath: t.array(t.string)
-// })
 
 export const associationExport = t.type({
   id: t.string,

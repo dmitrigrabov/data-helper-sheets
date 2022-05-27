@@ -11,7 +11,7 @@ const toLatLng: ToLatLng = (input: unknown) => {
     return null
   }
 
-  const [lat, lng] = input.split(',').map(str => str.trim())
+  const [lat, lng] = input.split(',').map(str => Number(str.trim()))
 
   return pipe(
     latLngModel.decode({ lat, lng }),

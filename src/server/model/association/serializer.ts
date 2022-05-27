@@ -29,7 +29,22 @@ export const toAssociation: ToAssociation = (input: unknown) => {
     return null
   }
 
-  const { id, description, mode, filterPath } = association
+  const {
+    id,
+    description,
+    mode,
+    filterPath0,
+    filterPath1,
+    filterPath2,
+    filterPath3
+  } = association
+
+  const filterPath = [
+    filterPath0,
+    filterPath1,
+    filterPath2,
+    filterPath3
+  ].filter(str => str)
 
   const model = {
     id,

@@ -10,7 +10,10 @@ export const associationConfig: SheetConfig<AssociationProperties> = {
     { name: 'id', label: 'Id', type: 'string' },
     { name: 'description', label: 'Description', type: 'string' },
     { name: 'mode', label: 'Mode', type: 'string' },
-    { name: 'filterPath', label: 'Filter Path', type: 'string' }
+    { name: 'filterPath0', label: 'Filter Path 1', type: 'string' },
+    { name: 'filterPath1', label: 'Filter Path 2', type: 'string' },
+    { name: 'filterPath2', label: 'Filter Path 3', type: 'string' },
+    { name: 'filterPath3', label: 'Filter Path 4', type: 'string' }
   ],
   key: 'id'
 }

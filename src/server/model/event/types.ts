@@ -19,7 +19,7 @@ export const eventUpstream = t.type({
 export const eventModel = t.type({
   id: t.number,
   description: t.string,
-  date,
+  date: date,
   site: siteModel,
   latLng: t.union([latLngModel, t.null]),
   incidentTypes: t.array(t.string),
@@ -27,17 +27,6 @@ export const eventModel = t.type({
   sources: t.array(t.string),
   includeInMap: t.boolean
 })
-
-// export const exportEventModel = t.type({
-//   id: t.number,
-//   description: t.string,
-//   date,
-//   location: siteModel,
-//   latLng: t.union([latLngModel, t.null]),
-//   incidentTypes: t.array(associationModel),
-//   meansOfAttach: t.array(associationModel),
-//   sources: t.array(t.string)
-// })
 
 export const eventExport = t.type({
   id: t.number,

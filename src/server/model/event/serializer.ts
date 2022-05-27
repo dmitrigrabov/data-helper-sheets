@@ -7,14 +7,11 @@ import {
   EventModel,
   eventUpstream,
   EventUpstream,
-  eventExport,
   EventProperties
 } from 'server/model/event/types'
 import { splitTrim } from 'server/lib/util/splitTrim'
 import toLatLng from 'server/model/latLng/serializer'
 import { add } from 'date-fns'
-import { format } from 'date-fns'
-import { dateFormat, timeFormat } from 'server/format'
 import { CellType } from 'server/model/types'
 import { AssociationModel } from 'server/model/association/types'
 import { SiteModel } from 'server/model/site/types'
@@ -96,6 +93,9 @@ export const toEvent: ToEvent = ({
     includeInMap
   }
 
+  Logger.log(`TZ ${date.toISOString()}` as unknown as object)
+  Logger.log(`TZ ${model.date?.toISOString()}` as unknown as object)
+
   return pipe(
     eventModel.decode(model),
     fold(
@@ -137,52 +137,5 @@ export const toEventModelMap = ({
       return acc
     },
     {}
-  )
-}
-
-export const toExportEventModel = (event: EventModel) => {
-  Logger.log(JSON.stringify(event, undefined, 2))
-
-  const {
-    id,
-    description,
-    date,
-    //siteKey,
-    latLng,
-    incidentTypes,
-    meansOfAttack,
-    sources,
-    includeInMap
-  } = event
-
-  if (!includeInMap) {
-    return null
-  }
-
-  const exportModel = {
-    id,
-    description,
-    date: format(date, dateFormat),
-    time: format(date, timeFormat),
-    location: 'Add location',
-    latitude: latLng ? latLng.lat + '' : '',
-    longitude: latLng ? latLng.lng + '' : '',
-    association1: meansOfAttack[0],
-    association2: incidentTypes[0],
-    source1: sources[0]
-  }
-
-  Logger.log('exportModel')
-  Logger.log(exportModel)
-
-  return pipe(
-    eventExport.decode(exportModel),
-    fold(
-      reportTypeErrors({
-        model: 'EventExport',
-        fallback: null
-      }),
-      returnValidModel
-    )
   )
 }

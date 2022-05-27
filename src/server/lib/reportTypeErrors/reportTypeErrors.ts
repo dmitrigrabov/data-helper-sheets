@@ -9,8 +9,8 @@ type ReportTypeErrors = <T>(args: {
 export const reportTypeErrors: ReportTypeErrors =
   ({ id, model, fallback }) =>
   (errors: Errors) => {
-    Logger.log('Error occurred')
-    Logger.log(errors)
+    // Logger.log('Error occurred')
+    // Logger.log(errors)
 
     const report = errors
       .map(error =>
@@ -26,7 +26,7 @@ export const reportTypeErrors: ReportTypeErrors =
       )
       .join('\n')
 
-    console.log(
+    Logger.log(
       [
         `Data Issues: Errors found in ${model}${id ? ` with ID ${id}` : ''}:`,
         report,
