@@ -39,6 +39,6 @@ export const sourceExportConfig: ExportSheetConfig<SourceExportProperties> = {
     { name: 'thumbnail', label: 'thumbnail', type: 'string' },
     { name: 'description', label: 'description', type: 'string' },
     { name: 'type', label: 'type', type: 'string' },
-    { name: 'path1', label: 'path1', type: 'string' }
+    { name: 'paths', label: 'path[n]', type: 'string' }
   ]
 }

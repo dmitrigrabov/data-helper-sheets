@@ -39,14 +39,6 @@ export interface SheetConfig<D extends string> extends ExportSheetConfig<D> {
   key: D
 }
 
-export type SheetName = keyof typeof bookConfig
-// | 'Sources'
-// | 'Events'
-// | 'Sites'
-// | 'Categories'
-// | 'Associations'
-// | 'EXPORT_EVENTS'
-// | 'EXPORT_SOURCES'
-// | 'EXPORT_ASSOCIATIONS'
+export type ImportSheetName = keyof typeof bookConfig
 
 export type CellType = number | string | boolean | Date

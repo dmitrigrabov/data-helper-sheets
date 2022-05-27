@@ -34,8 +34,6 @@ const buildLabels = (maxCounts: MaxCounts) => {
     ...Array.from({ length: maxCounts.sources }, (v, i) => `source${i + 1}`)
   ]
 
-  Logger.log(labels)
-
   return labels
 }
 

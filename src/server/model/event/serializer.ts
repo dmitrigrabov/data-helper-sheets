@@ -93,9 +93,6 @@ export const toEvent: ToEvent = ({
     includeInMap
   }
 
-  Logger.log(`TZ ${date.toISOString()}` as unknown as object)
-  Logger.log(`TZ ${model.date?.toISOString()}` as unknown as object)
-
   return pipe(
     eventModel.decode(model),
     fold(

@@ -41,23 +41,15 @@ export const sourceModel = t.type({
   comment: t.string
 })
 
-// export const exportSourceModel = t.type({
-//   id: t.string,
-//   title: t.string,
-//   thumbnail: t.string,
-//   description: t.string,
-//   type: sourceType,
-//   paths: t.array(t.string)
-// })
-
 export const sourceExport = t.type({
   id: t.string,
   title: t.string,
   thumbnail: t.string,
   description: t.string,
   type: sourceType,
-  path1: t.string
+  paths: t.array(t.string)
 })
+export type SourceExport = t.TypeOf<typeof sourceExport>
 
 const sourceExportProperties = t.keyof(sourceExport.props)
 export type SourceExportProperties = t.TypeOf<typeof sourceExportProperties>

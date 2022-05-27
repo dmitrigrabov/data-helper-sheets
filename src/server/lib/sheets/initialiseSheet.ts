@@ -1,9 +1,9 @@
 import { addSheet, getSheets } from 'server/lib/sheets/sheets'
 import { bookConfig, exportSheets } from 'server/model/book/config'
-import { SheetName } from 'server/model/types'
+import { ImportSheetName } from 'server/model/types'
 
 const initialiseImportSheets = (existingSheetNames: Record<string, true>) => {
-  const importSheets = Object.keys(bookConfig) as SheetName[]
+  const importSheets = Object.keys(bookConfig) as ImportSheetName[]
 
   importSheets.forEach(sheetName => {
     if (existingSheetNames[sheetName]) {

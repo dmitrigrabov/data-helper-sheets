@@ -1,5 +1,5 @@
 import { bookConfig } from 'server/model/book/config'
-import { CellType, SheetConfig, SheetName } from 'server/model/types'
+import { CellType, SheetConfig, ImportSheetName } from 'server/model/types'
 
 const rowToObject = <D extends string>(
   sheetConfig: SheetConfig<D>,
@@ -19,7 +19,7 @@ const rowToObject = <D extends string>(
 interface ValidateLabelsArgs<D extends string> {
   labels: CellType[]
   sheetConfig: SheetConfig<D>
-  sheetName: SheetName
+  sheetName: ImportSheetName
 }
 
 const validateLabels = <D extends string>({
@@ -60,7 +60,7 @@ const arraysToObjects = <D extends string>({
   }, {})
 }
 
-const readSheet = (sheetName: SheetName) => {
+const readSheet = (sheetName: ImportSheetName) => {
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName)
 
   return sheet.getSheetValues(
@@ -71,7 +71,7 @@ const readSheet = (sheetName: SheetName) => {
   ) as CellType[][]
 }
 
-export const parseSheet = (sheetName: SheetName) => {
+export const parseSheet = (sheetName: ImportSheetName) => {
   const sheetConfig = bookConfig[sheetName]
   const values = readSheet(sheetName)
 

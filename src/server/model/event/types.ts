@@ -40,6 +40,7 @@ export const eventExport = t.type({
   meansOfAttack: t.array(t.string),
   sources: t.array(t.string)
 })
+
 export type EventExport = t.TypeOf<typeof eventExport>
 
 export type EventUpstream = t.TypeOf<typeof eventUpstream>

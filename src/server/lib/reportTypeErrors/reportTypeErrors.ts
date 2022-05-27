@@ -9,9 +9,6 @@ type ReportTypeErrors = <T>(args: {
 export const reportTypeErrors: ReportTypeErrors =
   ({ id, model, fallback }) =>
   (errors: Errors) => {
-    // Logger.log('Error occurred')
-    // Logger.log(errors)
-
     const report = errors
       .map(error =>
         error.context
