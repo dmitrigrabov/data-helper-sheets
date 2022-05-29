@@ -36,7 +36,7 @@ const initialiseExportSheets = (existingSheetNames: Record<string, true>) => {
   })
 }
 
-export const initialiseSheet = () => {
+export const initialise = () => {
   const existingSheetNames = getSheets().reduce<Record<string, true>>(
     (acc, sheetName) => ({ ...acc, [sheetName.getName()]: true }),
     {}

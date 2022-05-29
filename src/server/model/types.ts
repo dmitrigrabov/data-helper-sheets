@@ -6,7 +6,8 @@ export const sourceType = t.keyof({
   Twitter: null,
   YouTube: null,
   Image: null,
-  Video: null
+  Video: null,
+  Manual: null
 })
 
 export const associationMode = t.keyof({
@@ -28,6 +29,7 @@ export interface ColumnConfig<D> {
   name: D
   label: string
   type: CellTypeName
+  format?: 'checkbox'
 }
 
 export interface ExportSheetConfig<D extends string> {

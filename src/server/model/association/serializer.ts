@@ -14,8 +14,6 @@ import { CellType } from 'server/model/types'
 type ToAssociation = (input: unknown) => AssociationModel | null
 
 export const toAssociation: ToAssociation = (input: unknown) => {
-  Logger.log(JSON.stringify(input))
-
   const association: AssociationUpstream | null = pipe(
     associationUpstream.decode(input),
     fold(

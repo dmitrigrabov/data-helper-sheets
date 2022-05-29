@@ -30,7 +30,8 @@
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.4",
     "react-dom": "^17.0.2",
-    "react-transition-group": "^4.4.2"
+    "react-transition-group": "^4.4.2",
+    "url-parse": "^1.5.10"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.6",
@@ -46,6 +47,7 @@
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
     "@types/google-apps-script": "^1.0.47",
     "@types/jest": "^27.5.1",
+    "@types/url-parse": "^1.4.8",
     "@typescript-eslint/eslint-plugin": "^5.25.0",
     "@typescript-eslint/parser": "^5.25.0",
     "babel-loader": "^8.2.4",

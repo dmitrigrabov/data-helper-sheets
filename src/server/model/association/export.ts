@@ -37,8 +37,6 @@ export const exportAssociations = (
     filterPaths: 0
   }
 
-  Logger.log(JSON.stringify(associationModels, undefined, 2))
-
   const usedEventAssociationIds = Object.values(eventModelMap).reduce<
     Record<string, number>
   >((acc, { meansOfAttack, incidentTypes }) => {
@@ -52,8 +50,6 @@ export const exportAssociations = (
 
     return acc
   }, {})
-
-  Logger.log(JSON.stringify(usedEventAssociationIds, undefined, 2))
 
   const { maxCounts, associationExports } = associationModels.reduce<Acc>(
     (acc, associationModel) => {

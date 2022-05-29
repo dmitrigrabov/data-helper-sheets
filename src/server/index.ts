@@ -3,7 +3,7 @@ import {
   openDialog,
   openDialogBootstrap,
   openAboutSidebar,
-  openInitialiseSheet
+  initialiseSheets
 } from 'server/lib/sheets/ui'
 
 import {
@@ -25,7 +25,7 @@ export {
   openDialog,
   openDialogBootstrap,
   openAboutSidebar,
-  openInitialiseSheet,
+  initialiseSheets,
   getSheetsData,
   addSheet,
   deleteSheet,

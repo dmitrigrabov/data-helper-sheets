@@ -16,7 +16,12 @@ export const eventConfig: SheetConfig<EventProperties> = {
     { name: 'incidentTypes', label: 'Incident Types', type: 'string' },
     { name: 'meansOfAttack', label: 'Means of Attack', type: 'string' },
     { name: 'sources', label: 'Sources', type: 'string' },
-    { name: 'includeInMap', label: 'Include in map', type: 'boolean' }
+    {
+      name: 'includeInMap',
+      label: 'Include in map',
+      type: 'boolean',
+      format: 'checkbox'
+    }
   ],
   key: 'id'
 }

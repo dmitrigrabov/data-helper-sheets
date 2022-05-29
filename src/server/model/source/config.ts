@@ -10,7 +10,6 @@ export const sourceConfig: SheetConfig<SourceProperties> = {
     { name: 'timestamp', label: 'Timestamp', type: 'date' },
     { name: 'dateOfPost', label: 'Date of post', type: 'date' },
     { name: 'sourceUrl', label: 'Source Url', type: 'string' },
-    { name: 'embedLinks', label: 'Embed links', type: 'string' },
     { name: 'googleDriveLinks', label: 'Google Drive Links', type: 'string' },
     { name: 'postCaption', label: 'Post caption', type: 'string' },
     {

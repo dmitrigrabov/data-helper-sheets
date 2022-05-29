@@ -1,5 +1,6 @@
 import { EventModel } from 'server/model/event/types'
 import { SourceExport, SourceModel } from 'server/model/source/types'
+import URL from 'url-parse'
 
 interface MaxCounts {
   paths: number
@@ -24,14 +25,39 @@ const buildLabels = (maxCounts: MaxCounts) => {
   return labels
 }
 
+const createGoogleDriveEmbedLinks = (googleDriveLinks: string[]) => {
+  return googleDriveLinks
+    .map(link => {
+      const url = new URL(link)
+
+      const params = url.query
+        .substring(1)
+        .split('&')
+        .reduce<Record<string, string>>((acc, item) => {
+          const [key, value] = item.split('=')
+          acc[key] = value
+
+          return acc
+        }, {})
+
+      const id = params.id
+
+      return id
+        ? `<iframe src="${id}" width="640" height="480" allow="autoplay"></iframe>`
+        : ''
+    })
+    .filter(link => link)
+}
+
 const getSources = (sourceModel: SourceModel) => {
   switch (sourceModel.type) {
     case 'Telegram':
     case 'Twitter':
+    case 'YouTube':
       return [sourceModel.sourceUrl]
 
     default:
-      return sourceModel.googleDriveLinks
+      return createGoogleDriveEmbedLinks(sourceModel.googleDriveLinks)
   }
 }
 
