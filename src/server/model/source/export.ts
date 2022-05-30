@@ -25,7 +25,7 @@ const buildLabels = (maxCounts: MaxCounts) => {
   return labels
 }
 
-const createGoogleDriveEmbedLinks = (googleDriveLinks: string[]) => {
+const getGoogleDriveId = (googleDriveLinks: string[]) => {
   return googleDriveLinks
     .map(link => {
       const url = new URL(link)
@@ -42,9 +42,7 @@ const createGoogleDriveEmbedLinks = (googleDriveLinks: string[]) => {
 
       const id = params.id
 
-      return id
-        ? `<iframe src="${id}" width="640" height="480" allow="autoplay"></iframe>`
-        : ''
+      return id ?? ''
     })
     .filter(link => link)
 }
@@ -57,7 +55,7 @@ const getSources = (sourceModel: SourceModel) => {
       return [sourceModel.sourceUrl]
 
     default:
-      return createGoogleDriveEmbedLinks(sourceModel.googleDriveLinks)
+      return getGoogleDriveId(sourceModel.googleDriveLinks)
   }
 }
 
