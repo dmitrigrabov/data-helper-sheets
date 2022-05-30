@@ -3,7 +3,7 @@ import { bookConfig } from 'server/model/book/config'
 
 export const sourceType = t.keyof({
   Telegram: null,
-  Twitter: null,
+  Tweet: null,
   YouTube: null,
   Image: null,
   Video: null,

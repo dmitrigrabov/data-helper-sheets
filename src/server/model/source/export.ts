@@ -50,7 +50,7 @@ const getGoogleDriveId = (googleDriveLinks: string[]) => {
 const getSources = (sourceModel: SourceModel) => {
   switch (sourceModel.type) {
     case 'Telegram':
-    case 'Twitter':
+    case 'Tweet':
     case 'YouTube':
       return [sourceModel.sourceUrl]
 
