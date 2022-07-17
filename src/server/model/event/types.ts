@@ -4,32 +4,25 @@ import { latLngModel } from 'server/model/latLng/types'
 import { siteModel } from 'server/model/site/types'
 
 export const eventUpstream = t.type({
-  id: t.number,
+  eventKey: t.string,
   description: t.string,
-  date: date,
-  time: t.union([date, t.literal('')]),
-  siteKey: t.string,
-  latLng: t.union([t.string, t.literal('')]),
-  incidentTypes: t.string,
-  meansOfAttack: t.string,
-  sources: t.string,
   includeInMap: t.boolean
 })
 
 export const eventModel = t.type({
-  id: t.number,
+  id: t.string,
   description: t.string,
   date: date,
   site: siteModel,
   latLng: t.union([latLngModel, t.null]),
   incidentTypes: t.array(t.string),
   meansOfAttack: t.array(t.string),
-  sources: t.array(t.string),
+  sourceUrls: t.array(t.string),
   includeInMap: t.boolean
 })
 
 export const eventExport = t.type({
-  id: t.number,
+  id: t.string,
   description: t.string,
   date: t.string,
   time: t.string,
@@ -38,7 +31,7 @@ export const eventExport = t.type({
   longitude: t.number,
   incidentTypes: t.array(t.string),
   meansOfAttack: t.array(t.string),
-  sources: t.array(t.string)
+  sourceUrls: t.array(t.string)
 })
 
 export type EventExport = t.TypeOf<typeof eventExport>

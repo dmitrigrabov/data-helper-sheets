@@ -8,24 +8,42 @@ export const sourceConfig: SheetConfig<SourceProperties> = {
   sheetName: 'Events',
   columns: [
     { name: 'timestamp', label: 'Timestamp', type: 'date' },
-    { name: 'dateOfPost', label: 'Date of post', type: 'date' },
-    { name: 'sourceUrl', label: 'Source Url', type: 'string' },
-    { name: 'googleDriveLinks', label: 'Google Drive Links', type: 'string' },
-    { name: 'postCaption', label: 'Post caption', type: 'string' },
     {
-      name: 'possibleLocationName',
-      label: 'Possible location name',
+      name: 'sourceUrl',
+      label: 'Source video/photo hyperlink',
       type: 'string'
     },
-    { name: 'possibleAddress', label: 'Possible address', type: 'string' },
-    { name: 'possibleLatLng', label: 'Possible lat, lng', type: 'string' },
-    { name: 'type', label: 'Type', type: 'string' },
-    { name: 'manualLocation', label: 'Manual location', type: 'string' },
-    { name: 'manualLatLng', label: 'Manual lat, lng', type: 'string' },
-    { name: 'mapLink', label: 'Map link', type: 'string' },
-    { name: 'archiveLink', label: 'Archive link', type: 'string' },
-    { name: 'description', label: 'Description', type: 'string' },
-    { name: 'comment', label: 'Comment', type: 'string' }
+    {
+      name: 'dateOfPost',
+      label: 'Date of incident or publication',
+      type: 'date'
+    },
+    {
+      name: 'oblast',
+      label: 'Oblast',
+      type: 'string'
+    },
+    {
+      name: 'town',
+      label: 'City or village',
+      type: 'string'
+    },
+    { name: 'manualLatLng', label: 'Coordinates', type: 'string' },
+    { name: 'googleDriveLinks', label: 'Google Drive Links', type: 'string' },
+    {
+      name: 'fileNames',
+      label: 'Copy here name of the uploaded file or files',
+      type: 'string'
+    },
+    {
+      name: 'archiveLink',
+      label: 'Link for the archived web-page',
+      type: 'string'
+    },
+    { name: 'comment', label: 'Comment', type: 'string' },
+    { name: 'incidentType', label: 'Type of incident', type: 'string' },
+    { name: 'meansOfAttack', label: 'Means of attack', type: 'string' },
+    { name: 'eventKey', label: 'Event key', type: 'string' }
   ],
   key: 'sourceUrl'
 }

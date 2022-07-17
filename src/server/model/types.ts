@@ -5,10 +5,14 @@ export const sourceType = t.keyof({
   Telegram: null,
   Tweet: null,
   YouTube: null,
+  Facebook: null,
   Image: null,
   Video: null,
-  Manual: null
+  Manual: null,
+  Unknown: null
 })
+
+export type SourceType = t.TypeOf<typeof sourceType>
 
 export const associationMode = t.keyof({
   CATEGORY: null,

@@ -47,7 +47,7 @@ const getGoogleDriveId = (googleDriveLinks: string[]) => {
     .filter(link => link)
 }
 
-const getSources = (sourceModel: SourceModel) => {
+const getSourceUrls = (sourceModel: SourceModel) => {
   switch (sourceModel.type) {
     case 'Telegram':
     case 'Tweet':
@@ -70,7 +70,7 @@ export const exportSources = (
   const usedEventSourceUrls = Object.values(eventModelMap).reduce<
     Record<string, true>
   >((acc, eventModel) => {
-    eventModel.sources.forEach(sourceUrl => {
+    eventModel.sourceUrls.forEach(sourceUrl => {
       acc[sourceUrl] = true
     })
 
@@ -87,9 +87,9 @@ export const exportSources = (
         id: sourceModel.sourceUrl,
         title: '',
         thumbnail: '',
-        description: sourceModel.description,
+        description: '',
         type: sourceModel.type,
-        paths: getSources(sourceModel)
+        paths: getSourceUrls(sourceModel)
       }
 
       acc.sourceExports.push(sourceExport)

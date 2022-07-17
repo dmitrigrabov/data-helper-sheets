@@ -5,38 +5,35 @@ import { sourceType } from 'server/model/types'
 
 export const sourceUpstream = t.type({
   timestamp: date,
-  dateOfPost: date,
   sourceUrl: t.string,
-  googleDriveLinks: t.string,
-  postCaption: t.string,
-  possibleLocationName: t.string,
-  possibleAddress: t.string,
-  possibleLatLng: t.string,
-  type: t.string,
-  manualLocation: t.string,
+  dateOfPost: date,
+  oblast: t.string,
+  town: t.string,
   manualLatLng: t.string,
-  mapLink: t.string,
+  googleDriveLinks: t.string,
+  fileNames: t.string,
   archiveLink: t.string,
-  description: t.string,
-  comment: t.string
+  comment: t.string,
+  incidentType: t.string,
+  meansOfAttack: t.string,
+  eventKey: t.string
 })
 
 export const sourceModel = t.type({
   timestamp: date,
-  dateOfPost: date,
   sourceUrl: t.string,
-  googleDriveLinks: t.array(t.string),
-  postCaption: t.string,
-  possibleLocationName: t.string,
-  possibleAddress: t.string,
-  possibleLatLng: t.union([latLngModel, t.null]),
-  type: sourceType,
-  manualLocation: t.string,
+  dateOfPost: date,
+  oblast: t.string,
+  town: t.string,
   manualLatLng: t.union([latLngModel, t.null]),
-  mapLink: t.string,
+  googleDriveLinks: t.array(t.string),
+  fileNames: t.array(t.string),
   archiveLink: t.string,
-  description: t.string,
-  comment: t.string
+  comment: t.string,
+  incidentType: t.array(t.string),
+  meansOfAttack: t.array(t.string),
+  eventKey: t.string,
+  type: sourceType
 })
 
 export const sourceExport = t.type({

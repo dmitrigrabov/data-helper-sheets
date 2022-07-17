@@ -5,8 +5,8 @@ export const siteConfig: SheetConfig<SiteProperties> = {
   sheetName: 'Sites',
   columns: [
     { name: 'siteKey', label: 'Site Key', type: 'string' },
-    { name: 'town', label: 'Town', type: 'string' },
     { name: 'oblast', label: 'Oblast', type: 'string' },
+    { name: 'town', label: 'Town', type: 'string' },
     { name: 'latLng', label: 'Lat Lng', type: 'string' }
   ],
   key: 'siteKey'
