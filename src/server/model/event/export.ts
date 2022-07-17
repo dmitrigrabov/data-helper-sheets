@@ -70,7 +70,7 @@ export const exportEvents = (eventModels: EventModel[]) => {
           : eventModel.site.latLng.lng,
         incidentTypes: eventModel.incidentTypes,
         meansOfAttack: eventModel.meansOfAttack,
-        sources: eventModel.sources
+        sourceUrls: eventModel.sourceUrls
       }
 
       acc.eventExports.push(eventExport)
@@ -87,7 +87,7 @@ export const exportEvents = (eventModels: EventModel[]) => {
 
       acc.maxCounts.sources = Math.max(
         acc.maxCounts.sources,
-        eventExport.sources.length
+        eventExport.sourceUrls.length
       )
 
       return acc
@@ -95,7 +95,7 @@ export const exportEvents = (eventModels: EventModel[]) => {
     { maxCounts: initialCounts, eventExports: [] }
   )
 
-  eventExports.sort((a, b) => a.id - b.id)
+  eventExports.sort((a, b) => a.id.localeCompare(b.id))
 
   const labels = buildLabels(maxCounts)
   const values = eventExports.map(
@@ -109,7 +109,7 @@ export const exportEvents = (eventModels: EventModel[]) => {
       longitude,
       incidentTypes,
       meansOfAttack,
-      sources
+      sourceUrls
     }) => [
       id,
       description,
@@ -126,7 +126,10 @@ export const exportEvents = (eventModels: EventModel[]) => {
         { length: maxCounts.meansOfAttack },
         (v, i) => meansOfAttack[i] ?? ''
       ),
-      ...Array.from({ length: maxCounts.sources }, (v, i) => sources[i] ?? '')
+      ...Array.from(
+        { length: maxCounts.sources },
+        (v, i) => sourceUrls[i] ?? ''
+      )
     ]
   )
 

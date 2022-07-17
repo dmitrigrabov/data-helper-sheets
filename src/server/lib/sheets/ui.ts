@@ -1,4 +1,5 @@
-import { initialise } from 'server/lib/sheets/initialise'
+export { initialiseSheets } from 'server/lib/sheets/initialiseSheets'
+export { refreshExports } from 'server/lib/sheets/refreshExports'
 
 export const onOpen = () => {
   const menu = SpreadsheetApp.getUi()
@@ -7,11 +8,13 @@ export const onOpen = () => {
     // .addItem('Sheet Editor (Bootstrap)', 'openDialogBootstrap')
     // .addItem('About me', 'openAboutSidebar')
     .addItem('Initialise sheets', 'initialiseSheets')
+    .addItem('Refresh exports', 'refreshExports')
 
   menu.addToUi()
 }
 
-export const initialiseSheets = () => initialise()
+// export const initialiseSheets = () => initialise()
+// export const refreshExports = () => rf()
 
 export const openDialog = () => {
   const html = HtmlService.createHtmlOutputFromFile('dialog-demo')

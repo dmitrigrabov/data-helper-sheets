@@ -11,7 +11,10 @@ import { toSourceModelMap } from 'server/model/source/serializer'
  * @return EXPORT_SOURCES data sheet
  * @customfunction
  */
-export const EXPORT_SOURCES = () => {
+// clearCacheNum is a fake input used to force
+// Google Sheets to recalculate values
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const EXPORT_SOURCES = (clearCacheNum: number) => {
   const sourceMap = parseSheet('Sources')
   const sourceModelMap = toSourceModelMap(sourceMap)
 
