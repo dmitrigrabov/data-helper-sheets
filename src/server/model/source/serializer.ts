@@ -22,7 +22,7 @@ const typeFromUrl = (url: string): SourceType => {
   }
 
   if (url.startsWith('https://twitter.com/')) {
-    return 'Telegram'
+    return 'Tweet'
   }
 
   if (
@@ -32,11 +32,7 @@ const typeFromUrl = (url: string): SourceType => {
     return 'YouTube'
   }
 
-  if (url.startsWith('https://www.facebook.com/')) {
-    return 'Facebook'
-  }
-
-  return 'Unknown'
+  return 'Manual'
 }
 
 export const toSource: ToSource = (input: unknown) => {
@@ -71,6 +67,8 @@ export const toSource: ToSource = (input: unknown) => {
     eventKey
   } = source
 
+  const type = typeFromUrl(sourceUrl)
+
   const model = {
     timestamp,
     sourceUrl,
@@ -85,7 +83,7 @@ export const toSource: ToSource = (input: unknown) => {
     incidentType: splitTrim(incidentType),
     meansOfAttack: splitTrim(meansOfAttack),
     eventKey,
-    type: typeFromUrl(sourceUrl)
+    type
   }
 
   return pipe(
