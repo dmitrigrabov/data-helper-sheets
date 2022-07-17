@@ -31,7 +31,11 @@ const validateLabels = <D extends string>({
 
   return columns.map((column, index) => {
     const label = labels[index]
-    if (typeof label === 'string' && label[index] !== column.label) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    console.log(label as string, ' = ', column.label)
+
+    if (typeof label === 'string' && label == column.label) {
       return label
     }
 
@@ -75,6 +79,7 @@ export const parseSheet = (sheetName: ImportSheetName) => {
   console.log(`Parsing ${sheetName}`)
 
   const sheetConfig = bookConfig[sheetName]
+
   const values = readSheet(sheetName)
 
   const [labels, ...rows] = values

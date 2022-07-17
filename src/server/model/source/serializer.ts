@@ -86,6 +86,8 @@ export const toSource: ToSource = (input: unknown) => {
     type
   }
 
+  console.log('SOURCE', model)
+
   return pipe(
     sourceModel.decode(model),
     fold(

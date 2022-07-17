@@ -23,7 +23,7 @@ export const reportTypeErrors: ReportTypeErrors =
       )
       .join('\n')
 
-    Logger.log(
+    console.log(
       [
         `Data Issues: Errors found in ${model}${id ? ` with ID ${id}` : ''}:`,
         report,

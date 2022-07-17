@@ -27,7 +27,7 @@ export const sourceModel = t.type({
   town: t.string,
   manualLatLng: t.union([latLngModel, t.null]),
   googleDriveLinks: t.array(t.string),
-  fileNames: t.array(t.string),
+  fileNames: t.string,
   archiveLink: t.string,
   comment: t.string,
   incidentType: t.array(t.string),

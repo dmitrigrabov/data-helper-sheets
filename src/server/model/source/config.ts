@@ -5,7 +5,7 @@ import {
 import { ExportSheetConfig, SheetConfig } from 'server/model/types'
 
 export const sourceConfig: SheetConfig<SourceProperties> = {
-  sheetName: 'Events',
+  sheetName: 'Sources',
   columns: [
     { name: 'timestamp', label: 'Timestamp', type: 'date' },
     {

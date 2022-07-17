@@ -5,5 +5,8 @@
   "oauthScopes": [
     "https://www.googleapis.com/auth/spreadsheets.currentonly"
   ],
-  "runtimeVersion": "V8"
+  "runtimeVersion": "V8",
+  "executionApi": {
+    "access": "ANYONE"
+  }
 }

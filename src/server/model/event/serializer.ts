@@ -140,6 +140,9 @@ export const toEvent: ToEvent = ({
     source => source.eventKey === eventKey
   )
 
+  console.log('EVENT KEY', eventKey)
+  console.log('EVENT SOURCES', eventSources)
+
   const date = eventSources.find(source => source.dateOfPost)?.dateOfPost
   const { site, latLng } = getSiteInfo(eventSources, siteModelMap)
   const { incidentTypes, meansOfAttack } = getEventInfo(
@@ -160,6 +163,8 @@ export const toEvent: ToEvent = ({
     sourceUrls,
     includeInMap
   }
+
+  console.log('EVENT', model)
 
   return pipe(
     eventModel.decode(model),
