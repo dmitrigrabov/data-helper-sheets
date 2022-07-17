@@ -15,7 +15,9 @@
     "serve": "cross-env NODE_ENV=development webpack-dev-server",
     "start": "npm run deploy:dev && npm run serve",
     "types": "tsc --noEmit --skipLibCheck",
-    "logs": "clasp logs"
+    "logs": "clasp logs",
+    "setting": "clasp setting",
+    "openx": "clasp open"
   },
   "engines": {
     "node": ">=10.0.0",
