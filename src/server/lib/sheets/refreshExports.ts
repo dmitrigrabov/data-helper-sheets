@@ -2,6 +2,8 @@ import { getSheets } from 'server/lib/sheets/sheets'
 import { exportSheets } from 'server/model/book/config'
 
 export const refreshExports = () => {
+  console.log('Refreshing exports')
+
   const existingSheets = getSheets().reduce<
     Record<string, GoogleAppsScript.Spreadsheet.Sheet>
   >((acc, sheet) => ({ ...acc, [sheet.getName()]: sheet }), {})
