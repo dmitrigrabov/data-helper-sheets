@@ -14,7 +14,8 @@
     "deploy:prod": "cp .prod.clasp.json .clasp.json &&  rimraf dist && npm run build && npx clasp push",
     "serve": "cross-env NODE_ENV=development webpack-dev-server",
     "start": "npm run deploy:dev && npm run serve",
-    "types": "tsc --noEmit --skipLibCheck"
+    "types": "tsc --noEmit --skipLibCheck",
+    "logs": "clasp logs"
   },
   "engines": {
     "node": ">=10.0.0",
