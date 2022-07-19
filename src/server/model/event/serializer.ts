@@ -122,6 +122,8 @@ export const toEvent: ToEvent = ({
     eventUpstream.decode(input),
     fold(
       reportTypeErrors({
+        id: (input as EventUpstream)?.eventKey,
+        idFieldName: 'Event Key',
         model: 'Event',
         fallback: null
       }),
@@ -170,6 +172,8 @@ export const toEvent: ToEvent = ({
     eventModel.decode(model),
     fold(
       reportTypeErrors({
+        id: model.id,
+        idFieldName: 'Event key',
         model: 'Event',
         fallback: null
       }),

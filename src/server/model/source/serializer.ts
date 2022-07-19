@@ -40,6 +40,8 @@ export const toSource: ToSource = (input: unknown) => {
     sourceUpstream.decode(input),
     fold(
       reportTypeErrors({
+        id: (input as SourceUpstream)?.timestamp?.toUTCString(),
+        idFieldName: 'Timestamp',
         model: 'Source',
         fallback: null
       }),
@@ -92,6 +94,8 @@ export const toSource: ToSource = (input: unknown) => {
     sourceModel.decode(model),
     fold(
       reportTypeErrors({
+        id: model.timestamp.toUTCString(),
+        idFieldName: 'Timestamp',
         model: 'Source',
         fallback: null
       }),

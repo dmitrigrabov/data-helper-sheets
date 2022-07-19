@@ -19,6 +19,8 @@ export const toSite: ToSite = (input: unknown) => {
     siteUpstream.decode(input),
     fold(
       reportTypeErrors({
+        id: (input as SiteUpstream)?.siteKey,
+        idFieldName: 'Site key',
         model: 'Site',
         fallback: null
       }),
@@ -45,6 +47,8 @@ export const toSite: ToSite = (input: unknown) => {
     siteModel.decode(model),
     fold(
       reportTypeErrors({
+        id: model.siteKey,
+        idFieldName: 'Site key',
         model: 'Site',
         fallback: null
       }),

@@ -1,13 +1,14 @@
 import { Errors } from 'io-ts'
 
 type ReportTypeErrors = <T>(args: {
+  idFieldName?: string
   id?: string
   model: string
   fallback: T
 }) => (errors: Errors) => T
 
 export const reportTypeErrors: ReportTypeErrors =
-  ({ id, model, fallback }) =>
+  ({ id, idFieldName = 'ID', model, fallback }) =>
   (errors: Errors) => {
     const report = errors
       .map(error =>
@@ -25,7 +26,7 @@ export const reportTypeErrors: ReportTypeErrors =
 
     console.log(
       [
-        `Data Issues: Errors found in ${model}${id ? ` with ID ${id}` : ''}:`,
+        `${model} ${id ? `${idFieldName} ${id}` : ''} Data Issues: `,
         report,
         ''
       ].join('\n')

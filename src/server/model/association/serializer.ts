@@ -18,6 +18,8 @@ export const toAssociation: ToAssociation = (input: unknown) => {
     associationUpstream.decode(input),
     fold(
       reportTypeErrors({
+        id: (input as AssociationUpstream)?.id,
+        idFieldName: 'Id',
         model: 'Association',
         fallback: null
       }),
@@ -57,6 +59,8 @@ export const toAssociation: ToAssociation = (input: unknown) => {
     associationModel.decode(model),
     fold(
       reportTypeErrors({
+        id: model.id,
+        idFieldName: 'Id',
         model: 'Association',
         fallback: null
       }),
