@@ -1,7 +1,7 @@
 import {
   onOpen,
-  openDialog,
-  openDialogBootstrap,
+  // openDialog,
+  // openDialogBootstrap,
   openAboutSidebar,
   initialiseSheets,
   refreshExports
@@ -23,8 +23,8 @@ export {
   EXPORT_SOURCES,
   EXPORT_ASSOCIATIONS,
   onOpen,
-  openDialog,
-  openDialogBootstrap,
+  // openDialog,
+  // openDialogBootstrap,
   openAboutSidebar,
   initialiseSheets,
   refreshExports,

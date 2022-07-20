@@ -48,6 +48,7 @@
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
     "@types/google-apps-script": "^1.0.47",
     "@types/jest": "^27.5.1",
+    "@types/node": "^18.0.6",
     "@types/url-parse": "^1.4.8",
     "@typescript-eslint/eslint-plugin": "^5.25.0",
     "@typescript-eslint/parser": "^5.25.0",

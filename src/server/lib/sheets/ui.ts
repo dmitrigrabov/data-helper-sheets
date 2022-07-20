@@ -6,7 +6,7 @@ export const onOpen = () => {
     .createMenu('Toolbox') // edit me!
     // .addItem('Sheet Editor', 'openDialog')
     // .addItem('Sheet Editor (Bootstrap)', 'openDialogBootstrap')
-    // .addItem('About me', 'openAboutSidebar')
+    .addItem('About me', 'openAboutSidebar')
     .addItem('Initialise sheets', 'initialiseSheets')
     .addItem('Refresh exports', 'refreshExports')
 
@@ -16,19 +16,19 @@ export const onOpen = () => {
 // export const initialiseSheets = () => initialise()
 // export const refreshExports = () => rf()
 
-export const openDialog = () => {
-  const html = HtmlService.createHtmlOutputFromFile('dialog-demo')
-    .setWidth(600)
-    .setHeight(600)
-  SpreadsheetApp.getUi().showModalDialog(html, 'Sheet Editor')
-}
+// export const openDialog = () => {
+//   const html = HtmlService.createHtmlOutputFromFile('dialog-demo')
+//     .setWidth(600)
+//     .setHeight(600)
+//   SpreadsheetApp.getUi().showModalDialog(html, 'Sheet Editor')
+// }
 
-export const openDialogBootstrap = () => {
-  const html = HtmlService.createHtmlOutputFromFile('dialog-demo-bootstrap')
-    .setWidth(600)
-    .setHeight(600)
-  SpreadsheetApp.getUi().showModalDialog(html, 'Sheet Editor (Bootstrap)')
-}
+// export const openDialogBootstrap = () => {
+//   const html = HtmlService.createHtmlOutputFromFile('dialog-demo-bootstrap')
+//     .setWidth(600)
+//     .setHeight(600)
+//   SpreadsheetApp.getUi().showModalDialog(html, 'Sheet Editor (Bootstrap)')
+// }
 
 export const openAboutSidebar = () => {
   const html = HtmlService.createHtmlOutputFromFile('sidebar-about-page')

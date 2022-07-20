@@ -14,6 +14,25 @@ const DynamicCdnWebpackPlugin = require('dynamic-cdn-webpack-plugin')
 const moduleToCdn = require('module-to-cdn')
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 
+class TargetLinkWebpackPlugin {
+  apply(compiler) {
+    compiler.hooks.done.tap('TargetLinkWebpackPlugin', () => {
+      const projectConfigPath = path.resolve(__dirname, './.clasp.json')
+
+      if (fs.existsSync(projectConfigPath)) {
+        const projectConfig = fs.readFileSync(projectConfigPath, 'utf8')
+        const {
+          parentId: [parentId]
+        } = JSON.parse(projectConfig)
+
+        console.log(
+          `Script deployed to sheets at https://docs.google.com/spreadsheets/d/${parentId}/edit`
+        )
+      }
+    })
+  }
+}
+
 /*********************************
  *    set up environment variables
  ********************************/
@@ -364,7 +383,8 @@ const serverConfig = {
     new GasPlugin({
       // removes need for assigning public server functions to "global"
       autoGlobalExportsFiles: [serverEntry]
-    })
+    }),
+    new TargetLinkWebpackPlugin()
   ]
 }
 
