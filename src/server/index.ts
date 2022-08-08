@@ -2,6 +2,7 @@ import {
   onOpen,
   // openDialog,
   // openDialogBootstrap,
+  onSelectionChange,
   openAboutSidebar,
   initialiseSheets,
   refreshExports
@@ -23,6 +24,7 @@ export {
   EXPORT_SOURCES,
   EXPORT_ASSOCIATIONS,
   onOpen,
+  onSelectionChange,
   // openDialog,
   // openDialogBootstrap,
   openAboutSidebar,

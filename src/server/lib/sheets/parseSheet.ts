@@ -67,7 +67,7 @@ const arraysToObjects = <D extends string>({
 const readSheet = (sheetName: ImportSheetName) => {
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName)
 
-  return sheet.getSheetValues(
+  return sheet?.getSheetValues(
     1,
     1,
     sheet.getLastRow(),

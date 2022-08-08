@@ -32,6 +32,7 @@
     "react-bootstrap": "^1.6.4",
     "react-dom": "^17.0.2",
     "react-transition-group": "^4.4.2",
+    "styled-components": "^5.3.5",
     "url-parse": "^1.5.10"
   },
   "devDependencies": {
@@ -46,9 +47,10 @@
     "@babel/preset-react": "^7.16.7",
     "@google/clasp": "2.3.1",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
-    "@types/google-apps-script": "^1.0.47",
+    "@types/google-apps-script": "^1.0.53",
     "@types/jest": "^27.5.1",
     "@types/node": "^18.0.6",
+    "@types/styled-components": "^5.1.25",
     "@types/url-parse": "^1.4.8",
     "@typescript-eslint/eslint-plugin": "^5.25.0",
     "@typescript-eslint/parser": "^5.25.0",
@@ -78,7 +80,7 @@
     "eslint-plugin-standard": "^4.1.0",
     "gas-client": "^1.0.0",
     "gas-lib": "^2.0.4",
-    "gas-types-detailed": "^1.0.0",
+    "gas-types-detailed": "^1.1.0",
     "gas-webpack-plugin": "^1.2.3",
     "html-webpack-inline-source-plugin": "0.0.10",
     "html-webpack-plugin": "^3.2.0",

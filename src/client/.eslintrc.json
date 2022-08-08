@@ -1,5 +1,5 @@
 {
-  "plugins": ["react", "prettier"],
+  "plugins": ["react", "prettier", "import"],
   "env": {
     "browser": true,
     "es6": true
