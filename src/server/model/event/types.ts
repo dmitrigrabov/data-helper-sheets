@@ -9,30 +9,36 @@ export const eventUpstream = t.type({
   includeInMap: t.boolean
 })
 
-export const eventModel = t.type({
-  id: t.string,
-  description: t.string,
-  date: date,
-  site: siteModel,
-  latLng: t.union([latLngModel, t.null]),
-  incidentTypes: t.array(t.string),
-  meansOfAttack: t.array(t.string),
-  sourceUrls: t.array(t.string),
-  includeInMap: t.boolean
-})
+export const eventModel = t.type(
+  {
+    id: t.string,
+    description: t.string,
+    date: date,
+    site: siteModel,
+    latLng: t.union([latLngModel, t.null]),
+    incidentTypes: t.array(t.string),
+    meansOfAttack: t.array(t.string),
+    sourceUrls: t.array(t.string),
+    includeInMap: t.boolean
+  },
+  'EventModel'
+)
 
-export const eventExport = t.type({
-  id: t.string,
-  description: t.string,
-  date: t.string,
-  time: t.string,
-  location: t.string,
-  latitude: t.number,
-  longitude: t.number,
-  incidentTypes: t.array(t.string),
-  meansOfAttack: t.array(t.string),
-  sourceUrls: t.array(t.string)
-})
+export const eventExport = t.type(
+  {
+    id: t.string,
+    description: t.string,
+    date: t.string,
+    time: t.string,
+    location: t.string,
+    latitude: t.number,
+    longitude: t.number,
+    incidentTypes: t.array(t.string),
+    meansOfAttack: t.array(t.string),
+    sourceUrls: t.array(t.string)
+  },
+  'EventExport'
+)
 
 export type EventExport = t.TypeOf<typeof eventExport>
 

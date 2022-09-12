@@ -28,19 +28,25 @@ import { latLngModel } from 'server/model/latLng/types'
 //   'Zhytomyr Oblast': null
 // })
 
-export const siteUpstream = t.type({
-  siteKey: t.string,
-  town: t.string,
-  oblast: t.string,
-  latLng: t.string
-})
+export const siteUpstream = t.type(
+  {
+    siteKey: t.string,
+    town: t.string,
+    oblast: t.string,
+    latLng: t.string
+  },
+  'SiteUpstream'
+)
 
-export const siteModel = t.type({
-  siteKey: t.string,
-  town: t.string,
-  oblast: t.string,
-  latLng: latLngModel
-})
+export const siteModel = t.type(
+  {
+    siteKey: t.string,
+    town: t.string,
+    oblast: t.string,
+    latLng: latLngModel
+  },
+  'SiteModel'
+)
 
 export type SiteUpstream = t.TypeOf<typeof siteUpstream>
 export type SiteModel = t.TypeOf<typeof siteModel>

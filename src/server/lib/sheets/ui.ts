@@ -50,3 +50,7 @@ export const onSelectionChange = (e: GoogleAppsScript.Events.SheetsOnEdit) => {
     range.setBackground('red')
   }
 }
+
+export function displayToast() {
+  SpreadsheetApp.getActive().toast('Hi there!')
+}

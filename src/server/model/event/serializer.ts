@@ -166,8 +166,6 @@ export const toEvent: ToEvent = ({
     includeInMap
   }
 
-  console.log('EVENT', model)
-
   return pipe(
     eventModel.decode(model),
     fold(

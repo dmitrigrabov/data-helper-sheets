@@ -5,7 +5,8 @@ import {
   onSelectionChange,
   openAboutSidebar,
   initialiseSheets,
-  refreshExports
+  refreshExports,
+  displayToast
 } from 'server/lib/sheets/ui'
 
 import {
@@ -33,5 +34,6 @@ export {
   getSheetsData,
   addSheet,
   deleteSheet,
-  setActiveSheet
+  setActiveSheet,
+  displayToast
 }
