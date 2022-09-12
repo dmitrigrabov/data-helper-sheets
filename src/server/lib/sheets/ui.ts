@@ -15,6 +15,18 @@ export const onOpen = () => {
   menu.addToUi()
 }
 
+export function onSelectionChange(e: GoogleAppsScript.Events.SheetsOnEdit) {
+  // Set background to red if a single empty cell is selected.
+  SpreadsheetApp.getActive().toast('SELECTION CHANGED')
+  console.log('SELECTION CHANGEd')
+  const range = e.range
+  console.log('Range ', range)
+
+  if (range.getNumRows() === 1 && range.getNumColumns() === 1) {
+    console.log(range.getCell(1, 1).getValue())
+  }
+}
+
 // export const initialiseSheets = () => initialise()
 // export const refreshExports = () => rf()
 
@@ -35,22 +47,4 @@ export const onOpen = () => {
 export const openAboutSidebar = () => {
   const html = HtmlService.createHtmlOutputFromFile('sidebar-about-page')
   SpreadsheetApp.getUi().showSidebar(html)
-}
-
-export const onSelectionChange = (e: GoogleAppsScript.Events.SheetsOnEdit) => {
-  // Set background to red if a single empty cell is selected.
-  const range = e.range
-  console.log('Range ', range)
-
-  if (
-    range.getNumRows() === 1 &&
-    range.getNumColumns() === 1 &&
-    range.getCell(1, 1).getValue() === ''
-  ) {
-    range.setBackground('red')
-  }
-}
-
-export function displayToast() {
-  SpreadsheetApp.getActive().toast('Hi there!')
 }
