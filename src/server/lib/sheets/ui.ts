@@ -6,9 +6,7 @@ export const onOpen = () => {
 
   const menu = SpreadsheetApp.getUi()
     .createMenu('Toolbox') // edit me!
-    // .addItem('Sheet Editor', 'openDialog')
-    // .addItem('Sheet Editor (Bootstrap)', 'openDialogBootstrap')
-    .addItem('Open sidebar', 'openAboutSidebar')
+    .addItem('Open sidebar', 'openSidebar')
     .addItem('Initialise sheets', 'initialiseSheets')
     .addItem('Refresh exports', 'refreshExports')
 
@@ -27,24 +25,7 @@ export function onSelectionChange(e: GoogleAppsScript.Events.SheetsOnEdit) {
   }
 }
 
-// export const initialiseSheets = () => initialise()
-// export const refreshExports = () => rf()
-
-// export const openDialog = () => {
-//   const html = HtmlService.createHtmlOutputFromFile('dialog-demo')
-//     .setWidth(600)
-//     .setHeight(600)
-//   SpreadsheetApp.getUi().showModalDialog(html, 'Sheet Editor')
-// }
-
-// export const openDialogBootstrap = () => {
-//   const html = HtmlService.createHtmlOutputFromFile('dialog-demo-bootstrap')
-//     .setWidth(600)
-//     .setHeight(600)
-//   SpreadsheetApp.getUi().showModalDialog(html, 'Sheet Editor (Bootstrap)')
-// }
-
-export const openAboutSidebar = () => {
-  const html = HtmlService.createHtmlOutputFromFile('sidebar-about-page')
+export const openSidebar = () => {
+  const html = HtmlService.createHtmlOutputFromFile('sidebar')
   SpreadsheetApp.getUi().showSidebar(html)
 }

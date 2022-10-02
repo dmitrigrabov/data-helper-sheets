@@ -1,3 +1,5 @@
+import { getCellInfo } from 'server/lib/sidebar/sidebar'
+
 export const getSheets = () => SpreadsheetApp.getActive().getSheets()
 
 export const getActiveSheetName = () =>
@@ -39,10 +41,6 @@ export const setActiveSheet = (sheetName: string) => {
   return getSheetsData()
 }
 
-export function displayToast() {
-  SpreadsheetApp.getActive().toast('Hi there!')
-}
-
 // const state = {
 //   changed: true,
 //   value: ''
@@ -68,9 +66,16 @@ export function getContents() {
     return null
   }
 
-  const row = cell.getRow()
-  const column = cell.getColumn()
+  const row = cell.getRow() - 1
+  const column = cell.getColumn() - 1
   const value = cell.getValue()
+  const sheetName = SpreadsheetApp.getActive().getActiveSheet().getSheetName()
 
-  return { row, column, value }
+  const selectedCell = { row, column, value, sheetName }
+  const cellInfo = getCellInfo(selectedCell)
+
+  return {
+    selectedCell,
+    cellInfo
+  }
 }

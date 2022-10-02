@@ -25,3 +25,5 @@ dist/
 
 .dev.creds.json
 .prod.creds.json
+
+yarn-error.log

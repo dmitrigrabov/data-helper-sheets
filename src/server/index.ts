@@ -1,8 +1,6 @@
 import {
   onOpen,
-  // openDialog,
-  // openDialogBootstrap,
-  openAboutSidebar,
+  openSidebar,
   initialiseSheets,
   refreshExports
 } from 'server/lib/sheets/ui'
@@ -12,7 +10,6 @@ import {
   addSheet,
   deleteSheet,
   setActiveSheet,
-  displayToast,
   getContents
 } from 'server/lib/sheets/sheets'
 import { EXPORT_EVENTS } from 'server/exports/exportEvents'
@@ -25,15 +22,12 @@ export {
   EXPORT_SOURCES,
   EXPORT_ASSOCIATIONS,
   onOpen,
-  // openDialog,
-  // openDialogBootstrap,
-  openAboutSidebar,
+  openSidebar,
   initialiseSheets,
   refreshExports,
   getSheetsData,
   addSheet,
   deleteSheet,
   setActiveSheet,
-  displayToast,
   getContents
 }

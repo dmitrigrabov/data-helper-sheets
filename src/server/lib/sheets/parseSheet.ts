@@ -76,8 +76,6 @@ const readSheet = (sheetName: ImportSheetName) => {
 }
 
 export const parseSheet = (sheetName: ImportSheetName) => {
-  console.log(`Parsing ${sheetName}`)
-
   const sheetConfig = bookConfig[sheetName]
 
   const values = readSheet(sheetName)
