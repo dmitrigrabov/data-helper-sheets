@@ -24,4 +24,4 @@ dist/
 .prod.clasp.json
 
 .dev.creds.json
-.prod.creds.json 
+.prod.creds.json
