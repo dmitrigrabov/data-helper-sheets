@@ -22,4 +22,6 @@ dist/
 
 .dev.clasp.json
 .prod.clasp.json
-.clasp.json
+
+.dev.clasp.json
+.prod.clasp.json
