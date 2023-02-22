@@ -108,11 +108,14 @@ export function setContents(contents: CellInput) {
     return null
   }
 
-  const formattedValue = match(contents.columnName)
-    .with('dateOfPost', () => formatDate(contents.value))
-    .otherwise(() => contents.value)
+  match(contents.columnName)
+    .with('dateOfPost', () => {
+      const value = formatDate(contents.value)
 
-  if (formattedValue !== 'ERROR') {
-    cell?.setValue(formattedValue)
-  }
+      if (value !== 'ERROR') {
+        cell.setValue(value)
+        cell.setNumberFormat('dd/mm/yyyy')
+      }
+    })
+    .otherwise(() => cell.setValue(contents.value))
 }

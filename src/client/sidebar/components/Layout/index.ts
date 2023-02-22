@@ -11,5 +11,6 @@ export const Flex = styled.div`
 
 export const FormSection = styled.div`
   display: flex;
+  flex-direction: column;
   padding-bottom: 16px;
 `

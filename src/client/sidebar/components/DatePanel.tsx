@@ -48,14 +48,6 @@ const DatePanel: FC<DatePanelProps> = ({ cellContext, setContents }) => {
         />
       </FormSection>
       <FormSection>
-        <Label>Column name:</Label>
-        <div>{cellInfo.columnName}</div>
-      </FormSection>
-      <FormSection>
-        <Label>Is association:</Label>
-        <div>{cellInfo.isAssociation ? 'Yes' : 'No'}</div>
-      </FormSection>
-      <FormSection>
         <Button type="submit">Save</Button>
       </FormSection>
     </FlexColumn>

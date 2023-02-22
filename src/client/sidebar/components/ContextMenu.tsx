@@ -1,6 +1,7 @@
 import AutoCompleteTagInput from 'client/sidebar/components/AutoCompleteTagInput'
 import DatePanel from 'client/sidebar/components/DatePanel'
 import { Flex, FlexColumn } from 'client/sidebar/components/Layout'
+import OblastPanel from 'client/sidebar/components/OblastPanel'
 import { splitTrim } from 'client/utils/splitTrim'
 import { FC, memo, useState } from 'react'
 import { CellInput } from 'server/lib/sheets/sheets'
@@ -32,6 +33,9 @@ const ContextMenu: FC<ContextMenuProps> = memo(
         {match(cellInfo.columnName)
           .with('dateOfPost', () => (
             <DatePanel cellContext={cellContext} setContents={setContents} />
+          ))
+          .with('oblast', () => (
+            <OblastPanel cellContext={cellContext} setContents={setContents} />
           ))
           .otherwise(() => (
             <FlexColumn>
