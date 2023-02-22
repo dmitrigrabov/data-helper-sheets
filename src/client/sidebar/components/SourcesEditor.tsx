@@ -1,5 +1,5 @@
 import { FlexColumn, FormSection } from 'client/sidebar/components/Layout'
-import { Button, Label, Menu } from 'evergreen-ui'
+import { Button, Label, Menu, SelectMenu } from 'evergreen-ui'
 import { FC, FormEvent } from 'react'
 import { Form } from 'react-final-form'
 import { CellInput } from 'server/lib/sheets/sheets'
