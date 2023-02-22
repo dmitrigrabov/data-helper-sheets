@@ -10,7 +10,8 @@ import {
   addSheet,
   deleteSheet,
   setActiveSheet,
-  getContents
+  getContents,
+  setContents
 } from 'server/lib/sheets/sheets'
 import { EXPORT_EVENTS } from 'server/exports/exportEvents'
 import { EXPORT_SOURCES } from 'server/exports/exportSources'
@@ -29,5 +30,6 @@ export {
   addSheet,
   deleteSheet,
   setActiveSheet,
-  getContents
+  getContents,
+  setContents
 }

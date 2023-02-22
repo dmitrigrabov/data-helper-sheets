@@ -1,25 +1,16 @@
 import { FlexColumn, FormSection } from 'client/sidebar/components/Layout'
-import { formatInTimeZone } from 'date-fns-tz'
+import { formatDate } from 'client/utils/formatDate'
 import { Button, Label } from 'evergreen-ui'
 import { FC, useState, FormEvent } from 'react'
-import { CellInput, setContents } from 'server/lib/sheets/sheets'
+import { CellInput } from 'server/lib/sheets/sheets'
 import { CellContext } from 'shared/types/state'
 
 type DatePanelProps = {
   cellContext: CellContext
-  setContents: (contents: CellInput) => Promise<unknown>
+  setContents: (contents: CellInput) => void
 }
 
-const formatDate = (dateString: string) => {
-  try {
-    const date = Date.parse(dateString)
-    return formatInTimeZone(date, 'UTC', 'yyyy-MM-dd')
-  } catch (e) {
-    return ''
-  }
-}
-
-const DatePanel: FC<DatePanelProps> = ({ cellContext }) => {
+const DatePanel: FC<DatePanelProps> = ({ cellContext, setContents }) => {
   const { selectedCell, cellInfo } = cellContext
   const date = formatDate(selectedCell.value)
   const [value, setValue] = useState(date)

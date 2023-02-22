@@ -11,7 +11,7 @@ import { match } from 'ts-pattern'
 
 type ContextMenuProps = {
   cellContext: CellContext
-  setContents: (contents: CellInput) => Promise<unknown>
+  setContents: (contents: CellInput) => void
 }
 
 const Label = styled.div`

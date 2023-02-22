@@ -1,4 +1,6 @@
 import { getCellInfo } from 'server/lib/sidebar/sidebar'
+import { formatDate } from 'server/lib/util/formatDate'
+import { match } from 'ts-pattern'
 
 export const getSheets = () => SpreadsheetApp.getActive().getSheets()
 
@@ -59,7 +61,8 @@ export const setActiveSheet = (sheetName: string) => {
 //   }
 // }
 
-export function getContents() {
+export function getContents(test: { a: string }) {
+  console.log('test', test)
   const cell = SpreadsheetApp.getActive().getCurrentCell()
 
   if (!cell) {
@@ -98,4 +101,18 @@ export type CellInput = {
 
 export function setContents(contents: CellInput) {
   console.log('Server setContents', contents)
+
+  const cell = SpreadsheetApp?.getActive().getCurrentCell()
+
+  if (!cell) {
+    return null
+  }
+
+  const formattedValue = match(contents.columnName)
+    .with('dateOfPost', () => formatDate(contents.value))
+    .otherwise(() => contents.value)
+
+  if (formattedValue !== 'ERROR') {
+    cell?.setValue(formattedValue)
+  }
 }
