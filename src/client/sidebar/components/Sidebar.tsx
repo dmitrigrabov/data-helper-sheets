@@ -11,7 +11,10 @@ const Sidebar = () => {
     const interval = setInterval(() => {
       serverFunctions
         .getContents()
-        .then(contents => contents && setCellContext(contents))
+        .then(contents => {
+          console.log('Client contents: ', contents)
+          contents && setCellContext(contents)
+        })
         .catch(e => {
           console.log('ERROR: ', e)
         })
@@ -25,6 +28,7 @@ const Sidebar = () => {
       {cellContext && (
         <ContextMenu
           key={`${cellContext.selectedCell.row}-${cellContext.selectedCell.column}`}
+          setContents={serverFunctions.setContents}
           cellContext={cellContext}
         />
       )}

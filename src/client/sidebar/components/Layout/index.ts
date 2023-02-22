@@ -1,2 +1,15 @@
-export { FlexColumn } from 'client/sidebar/components/Layout/FlexColumn'
-export { Flex } from 'client/sidebar/components/Layout/Flex'
+import styled from 'styled-components'
+
+export const FlexColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+export const Flex = styled.div`
+  display: flex;
+`
+
+export const FormSection = styled.div`
+  display: flex;
+  padding-bottom: 16px;
+`

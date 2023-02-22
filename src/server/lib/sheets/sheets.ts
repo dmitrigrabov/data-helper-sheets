@@ -71,11 +71,31 @@ export function getContents() {
   const value = cell.getValue()
   const sheetName = SpreadsheetApp.getActive().getActiveSheet().getSheetName()
 
-  const selectedCell = { row, column, value, sheetName }
+  const selectedCell = {
+    row,
+    column,
+    value: value instanceof Date ? value.toUTCString() : value,
+    sheetName
+  }
   const cellInfo = getCellInfo(selectedCell)
 
-  return {
+  const contents = {
     selectedCell,
     cellInfo
   }
+  console.log('Server contents', contents)
+
+  return contents
+}
+
+export type CellInput = {
+  row: number
+  column: number
+  value: string
+  sheetName: string
+  columnName: string
+}
+
+export function setContents(contents: CellInput) {
+  console.log('Server setContents', contents)
 }

@@ -6,6 +6,7 @@ export type SelectedCell = {
 }
 
 export type CellInfo = {
+  columnLabel: string | undefined
   columnName: string | undefined
   associationModelMap: Record<
     string,

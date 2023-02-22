@@ -3,7 +3,6 @@ import { fold } from 'fp-ts/lib/Either'
 import { reportTypeErrors } from 'server/lib/reportTypeErrors/reportTypeErrors'
 import returnValidModel from 'server/lib/returnValidModel/returnValidModel'
 import {
-  sourceModel,
   SourceModel,
   SourceProperties,
   SourceUpstream,
@@ -71,10 +70,10 @@ export const toSource: ToSource = (input: unknown) => {
 
   const type = typeFromUrl(sourceUrl)
 
-  const model = {
-    timestamp,
+  const model: SourceModel = {
+    timestamp: timestamp?.toUTCString() ?? '',
     sourceUrl,
-    dateOfPost,
+    dateOfPost: dateOfPost?.toUTCString() ?? '',
     oblast,
     town,
     manualLatLng: toLatLng(manualLatLng),
@@ -88,20 +87,7 @@ export const toSource: ToSource = (input: unknown) => {
     type
   }
 
-  console.log('SOURCE', model)
-
-  return pipe(
-    sourceModel.decode(model),
-    fold(
-      reportTypeErrors({
-        id: model.timestamp.toUTCString(),
-        idFieldName: 'Timestamp',
-        model: 'Source',
-        fallback: null
-      }),
-      returnValidModel
-    )
-  )
+  return model
 }
 
 export const toSourceModelMap = (

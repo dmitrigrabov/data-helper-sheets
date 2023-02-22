@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "types": ["gas-types-detailed", "jest", "node", "google-apps-script"],
-    "lib": ["ESNext", "dom"],
+    "lib": ["ESNext", "dom", "dom.iterable"],
     "jsx": "react-jsx",
     "baseUrl": "src",
     "esModuleInterop": true,

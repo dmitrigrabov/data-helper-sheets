@@ -1,5 +1,4 @@
 import * as t from 'io-ts'
-import { date } from 'server/lib/types/date'
 import { latLngModel } from 'server/model/latLng/types'
 import { siteModel } from 'server/model/site/types'
 
@@ -13,7 +12,7 @@ export const eventModel = t.type(
   {
     id: t.string,
     description: t.string,
-    date: date,
+    date: t.string,
     site: siteModel,
     latLng: t.union([latLngModel, t.null]),
     incidentTypes: t.array(t.string),

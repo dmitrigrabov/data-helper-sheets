@@ -20,6 +20,7 @@ const getSheetConfig = (sheetName: string) => {
 }
 
 const emptyCellInfo = {
+  columnLabel: undefined,
   columnName: undefined,
   associationModelMap: {},
   associationMap: {},
@@ -28,6 +29,7 @@ const emptyCellInfo = {
 }
 
 export const getCellInfo = (selectedCell: SelectedCell): CellInfo => {
+  console.log('Selected cell', selectedCell)
   const sheetConfig = getSheetConfig(selectedCell.sheetName)
 
   if (!sheetConfig) {
@@ -38,6 +40,8 @@ export const getCellInfo = (selectedCell: SelectedCell): CellInfo => {
   const associationModelMap = toAssociationModelMap(associationMap)
 
   const column = sheetConfig.columns[selectedCell.column]
+
+  console.log('Column', column)
 
   if (!column) {
     return emptyCellInfo
@@ -56,11 +60,16 @@ export const getCellInfo = (selectedCell: SelectedCell): CellInfo => {
         .map(association => association.id as string)
     : []
 
-  return {
-    columnName: column.label,
+  const cellInfo = {
+    columnLabel: column.label,
+    columnName: column.name,
     associationModelMap,
     associationMap,
     isAssociation,
     options
   }
+
+  console.log('cellInfo', cellInfo)
+
+  return cellInfo
 }

@@ -22,11 +22,11 @@ export const sourceUpstream = t.type(
   'SourceUpstream'
 )
 
-export const sourceModel = t.type(
+const sourceModel = t.type(
   {
-    timestamp: date,
+    timestamp: t.string,
     sourceUrl: t.string,
-    dateOfPost: date,
+    dateOfPost: t.string,
     oblast: t.string,
     town: t.string,
     manualLatLng: t.union([latLngModel, t.null]),

@@ -10102,6 +10102,11 @@ ts-loader@^8.3.0:
     micromatch "^4.0.0"
     semver "^7.3.4"
 
+ts-pattern@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/ts-pattern/-/ts-pattern-4.2.1.tgz#d626da4c5755d78c1ae62b8f2675c94884a31a8c"
+  integrity sha512-lXCmHZb01QOM9HdCLvisCGUH9ATdKPON9UaUvwe007gJAhuSBhRWIAIowys5QqNxEq6odWctfMIdI96vzjnOMQ==
+
 ts2gas@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/ts2gas/-/ts2gas-4.2.0.tgz#7585c9865e88a5075b7c57beb5b70d04461d112f"
