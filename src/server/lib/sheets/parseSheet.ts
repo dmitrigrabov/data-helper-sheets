@@ -75,12 +75,43 @@ const readSheet = (sheetName: ImportSheetName) => {
   ) as CellType[][]
 }
 
+const readRow = (sheetName: ImportSheetName, rowNumber: number) => {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName)
+
+  return sheet?.getSheetValues(
+    rowNumber + 1,
+    1,
+    1,
+    sheet.getLastColumn()
+  ) as CellType[][]
+}
+
+const readLabels = (sheetName: ImportSheetName) => {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName)
+
+  return sheet?.getSheetValues(1, 1, 1, sheet.getLastColumn()) as CellType[][]
+}
+
 export const parseSheet = (sheetName: ImportSheetName) => {
   const sheetConfig = bookConfig[sheetName]
 
   const values = readSheet(sheetName)
 
   const [labels, ...rows] = values
+
+  validateLabels({ labels, sheetConfig, sheetName })
+
+  return arraysToObjects({
+    rows,
+    sheetConfig
+  })
+}
+
+export const parseRow = (sheetName: ImportSheetName, rowNumber: number) => {
+  const sheetConfig = bookConfig[sheetName]
+
+  const rows = readRow(sheetName, rowNumber)
+  const [labels] = readLabels(sheetName)
 
   validateLabels({ labels, sheetConfig, sheetName })
 

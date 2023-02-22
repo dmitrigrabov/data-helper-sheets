@@ -19,7 +19,7 @@ const Sidebar = () => {
         .catch(e => {
           console.log('ERROR: ', e)
         })
-    }, 500)
+    }, 1000)
 
     return () => clearInterval(interval)
   }, [])
