@@ -12,6 +12,12 @@ type SourcesEditorProps = {
   setContents: (contents: CellInput) => void
 }
 
+// TODO
+// - [ ] Fix names of fields
+// - [ ] Test functionality
+// - [ ] Add association handlers
+// - [ ] Add site handler
+
 const SourcesEditor: FC<SourcesEditorProps> = ({ cellContext }) => {
   const { selectedCell } = cellContext
   return (
