@@ -1,7 +1,15 @@
 import { Flex, FlexColumn, FormSection } from 'client/sidebar/components/Layout'
 import TextField from 'client/sidebar/components/TextField'
 import TextFieldsArray from 'client/sidebar/components/TextFieldsArray'
-import { Button, Label, SelectMenu, Textarea, TextInput } from 'evergreen-ui'
+import {
+  Button,
+  IconButton,
+  Label,
+  RefreshIcon,
+  SelectMenu,
+  Textarea,
+  TextInput
+} from 'evergreen-ui'
 import { ChangeEvent, FC } from 'react'
 import { Field, Form } from 'react-final-form'
 import { CellInput } from 'server/lib/sheets/sheets'
@@ -110,7 +118,15 @@ const SourcesEditor: FC<SourcesEditorProps> = ({ cellContext }) => {
             </FormSection>
 
             <FormSection>
-              <Label>Town</Label>
+              <Flex
+                style={{
+                  justifyContent: 'space-between',
+                  alignItems: 'flex-end'
+                }}
+              >
+                <Label>Town</Label>
+                <IconButton icon={RefreshIcon} style={{ border: 'none' }} />
+              </Flex>
               <Flex style={{ height: '4px' }} />
               <Field name="oblast" subscription={{ value: true }}>
                 {({ input: { value: oblast } }) => (
@@ -125,7 +141,9 @@ const SourcesEditor: FC<SourcesEditorProps> = ({ cellContext }) => {
                         hasTitle={false}
                         onSelect={item => input.onChange(item.value)}
                       >
-                        <Button>{input.value || 'Select town...'}</Button>
+                        <Button disabled={!oblast}>
+                          {input.value || 'Select town...'}
+                        </Button>
                       </SelectMenu>
                     )}
                   />

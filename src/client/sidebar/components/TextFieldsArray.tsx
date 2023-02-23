@@ -30,13 +30,23 @@ const TextFieldsArray: FC<TextFieldsArrayProps> = ({ fieldName }) => (
                   )}
                 />
                 <Flex style={{ width: '4px' }} />
-                <IconButton icon={TrashIcon} />
+                <IconButton
+                  icon={TrashIcon}
+                  style={{ border: 'none' }}
+                  onClick={() => fields.remove(index)}
+                />
               </Flex>
               <Flex style={{ height: '4px' }} />
             </>
           )
         })}
-        <IconButton icon={AddIcon} />
+        <Flex style={{ justifyContent: 'center' }}>
+          <IconButton
+            icon={AddIcon}
+            style={{ border: 'none' }}
+            onClick={() => fields.push('')}
+          />
+        </Flex>
       </>
     )}
   </FieldArray>
