@@ -1,4 +1,4 @@
-import { FlexColumn, FormSection } from 'client/sidebar/components/Layout'
+import { Flex, FlexColumn, FormSection } from 'client/sidebar/components/Layout'
 import TextField from 'client/sidebar/components/TextField'
 import TextFieldsArray from 'client/sidebar/components/TextFieldsArray'
 import { Button, Label, SelectMenu, Textarea, TextInput } from 'evergreen-ui'
@@ -6,6 +6,9 @@ import { ChangeEvent, FC } from 'react'
 import { Field, Form } from 'react-final-form'
 import { CellInput } from 'server/lib/sheets/sheets'
 import { CellContext } from 'shared/types/state'
+import mutators from 'final-form-arrays'
+import { SourceModel } from 'server/model/source/types'
+import { formatDate } from 'client/utils/formatDate'
 
 type SourcesEditorProps = {
   cellContext: CellContext
@@ -18,12 +21,29 @@ type SourcesEditorProps = {
 // - [ ] Add association handlers
 // - [ ] Add site handler
 
+const prepareSource = (source: SourceModel | undefined) => {
+  if (!source) {
+    return undefined
+  }
+
+  return {
+    ...source,
+    dateOfPost: formatDate(source.dateOfPost)
+  }
+}
+
 const SourcesEditor: FC<SourcesEditorProps> = ({ cellContext }) => {
-  const { selectedCell } = cellContext
+  console.log(cellContext)
+
+  const source = prepareSource(
+    Object.values(cellContext.rowData)?.[0] as SourceModel | undefined
+  )
+
   return (
     <Form
       keepDirtyOnReinitialize
-      initialValues={{ oblast: selectedCell.value }}
+      mutators={{ ...mutators }}
+      initialValues={source}
       onSubmit={values => {
         console.log('values', values)
       }}
@@ -32,8 +52,9 @@ const SourcesEditor: FC<SourcesEditorProps> = ({ cellContext }) => {
           <FlexColumn as="form">
             <FormSection>
               <Label>Date of event</Label>
+              <Flex style={{ height: '4px' }} />
               <Field
-                name="dateOfTHING"
+                name="dateOfPost"
                 render={({ input }) => (
                   <TextInput
                     type="date"
@@ -48,9 +69,10 @@ const SourcesEditor: FC<SourcesEditorProps> = ({ cellContext }) => {
             </FormSection>
 
             <FormSection>
-              <Label>COmment</Label>
+              <Label>Comment</Label>
+              <Flex style={{ height: '4px' }} />
               <Field
-                name="COMMENT"
+                name="comment"
                 render={({ input }) => (
                   <Textarea
                     name={input.name}
@@ -65,6 +87,7 @@ const SourcesEditor: FC<SourcesEditorProps> = ({ cellContext }) => {
 
             <FormSection>
               <Label>Oblast</Label>
+              <Flex style={{ height: '4px' }} />
               <Field
                 name="oblast"
                 render={({ input }) => (
@@ -75,8 +98,12 @@ const SourcesEditor: FC<SourcesEditorProps> = ({ cellContext }) => {
                     hasFilter={false}
                     hasTitle={false}
                     onSelect={item => input.onChange(item.value)}
+                    closeOnSelect
                   >
-                    <Button>{input.value || 'Select oblast...'}</Button>
+                    <Button>
+                      {oblastOptions.find(({ value }) => value === input.value)
+                        ?.label || 'Select oblast...'}
+                    </Button>
                   </SelectMenu>
                 )}
               />
@@ -84,13 +111,14 @@ const SourcesEditor: FC<SourcesEditorProps> = ({ cellContext }) => {
 
             <FormSection>
               <Label>Town</Label>
+              <Flex style={{ height: '4px' }} />
               <Field name="oblast" subscription={{ value: true }}>
                 {({ input: { value: oblast } }) => (
                   <Field
                     name="town"
                     render={({ input }) => (
                       <SelectMenu
-                        title="Select name"
+                        title="Select town"
                         options={getTownOptions(oblast)}
                         selected={input.value}
                         hasFilter={false}
@@ -107,69 +135,26 @@ const SourcesEditor: FC<SourcesEditorProps> = ({ cellContext }) => {
 
             <FormSection>
               <Label>Coordinates</Label>
+              <Flex style={{ height: '4px' }} />
               <TextField fieldName="manualLatLng.lat" />
+              <Flex style={{ height: '4px' }} />
               <TextField fieldName="manualLatLng.lng" />
             </FormSection>
 
             <FormSection>
               <Label>Google Drive links</Label>
-              <TextFieldsArray fieldName="LINKS" />
+              <Flex style={{ height: '4px' }} />
+              <TextFieldsArray fieldName="googleDriveLinks" />
             </FormSection>
 
             <FormSection>
               <Label>Image file name</Label>
-              <TextFieldsArray fieldName="IMAGES" />
+              <Flex style={{ height: '4px' }} />
+              <TextFieldsArray fieldName="fileNames" />
             </FormSection>
 
             <FormSection>
               <Label>Means of attack</Label>
-              <SelectMenu
-                isMultiSelect
-                title="Select multiple names"
-                options={options}
-                selected={selectedItemsState}
-                onSelect={item => {
-                  const selected = [...selectedItemsState, item.value]
-                  const selectedItems = selected
-                  const selectedItemsLength = selectedItems.length
-                  let selectedNames = ''
-                  if (selectedItemsLength === 0) {
-                    selectedNames = ''
-                  } else if (selectedItemsLength === 1) {
-                    selectedNames = selectedItems.toString()
-                  } else if (selectedItemsLength > 1) {
-                    selectedNames =
-                      selectedItemsLength.toString() + ' selected...'
-                  }
-                  setSelectedItems(selectedItems)
-                  setSelectedItemNames(selectedNames)
-                }}
-                onDeselect={item => {
-                  const deselectedItemIndex = selectedItemsState.indexOf(
-                    item.value
-                  )
-                  const selectedItems = selectedItemsState.filter(
-                    (_item, i) => i !== deselectedItemIndex
-                  )
-                  const selectedItemsLength = selectedItems.length
-                  let selectedNames = ''
-                  if (selectedItemsLength === 0) {
-                    selectedNames = ''
-                  } else if (selectedItemsLength === 1) {
-                    selectedNames = selectedItems.toString()
-                  } else if (selectedItemsLength > 1) {
-                    selectedNames =
-                      selectedItemsLength.toString() + ' selected...'
-                  }
-
-                  setSelectedItems(selectedItems)
-                  setSelectedItemNames(selectedNames)
-                }}
-              >
-                <Button>
-                  {selectedItemNamesState || 'Select multiple...'}
-                </Button>
-              </SelectMenu>
             </FormSection>
             <FormSection>
               <Button type="submit">Save</Button>
@@ -183,7 +168,9 @@ const SourcesEditor: FC<SourcesEditorProps> = ({ cellContext }) => {
 
 export default SourcesEditor
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getTownOptions = (oblast: string) => {
+  // console.log('oblast', oblast)
   return [] as { label: string; value: string }[]
 }
 

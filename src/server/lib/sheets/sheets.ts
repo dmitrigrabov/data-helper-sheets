@@ -61,8 +61,7 @@ export const setActiveSheet = (sheetName: string) => {
 //   }
 // }
 
-export function getContents(test: { a: string }) {
-  console.log('test', test)
+export function getContents() {
   const cell = SpreadsheetApp.getActive().getCurrentCell()
 
   if (!cell) {
@@ -83,9 +82,10 @@ export function getContents(test: { a: string }) {
   const cellInfo = getCellInfo(selectedCell)
 
   const contents = {
-    selectedCell,
-    cellInfo
+    ...selectedCell,
+    ...cellInfo
   }
+
   console.log('Server contents', contents)
 
   return contents

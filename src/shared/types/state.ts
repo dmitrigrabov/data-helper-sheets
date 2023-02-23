@@ -24,7 +24,4 @@ export type CellInfo = {
 // isAssociation: boolean
 // options: string[]
 
-export type CellContext = {
-  selectedCell: SelectedCell
-  cellInfo: CellInfo
-}
+export type CellContext = SelectedCell & CellInfo

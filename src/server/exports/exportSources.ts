@@ -16,7 +16,7 @@ import { toSourceModelMap } from 'server/model/source/serializer'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const EXPORT_SOURCES = (clearCacheNum: number) => {
   const sourceMap = parseSheet('Sources')
-  console.log('Source map', sourceMap)
+
   const sourceModelMap = toSourceModelMap(sourceMap)
 
   const siteMap = parseSheet('Sites')

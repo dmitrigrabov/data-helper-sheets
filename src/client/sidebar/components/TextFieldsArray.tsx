@@ -12,24 +12,30 @@ const TextFieldsArray: FC<TextFieldsArrayProps> = ({ fieldName }) => (
   <FieldArray name={fieldName}>
     {({ fields }) => (
       <>
-        {fields.map((name, index) => (
-          <Flex key={index}>
-            <Field
-              name={`${name}[0]`}
-              render={({ input }) => (
-                <TextInput
-                  type="text"
-                  name={input.name}
-                  value={input.value}
-                  onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                    input.onChange(event.target.value)
-                  }}
+        {fields.map((name, index) => {
+          return (
+            <>
+              <Flex key={index}>
+                <Field
+                  name={`${name}`}
+                  render={({ input }) => (
+                    <TextInput
+                      type="text"
+                      name={input.name}
+                      value={input.value}
+                      onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                        input.onChange(event.target.value)
+                      }}
+                    />
+                  )}
                 />
-              )}
-            />
-            <IconButton icon={TrashIcon} />
-          </Flex>
-        ))}
+                <Flex style={{ width: '4px' }} />
+                <IconButton icon={TrashIcon} />
+              </Flex>
+              <Flex style={{ height: '4px' }} />
+            </>
+          )
+        })}
         <IconButton icon={AddIcon} />
       </>
     )}

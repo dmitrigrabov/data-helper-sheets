@@ -41,8 +41,6 @@ export const toSite: ToSite = (input: unknown) => {
     latLng: toLatLng(latLng)
   }
 
-  console.log('SITE', model)
-
   return pipe(
     siteModel.decode(model),
     fold(

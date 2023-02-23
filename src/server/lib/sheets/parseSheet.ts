@@ -31,9 +31,6 @@ const validateLabels = <D extends string>({
 
   return columns.map((column, index) => {
     const label = labels[index]
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    console.log(label as string, ' = ', column.label)
 
     if (typeof label === 'string' && label == column.label) {
       return label

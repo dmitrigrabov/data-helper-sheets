@@ -7,7 +7,7 @@ export const sourceUpstream = t.type(
   {
     timestamp: date,
     sourceUrl: t.string,
-    dateOfPost: date,
+    dateOfPost: t.union([date, t.literal('')]),
     oblast: t.string,
     town: t.string,
     manualLatLng: t.string,
