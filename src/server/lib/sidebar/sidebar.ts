@@ -7,9 +7,10 @@ import { toEventModelMap } from 'server/model/event/serializer'
 import { toSiteModelMap } from 'server/model/site/serializer'
 import { toAssociationModelMap } from 'server/model/association/serializer'
 import { sourceConfig } from 'server/model/source/config'
-import { parseRow } from 'server/lib/sheets/parseSheet'
+import { parseRow, parseSheet } from 'server/lib/sheets/parseSheet'
 import { ImportSheetName } from 'server/model/types'
 import { match } from 'ts-pattern'
+import { SiteModel } from 'server/model/site/types'
 
 const getSheetConfig = (sheetName: string) => {
   switch (sheetName) {
@@ -103,6 +104,14 @@ export const getCellInfo = (selectedCell: SelectedCell): CellInfo => {
   }
 
   return cellInfo
+}
+
+export const getSitesInfo = (): Record<string, SiteModel> => {
+  const rowData = parseSheet('Sites')
+
+  const siteModelMap = toSiteModelMap(rowData)
+
+  return siteModelMap
 }
 
 // export const getCellInfo = (selectedCell: SelectedCell): CellInfo => {

@@ -1,6 +1,6 @@
 import { Flex } from 'client/sidebar/components/Layout'
 import { AddIcon, IconButton, TextInput, TrashIcon } from 'evergreen-ui'
-import { ChangeEvent, FC } from 'react'
+import { ChangeEvent, FC, Fragment } from 'react'
 import { Field } from 'react-final-form'
 import { FieldArray } from 'react-final-form-arrays'
 
@@ -14,7 +14,7 @@ const TextFieldsArray: FC<TextFieldsArrayProps> = ({ fieldName }) => (
       <>
         {fields.map((name, index) => {
           return (
-            <>
+            <Fragment key={index}>
               <Flex key={index}>
                 <Field
                   name={`${name}`}
@@ -31,17 +31,19 @@ const TextFieldsArray: FC<TextFieldsArrayProps> = ({ fieldName }) => (
                 />
                 <Flex style={{ width: '4px' }} />
                 <IconButton
+                  type="button"
                   icon={TrashIcon}
                   style={{ border: 'none' }}
                   onClick={() => fields.remove(index)}
                 />
               </Flex>
               <Flex style={{ height: '4px' }} />
-            </>
+            </Fragment>
           )
         })}
         <Flex style={{ justifyContent: 'center' }}>
           <IconButton
+            type="button"
             icon={AddIcon}
             style={{ border: 'none' }}
             onClick={() => fields.push('')}

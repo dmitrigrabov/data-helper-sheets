@@ -11,7 +11,8 @@ import {
   deleteSheet,
   setActiveSheet,
   getContents,
-  setContents
+  setContents,
+  getSites
 } from 'server/lib/sheets/sheets'
 import { EXPORT_EVENTS } from 'server/exports/exportEvents'
 import { EXPORT_SOURCES } from 'server/exports/exportSources'
@@ -31,5 +32,6 @@ export {
   deleteSheet,
   setActiveSheet,
   getContents,
-  setContents
+  setContents,
+  getSites
 }

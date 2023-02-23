@@ -1,4 +1,4 @@
-import { getCellInfo } from 'server/lib/sidebar/sidebar'
+import { getCellInfo, getSitesInfo } from 'server/lib/sidebar/sidebar'
 import { formatDate } from 'server/lib/util/formatDate'
 import { match } from 'ts-pattern'
 
@@ -89,6 +89,12 @@ export function getContents() {
   console.log('Server contents', contents)
 
   return contents
+}
+
+export function getSites() {
+  const sites = getSitesInfo()
+
+  return sites
 }
 
 export type CellInput = {

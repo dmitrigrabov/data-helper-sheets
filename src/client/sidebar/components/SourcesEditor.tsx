@@ -17,10 +17,16 @@ import { CellContext } from 'shared/types/state'
 import mutators from 'final-form-arrays'
 import { SourceModel } from 'server/model/source/types'
 import { formatDate } from 'client/utils/formatDate'
+import { SiteModel } from 'server/model/site/types'
+import TownInput from 'client/sidebar/components/TownInput'
+import { PageData } from 'client/sidebar/types'
 
 type SourcesEditorProps = {
   cellContext: CellContext
   setContents: (contents: CellInput) => void
+  sites: Record<string, SiteModel>
+  getSites: () => void
+  setPage: (page: PageData) => void
 }
 
 // TODO
@@ -40,7 +46,12 @@ const prepareSource = (source: SourceModel | undefined) => {
   }
 }
 
-const SourcesEditor: FC<SourcesEditorProps> = ({ cellContext }) => {
+const SourcesEditor: FC<SourcesEditorProps> = ({
+  cellContext,
+  sites,
+  getSites,
+  setPage
+}) => {
   console.log(cellContext)
 
   const source = prepareSource(
@@ -108,7 +119,7 @@ const SourcesEditor: FC<SourcesEditorProps> = ({ cellContext }) => {
                     onSelect={item => input.onChange(item.value)}
                     closeOnSelect
                   >
-                    <Button>
+                    <Button type="button">
                       {oblastOptions.find(({ value }) => value === input.value)
                         ?.label || 'Select oblast...'}
                     </Button>
@@ -125,30 +136,15 @@ const SourcesEditor: FC<SourcesEditorProps> = ({ cellContext }) => {
                 }}
               >
                 <Label>Town</Label>
-                <IconButton icon={RefreshIcon} style={{ border: 'none' }} />
+                <IconButton
+                  type="button"
+                  icon={RefreshIcon}
+                  style={{ border: 'none' }}
+                  onClick={() => getSites()}
+                />
               </Flex>
               <Flex style={{ height: '4px' }} />
-              <Field name="oblast" subscription={{ value: true }}>
-                {({ input: { value: oblast } }) => (
-                  <Field
-                    name="town"
-                    render={({ input }) => (
-                      <SelectMenu
-                        title="Select town"
-                        options={getTownOptions(oblast)}
-                        selected={input.value}
-                        hasFilter={false}
-                        hasTitle={false}
-                        onSelect={item => input.onChange(item.value)}
-                      >
-                        <Button disabled={!oblast}>
-                          {input.value || 'Select town...'}
-                        </Button>
-                      </SelectMenu>
-                    )}
-                  />
-                )}
-              </Field>
+              <TownInput sites={sites} setPage={setPage} />
             </FormSection>
 
             <FormSection>
@@ -186,24 +182,18 @@ const SourcesEditor: FC<SourcesEditorProps> = ({ cellContext }) => {
 
 export default SourcesEditor
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const getTownOptions = (oblast: string) => {
-  // console.log('oblast', oblast)
-  return [] as { label: string; value: string }[]
-}
-
 const oblastOptions = [
   { label: 'Cherkasy Oblast', value: 'CHERKASY' },
   { label: 'Chernihiv Oblast', value: 'CHERNIHIV' },
   { label: 'Chernivtsi Oblast', value: 'CHERNIVTSI' },
-  { label: 'Dnipropetrovsk Oblast', value: 'DNIPROPOTROVSK' },
+  { label: 'Dnipropetrovsk Oblast', value: 'DNIPROPETROVSK' },
   { label: 'Donetsk Oblast', value: 'DONETSK' },
-  { label: 'Ivano-Frankivsk Oblast', value: 'IVANO_FRANKIVSK' },
+  { label: 'Ivano-Frankivsk Oblast', value: 'IVANOFRANKIVSK' },
   { label: 'Kharkiv Oblast', value: 'KHARKVIV' },
   { label: 'Kherson Oblast', value: 'KHERSON' },
-  { label: 'Khmelnytskyi Oblast', value: 'KHMELNYSKYI' },
+  { label: 'Khmelnytskyi Oblast', value: 'KHMELNYTSKYI' },
   { label: 'Kyiv Oblast', value: 'KYIV' },
-  { label: 'Kirovohrad Oblast', value: 'KIROVGRAD' },
+  { label: 'Kirovohrad Oblast', value: 'KIROVOHRAD' },
   { label: 'Luhansk Oblast', value: 'LUHANSK' },
   { label: 'Lviv Oblast', value: 'LVIV' },
   { label: 'Mykolaiv Oblast', value: 'MYKOLAIV' },
@@ -212,7 +202,7 @@ const oblastOptions = [
   { label: 'Rivne Oblast', value: 'RIVNE' },
   { label: 'Sumy Oblast', value: 'SUMY' },
   { label: 'Ternopil Oblast', value: 'TERNOPIL' },
-  { label: 'Vinnytsia Oblast', value: 'VINNITSIA' },
+  { label: 'Vinnytsia Oblast', value: 'VINNYTSIA' },
   { label: 'Volyn Oblast', value: 'VOLYN' },
   { label: 'Zakarpattia Oblast', value: 'ZAKARPATTIA' },
   { label: 'Zaporizhzhia Oblast', value: 'ZAPORIZHZHIA' },

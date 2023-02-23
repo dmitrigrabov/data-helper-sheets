@@ -33,7 +33,7 @@ const AssociationInput: FC<AssociationInputProps> = ({
         onChange(selected.filter(selectItem => selectItem !== item.value))
       }}
     >
-      <Button>{`count ${selected.length}`}</Button>
+      <Button type="button">{`count ${selected.length}`}</Button>
     </SelectMenu>
   )
 }
