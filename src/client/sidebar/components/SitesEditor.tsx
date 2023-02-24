@@ -41,8 +41,7 @@ const SitesEditor: FC<SitesEditorProps> = ({
       </Button>
       <Flex style={{ height: '16px' }} />
       <Form<FormValues>
-        keepDirtyOnReinitialize
-        onSubmit={values => {
+        onSubmit={(values, form) => {
           const site = {
             ...values,
             siteKey: `${oblast}_${normalize(values.town)}`,
@@ -56,7 +55,13 @@ const SitesEditor: FC<SitesEditorProps> = ({
           console.log('Site', site)
 
           setSite(site)
-            .then(success => console.log({ success }))
+            .then(success => {
+              if (success) {
+                getSites()
+                form.reset({ town: '', latLng: { lat: '', lng: '' } })
+                setPage({ page: 'sources' })
+              }
+            })
             .catch(e => console.log(e))
         }}
         render={({ handleSubmit }) => {

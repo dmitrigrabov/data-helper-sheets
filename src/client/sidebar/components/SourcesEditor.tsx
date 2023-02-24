@@ -31,10 +31,10 @@ type SourcesEditorProps = {
 }
 
 // TODO
-// - [ ] Fix names of fields
-// - [ ] Test functionality
+// - [x] Fix names of fields
+// - [x] Add site handler
 // - [ ] Add association handlers
-// - [ ] Add site handler
+// - [ ] Test functionality
 
 const prepareSource = (source: SourceModel | undefined) => {
   if (!source) {
