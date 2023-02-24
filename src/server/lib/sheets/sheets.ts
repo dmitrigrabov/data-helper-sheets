@@ -1,4 +1,8 @@
-import { getCellInfo, getSitesInfo } from 'server/lib/sidebar/sidebar'
+import {
+  getAssociationsSheetData,
+  getCellInfo,
+  getSitesSheetData
+} from 'server/lib/sidebar/sidebar'
 import { formatDate } from 'server/lib/util/formatDate'
 import { SiteModel } from 'server/model/site/types'
 import { match } from 'ts-pattern'
@@ -93,9 +97,15 @@ export function getContents() {
 }
 
 export function getSites() {
-  const sites = getSitesInfo()
+  const sites = getSitesSheetData()
 
   return sites
+}
+
+export function getAssociations() {
+  const associations = getAssociationsSheetData()
+
+  return associations
 }
 
 export type CellInput = {
@@ -128,7 +138,7 @@ export function setContents(contents: CellInput) {
 }
 
 export function setSite({ siteKey, oblast, town, latLng }: SiteModel) {
-  const sites = getSitesInfo()
+  const sites = getSitesSheetData()
 
   if (sites[siteKey]) {
     console.log(`Site ${siteKey} already exists`)

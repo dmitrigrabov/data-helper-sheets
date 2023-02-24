@@ -17,7 +17,6 @@ const TownInput: FC<TownInputProps> = ({ sites, setPage }) => {
         <Field
           name="town"
           render={({ input }) => {
-            console.log('input', input)
             return (
               <>
                 <SelectMenu
@@ -27,7 +26,6 @@ const TownInput: FC<TownInputProps> = ({ sites, setPage }) => {
                   hasFilter={false}
                   hasTitle={false}
                   onSelect={item => {
-                    console.log('item', item)
                     input.onChange(`${item.value}`.split('_')[1])
                   }}
                   closeOnSelect

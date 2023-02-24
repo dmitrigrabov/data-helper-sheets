@@ -5,12 +5,14 @@ import { PageData } from 'client/sidebar/types'
 import { serverFunctions } from 'client/utils/serverFunctions'
 import { dequal } from 'dequal'
 import { useEffect, useState } from 'react'
+import { AssociationModel } from 'server/model/association/types'
 import { SiteModel } from 'server/model/site/types'
 import { CellContext } from 'shared/types/state'
 
 const Sidebar = () => {
   const [cellContext, setCellContext] = useState<CellContext>()
   const [sites, setSites] = useState<Record<string, SiteModel>>({})
+  const [associations, setAssociations] = useState<AssociationModel[]>([])
   const [page, setPage] = useState<PageData>({ page: 'sources' })
 
   useEffect(() => {
@@ -32,6 +34,7 @@ const Sidebar = () => {
 
   useEffect(() => {
     getSites()
+    getAssociations()
   }, [])
 
   const getSites = () => {
@@ -40,6 +43,19 @@ const Sidebar = () => {
       .then(sitesRes => {
         if (sitesRes) {
           setSites(sitesRes)
+        }
+      })
+      .catch(e => {
+        console.log('ERROR: ', e)
+      })
+  }
+
+  const getAssociations = () => {
+    serverFunctions
+      .getAssociations()
+      .then(associationsRes => {
+        if (associationsRes) {
+          setAssociations(associationsRes)
         }
       })
       .catch(e => {
@@ -60,6 +76,8 @@ const Sidebar = () => {
               setContents={serverFunctions.setContents}
               getSites={getSites}
               sites={sites}
+              getAssociations={getAssociations}
+              associations={associations}
               setPage={setPage}
             />
           </FlexColumn>

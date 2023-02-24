@@ -85,3 +85,20 @@ export const toAssociationModelMap = (
     {}
   )
 }
+
+export const toAssociationModelList = (
+  associationMap: Record<string, Record<AssociationProperties, CellType>>
+) => {
+  return Object.keys(associationMap).reduce<AssociationModel[]>(
+    (acc, associationKey) => {
+      const model = toAssociation(associationMap[associationKey])
+
+      if (model) {
+        acc.push(model)
+      }
+
+      return acc
+    },
+    []
+  )
+}

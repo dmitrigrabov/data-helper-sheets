@@ -21,12 +21,16 @@ import { SiteModel } from 'server/model/site/types'
 import TownInput from 'client/sidebar/components/TownInput'
 import { PageData } from 'client/sidebar/types'
 import { oblastOptions } from 'client/utils/oblastOptions'
+import { AssociationModel } from 'server/model/association/types'
+import AssociationsInput from 'client/sidebar/components/AssociationsInput'
 
 type SourcesEditorProps = {
   cellContext: CellContext
   setContents: (contents: CellInput) => void
   sites: Record<string, SiteModel>
   getSites: () => void
+  associations: AssociationModel[]
+  getAssociations: () => void
   setPage: (page: PageData) => void
 }
 
@@ -43,7 +47,9 @@ const prepareSource = (source: SourceModel | undefined) => {
 
   return {
     ...source,
-    dateOfPost: formatDate(source.dateOfPost)
+    dateOfPost: formatDate(source.dateOfPost),
+    meansOfAttack: source.meansOfAttack?.filter(Boolean) ?? [],
+    incidentType: source.incidentType?.filter(Boolean) ?? []
   }
 }
 
@@ -51,11 +57,13 @@ const SourcesEditor: FC<SourcesEditorProps> = ({
   cellContext,
   sites,
   getSites,
-  setPage
+  setPage,
+  associations,
+  getAssociations
 }) => {
   useEffect(() => {
-    console.log('getSites()')
     getSites()
+    getAssociations()
   }, [])
 
   const source = prepareSource(
@@ -173,7 +181,24 @@ const SourcesEditor: FC<SourcesEditorProps> = ({
 
             <FormSection>
               <Label>Means of attack</Label>
+              <Flex style={{ height: '4px' }} />
+              <AssociationsInput
+                fieldName="meansOfAttack"
+                title="Means of attack"
+                associations={associations}
+              />
             </FormSection>
+
+            <FormSection>
+              <Label>Type of incident</Label>
+              <Flex style={{ height: '4px' }} />
+              <AssociationsInput
+                fieldName="incidentType"
+                title="Type of incident"
+                associations={associations}
+              />
+            </FormSection>
+
             <Flex style={{ height: '16px' }} />
             <FormSection>
               <Button type="submit">Save</Button>

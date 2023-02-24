@@ -5,12 +5,16 @@ import { siteConfig } from 'server/model/site/config'
 import { toSourceModelMap } from 'server/model/source/serializer'
 import { toEventModelMap } from 'server/model/event/serializer'
 import { toSiteModelMap } from 'server/model/site/serializer'
-import { toAssociationModelMap } from 'server/model/association/serializer'
+import {
+  toAssociationModelList,
+  toAssociationModelMap
+} from 'server/model/association/serializer'
 import { sourceConfig } from 'server/model/source/config'
 import { parseRow, parseSheet } from 'server/lib/sheets/parseSheet'
 import { ImportSheetName } from 'server/model/types'
 import { match } from 'ts-pattern'
 import { SiteModel } from 'server/model/site/types'
+import { AssociationModel } from 'server/model/association/types'
 
 const getSheetConfig = (sheetName: string) => {
   switch (sheetName) {
@@ -106,12 +110,20 @@ export const getCellInfo = (selectedCell: SelectedCell): CellInfo => {
   return cellInfo
 }
 
-export const getSitesInfo = (): Record<string, SiteModel> => {
+export const getSitesSheetData = (): Record<string, SiteModel> => {
   const rowData = parseSheet('Sites')
 
-  const siteModelMap = toSiteModelMap(rowData)
+  const sitesModelMap = toSiteModelMap(rowData)
 
-  return siteModelMap
+  return sitesModelMap
+}
+
+export const getAssociationsSheetData = (): AssociationModel[] => {
+  const rowData = parseSheet('Associations')
+
+  const associationsModelList = toAssociationModelList(rowData)
+
+  return associationsModelList
 }
 
 // export const getCellInfo = (selectedCell: SelectedCell): CellInfo => {
