@@ -6,12 +6,13 @@ import {
   IconButton,
   Label,
   RefreshIcon,
+  SavedIcon,
   SelectMenu,
   Textarea,
   TextInput
 } from 'evergreen-ui'
 import { ChangeEvent, FC, useEffect } from 'react'
-import { Field, Form } from 'react-final-form'
+import { Field, Form, FormSpy } from 'react-final-form'
 import { CellInput } from 'server/lib/sheets/sheets'
 import { CellContext } from 'shared/types/state'
 import mutators from 'final-form-arrays'
@@ -24,6 +25,14 @@ import { oblastOptions } from 'client/utils/oblastOptions'
 import { AssociationModel } from 'server/model/association/types'
 import AssociationsInput from 'client/sidebar/components/AssociationsInput'
 
+type SetSourceCell = {
+  row: number
+  column: number
+  value: string
+  columnName: string
+  format?: string
+}
+
 type SourcesEditorProps = {
   cellContext: CellContext
   setContents: (contents: CellInput) => void
@@ -32,6 +41,7 @@ type SourcesEditorProps = {
   associations: AssociationModel[]
   getAssociations: () => void
   setPage: (page: PageData) => void
+  setSourceCell: (cell: SetSourceCell) => void
 }
 
 // TODO
@@ -59,7 +69,8 @@ const SourcesEditor: FC<SourcesEditorProps> = ({
   getSites,
   setPage,
   associations,
-  getAssociations
+  getAssociations,
+  setSourceCell
 }) => {
   useEffect(() => {
     getSites()
@@ -198,10 +209,53 @@ const SourcesEditor: FC<SourcesEditorProps> = ({
                 associations={associations}
               />
             </FormSection>
-
-            <Flex style={{ height: '16px' }} />
             <FormSection>
-              <Button type="submit">Save</Button>
+              <Label>Event key</Label>
+
+              <FormSpy subscription={{ values: true }}>
+                {({ values: { oblast, town, dateOfPost } }) => {
+                  const dateChunks = dateOfPost?.split('-')
+                  const eventKey =
+                    oblast && town && dateOfPost && dateChunks.length === 3
+                      ? `${oblast}_${town}_${dateChunks[2]}-${dateChunks[1]}-${dateChunks[0]}`
+                      : ''
+
+                  return (
+                    <Flex>
+                      <Field
+                        name="eventKey"
+                        render={({ input }) => (
+                          <TextInput
+                            type="text"
+                            name={input.name}
+                            value={eventKey}
+                            disabled
+                            onChange={(
+                              event: ChangeEvent<HTMLInputElement>
+                            ) => {
+                              input.onChange(event.target.value)
+                            }}
+                          />
+                        )}
+                      />
+                      <Flex style={{ width: '4px' }} />
+                      <IconButton
+                        type="button"
+                        icon={SavedIcon}
+                        style={{ border: 'none' }}
+                        onClick={() =>
+                          setSourceCell({
+                            row: cellContext.row,
+                            column: cellContext.column,
+                            columnName: 'eventKey',
+                            value: eventKey
+                          })
+                        }
+                      />
+                    </Flex>
+                  )
+                }}
+              </FormSpy>
             </FormSection>
           </FlexColumn>
         )

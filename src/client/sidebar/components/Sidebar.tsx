@@ -74,6 +74,7 @@ const Sidebar = () => {
               key={`${cellContext.row}`}
               cellContext={cellContext}
               setContents={serverFunctions.setContents}
+              setSourceCell={serverFunctions.setSourceCell}
               getSites={getSites}
               sites={sites}
               getAssociations={getAssociations}

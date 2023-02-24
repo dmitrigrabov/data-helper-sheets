@@ -137,6 +137,40 @@ export function setContents(contents: CellInput) {
     .otherwise(() => cell.setValue(contents.value))
 }
 
+type SetSourceCell = {
+  row: number
+  column: number
+  value: string
+  columnName: string
+  format?: string
+}
+
+export const setSourceCell = (contents: SetSourceCell) => {
+  const { row, column } = contents
+  // columnName, value, format
+  const cell = SpreadsheetApp.getActiveSpreadsheet()
+    .getSheetByName('Sources')
+    ?.getRange(row + 1, column, 1, 1)
+
+  if (!cell) {
+    return null
+  }
+
+  console.log('Contents', contents)
+  console.log('Cell value', cell.getValue())
+
+  // match(contents.columnName)
+  //   .with('dateOfPost', () => {
+  //     const value = formatDate(contents.value)
+
+  //     if (value !== 'ERROR') {
+  //       cell.setValue(value)
+  //       cell.setNumberFormat('dd/mm/yyyy')
+  //     }
+  //   })
+  //   .otherwise(() => cell.setValue(contents.value))
+}
+
 export function setSite({ siteKey, oblast, town, latLng }: SiteModel) {
   const sites = getSitesSheetData()
 
