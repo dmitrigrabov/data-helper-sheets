@@ -10,7 +10,7 @@ import {
   Textarea,
   TextInput
 } from 'evergreen-ui'
-import { ChangeEvent, FC } from 'react'
+import { ChangeEvent, FC, useEffect } from 'react'
 import { Field, Form } from 'react-final-form'
 import { CellInput } from 'server/lib/sheets/sheets'
 import { CellContext } from 'shared/types/state'
@@ -20,6 +20,7 @@ import { formatDate } from 'client/utils/formatDate'
 import { SiteModel } from 'server/model/site/types'
 import TownInput from 'client/sidebar/components/TownInput'
 import { PageData } from 'client/sidebar/types'
+import { oblastOptions } from 'client/utils/oblastOptions'
 
 type SourcesEditorProps = {
   cellContext: CellContext
@@ -52,7 +53,10 @@ const SourcesEditor: FC<SourcesEditorProps> = ({
   getSites,
   setPage
 }) => {
-  console.log(cellContext)
+  useEffect(() => {
+    console.log('getSites()')
+    getSites()
+  }, [])
 
   const source = prepareSource(
     Object.values(cellContext.rowData)?.[0] as SourceModel | undefined
@@ -66,9 +70,9 @@ const SourcesEditor: FC<SourcesEditorProps> = ({
       onSubmit={values => {
         console.log('values', values)
       }}
-      render={() => {
+      render={({ handleSubmit }) => {
         return (
-          <FlexColumn as="form">
+          <FlexColumn as="form" onSubmit={handleSubmit}>
             <FormSection>
               <Label>Date of event</Label>
               <Flex style={{ height: '4px' }} />
@@ -170,6 +174,7 @@ const SourcesEditor: FC<SourcesEditorProps> = ({
             <FormSection>
               <Label>Means of attack</Label>
             </FormSection>
+            <Flex style={{ height: '16px' }} />
             <FormSection>
               <Button type="submit">Save</Button>
             </FormSection>
@@ -181,30 +186,3 @@ const SourcesEditor: FC<SourcesEditorProps> = ({
 }
 
 export default SourcesEditor
-
-const oblastOptions = [
-  { label: 'Cherkasy Oblast', value: 'CHERKASY' },
-  { label: 'Chernihiv Oblast', value: 'CHERNIHIV' },
-  { label: 'Chernivtsi Oblast', value: 'CHERNIVTSI' },
-  { label: 'Dnipropetrovsk Oblast', value: 'DNIPROPETROVSK' },
-  { label: 'Donetsk Oblast', value: 'DONETSK' },
-  { label: 'Ivano-Frankivsk Oblast', value: 'IVANOFRANKIVSK' },
-  { label: 'Kharkiv Oblast', value: 'KHARKVIV' },
-  { label: 'Kherson Oblast', value: 'KHERSON' },
-  { label: 'Khmelnytskyi Oblast', value: 'KHMELNYTSKYI' },
-  { label: 'Kyiv Oblast', value: 'KYIV' },
-  { label: 'Kirovohrad Oblast', value: 'KIROVOHRAD' },
-  { label: 'Luhansk Oblast', value: 'LUHANSK' },
-  { label: 'Lviv Oblast', value: 'LVIV' },
-  { label: 'Mykolaiv Oblast', value: 'MYKOLAIV' },
-  { label: 'Odessa Oblast', value: 'ODESSA' },
-  { label: 'Poltava Oblast', value: 'POLTAVA' },
-  { label: 'Rivne Oblast', value: 'RIVNE' },
-  { label: 'Sumy Oblast', value: 'SUMY' },
-  { label: 'Ternopil Oblast', value: 'TERNOPIL' },
-  { label: 'Vinnytsia Oblast', value: 'VINNYTSIA' },
-  { label: 'Volyn Oblast', value: 'VOLYN' },
-  { label: 'Zakarpattia Oblast', value: 'ZAKARPATTIA' },
-  { label: 'Zaporizhzhia Oblast', value: 'ZAPORIZHZHIA' },
-  { label: 'Zhytomyr Oblast', value: 'ZHYTOMYR' }
-]

@@ -1,5 +1,6 @@
 import { getCellInfo, getSitesInfo } from 'server/lib/sidebar/sidebar'
 import { formatDate } from 'server/lib/util/formatDate'
+import { SiteModel } from 'server/model/site/types'
 import { match } from 'ts-pattern'
 
 export const getSheets = () => SpreadsheetApp.getActive().getSheets()
@@ -124,4 +125,22 @@ export function setContents(contents: CellInput) {
       }
     })
     .otherwise(() => cell.setValue(contents.value))
+}
+
+export function setSite({ siteKey, oblast, town, latLng }: SiteModel) {
+  const sites = getSitesInfo()
+
+  if (sites[siteKey]) {
+    console.log(`Site ${siteKey} already exists`)
+    return false
+  }
+  try {
+    SpreadsheetApp?.getActive()
+      .getSheetByName('Sites')
+      ?.appendRow([siteKey, oblast, town, `${latLng.lat},${latLng.lng}`])
+    return true
+  } catch (e) {
+    console.log('Error', e)
+    return false
+  }
 }

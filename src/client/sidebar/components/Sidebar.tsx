@@ -68,11 +68,10 @@ const Sidebar = () => {
           >
             <SitesEditor
               key={`${cellContext.row}`}
-              cellContext={cellContext}
-              setContents={serverFunctions.setContents}
               getSites={getSites}
-              sites={sites}
+              oblast={'oblast' in page ? page.oblast : ''}
               setPage={setPage}
+              setSite={serverFunctions.setSite}
             />
           </FlexColumn>
         </>
