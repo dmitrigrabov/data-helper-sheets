@@ -16,7 +16,7 @@ import { match } from 'ts-pattern'
 import { SiteModel } from 'server/model/site/types'
 import { AssociationModel } from 'server/model/association/types'
 
-const getSheetConfig = (sheetName: string) => {
+export const getSheetConfig = (sheetName: string) => {
   switch (sheetName) {
     case 'Sources':
       return sourceConfig
