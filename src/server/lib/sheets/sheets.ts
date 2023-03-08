@@ -151,13 +151,13 @@ type SetSourceCell = {
   format?: string
 }
 
-export const setSourceCell = (contents: SetSourceCell) => {
+export const setSourceCell = (contents: SetSourceCell): boolean => {
   const { row, columnName } = contents
   // columnName, value, format
   const column = getColumnIndexFromName('Sources', columnName)
 
   if (!column) {
-    return null
+    return false
   }
 
   const cell = SpreadsheetApp.getActiveSpreadsheet()
@@ -165,22 +165,28 @@ export const setSourceCell = (contents: SetSourceCell) => {
     ?.getRange(row + 1, column + 1, 1, 1)
 
   if (!cell) {
-    return null
+    return false
   }
 
   console.log('Contents', contents)
   console.log('Cell value', cell.getValue())
 
-  match(contents.columnName)
+  return match(contents.columnName)
     .with('dateOfPost', () => {
       const value = formatDate(contents.value)
 
       if (value !== 'ERROR') {
         cell.setValue(value)
         cell.setNumberFormat('dd/mm/yyyy')
+        return true
+      } else {
+        return false
       }
     })
-    .otherwise(() => cell.setValue(contents.value))
+    .otherwise(() => {
+      cell.setValue(contents.value)
+      return true
+    })
 }
 
 export function setSite({ siteKey, oblast, town, latLng }: SiteModel) {

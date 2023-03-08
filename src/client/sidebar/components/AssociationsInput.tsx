@@ -1,19 +1,25 @@
 import { Flex, FlexColumn } from 'client/sidebar/components/Layout'
+import { SetSourceCell } from 'client/sidebar/types'
 import { Button, SelectMenu, Text } from 'evergreen-ui'
 import { FC } from 'react'
 import { Field } from 'react-final-form'
 import { AssociationModel } from 'server/model/association/types'
+import { CellContext } from 'shared/types/state'
 
 type AssociationsInputProps = {
   fieldName: string
   title: string
   associations: AssociationModel[]
+  setSourceCell: (cell: SetSourceCell) => Promise<boolean>
+  cellContext: CellContext
 }
 
 const AssociationsInput: FC<AssociationsInputProps> = ({
   fieldName,
   title,
-  associations
+  associations,
+  setSourceCell,
+  cellContext
 }) => {
   return (
     <Field<string[] | string>
@@ -27,6 +33,14 @@ const AssociationsInput: FC<AssociationsInputProps> = ({
             isMultiSelect
             options={options}
             selected={value}
+            onCloseComplete={async () => {
+              setSourceCell({
+                row: cellContext.row,
+                column: cellContext.column,
+                value: value.join(', '),
+                columnName: fieldName
+              })
+            }}
             onSelect={item => {
               input.onChange([...value, item.value as string])
             }}

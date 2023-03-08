@@ -4,9 +4,10 @@ import { Field } from 'react-final-form'
 
 type TextFieldProps = {
   fieldName: string
+  onBlur?: () => void
 }
 
-const TextField: FC<TextFieldProps> = ({ fieldName }) => (
+const TextField: FC<TextFieldProps> = ({ fieldName, onBlur }) => (
   <Field
     name={fieldName}
     render={({ input }) => (
@@ -17,6 +18,7 @@ const TextField: FC<TextFieldProps> = ({ fieldName }) => (
         onChange={(event: ChangeEvent<HTMLInputElement>) => {
           input.onChange(event.target.value)
         }}
+        onBlur={onBlur}
       />
     )}
   />

@@ -5,6 +5,6 @@ export const formatDate = (dateString: string) => {
     const date = Date.parse(dateString)
     return formatInTimeZone(date, 'UTC', 'dd/MM/yyyy')
   } catch (e) {
-    return ''
+    return 'ERROR' as const
   }
 }

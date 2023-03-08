@@ -8,3 +8,11 @@ export type PageData =
       page: 'sites'
       oblast: string
     }
+
+export type SetSourceCell = {
+  row: number
+  column: number
+  value: string
+  columnName: string
+  format?: string
+}

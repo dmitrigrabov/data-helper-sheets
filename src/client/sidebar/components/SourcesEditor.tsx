@@ -1,18 +1,16 @@
 import { Flex, FlexColumn, FormSection } from 'client/sidebar/components/Layout'
-import TextField from 'client/sidebar/components/TextField'
 import TextFieldsArray from 'client/sidebar/components/TextFieldsArray'
 import {
   Button,
   IconButton,
   Label,
   RefreshIcon,
-  SavedIcon,
   SelectMenu,
   Textarea,
   TextInput
 } from 'evergreen-ui'
 import { ChangeEvent, FC, useEffect } from 'react'
-import { Field, Form, FormSpy } from 'react-final-form'
+import { Field, Form } from 'react-final-form'
 import { CellInput } from 'server/lib/sheets/sheets'
 import { CellContext } from 'shared/types/state'
 import mutators from 'final-form-arrays'
@@ -20,18 +18,12 @@ import { SourceModel } from 'server/model/source/types'
 import { formatDate } from 'client/utils/formatDate'
 import { SiteModel } from 'server/model/site/types'
 import TownInput from 'client/sidebar/components/TownInput'
-import { PageData } from 'client/sidebar/types'
+import { PageData, SetSourceCell } from 'client/sidebar/types'
 import { oblastOptions } from 'client/utils/oblastOptions'
 import { AssociationModel } from 'server/model/association/types'
 import AssociationsInput from 'client/sidebar/components/AssociationsInput'
-
-type SetSourceCell = {
-  row: number
-  column: number
-  value: string
-  columnName: string
-  format?: string
-}
+import CoordinatesInput from 'client/sidebar/components/CoordinatesInput'
+import { EventKeyInput } from 'client/sidebar/components/EventKeyInput'
 
 type SourcesEditorProps = {
   cellContext: CellContext
@@ -41,14 +33,8 @@ type SourcesEditorProps = {
   associations: AssociationModel[]
   getAssociations: () => void
   setPage: (page: PageData) => void
-  setSourceCell: (cell: SetSourceCell) => void
+  setSourceCell: (cell: SetSourceCell) => Promise<boolean>
 }
-
-// TODO
-// - [x] Fix names of fields
-// - [x] Add site handler
-// - [ ] Add association handlers
-// - [ ] Test functionality
 
 const prepareSource = (source: SourceModel | undefined) => {
   if (!source) {
@@ -105,6 +91,14 @@ const SourcesEditor: FC<SourcesEditorProps> = ({
                     onChange={(event: ChangeEvent<HTMLInputElement>) => {
                       input.onChange(event.target.value)
                     }}
+                    onBlur={() => {
+                      setSourceCell({
+                        row: cellContext.row,
+                        column: cellContext.column,
+                        value: input.value,
+                        columnName: 'dateOfPost'
+                      })
+                    }}
                   />
                 )}
               />
@@ -121,6 +115,15 @@ const SourcesEditor: FC<SourcesEditorProps> = ({
                     value={input.value}
                     onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
                       input.onChange(event.target.value)
+                    }}
+                    onBlur={() => {
+                      console.log('blurring textarea', input.value)
+                      setSourceCell({
+                        row: cellContext.row,
+                        column: cellContext.column,
+                        value: input.value,
+                        columnName: 'comment'
+                      })
                     }}
                   />
                 )}
@@ -139,7 +142,15 @@ const SourcesEditor: FC<SourcesEditorProps> = ({
                     selected={input.value}
                     hasFilter={false}
                     hasTitle={false}
-                    onSelect={item => input.onChange(item.value)}
+                    onSelect={item => {
+                      setSourceCell({
+                        row: cellContext.row,
+                        column: cellContext.column,
+                        value: item.value as string,
+                        columnName: 'oblast'
+                      })
+                      return input.onChange(item.value)
+                    }}
                     closeOnSelect
                   >
                     <Button type="button">
@@ -167,28 +178,43 @@ const SourcesEditor: FC<SourcesEditorProps> = ({
                 />
               </Flex>
               <Flex style={{ height: '4px' }} />
-              <TownInput sites={sites} setPage={setPage} />
+              <TownInput
+                sites={sites}
+                setPage={setPage}
+                setSourceCell={setSourceCell}
+                cellContext={cellContext}
+              />
             </FormSection>
 
             <FormSection>
               <Label>Coordinates</Label>
               <Flex style={{ height: '4px' }} />
-              <TextField fieldName="manualLatLng.lat" />
-              <Flex style={{ height: '4px' }} />
-              <TextField fieldName="manualLatLng.lng" />
+              <CoordinatesInput
+                cellContext={cellContext}
+                setSourceCell={setSourceCell}
+              />
             </FormSection>
 
             <FormSection>
               <Label>Google Drive links</Label>
               <Flex style={{ height: '4px' }} />
-              <TextFieldsArray fieldName="googleDriveLinks" />
+              <TextFieldsArray
+                fieldName="googleDriveLinks"
+                setSourceCell={setSourceCell}
+                cellContext={cellContext}
+              />
             </FormSection>
 
-            <FormSection>
+            {/* Uses mixed delimiters */}
+            {/* <FormSection>
               <Label>Image file name</Label>
               <Flex style={{ height: '4px' }} />
-              <TextFieldsArray fieldName="fileNames" />
-            </FormSection>
+              <TextFieldsArray
+                fieldName="fileNames"
+                setSourceCell={setSourceCell}
+                cellContext={cellContext}
+              />
+            </FormSection> */}
 
             <FormSection>
               <Label>Means of attack</Label>
@@ -197,6 +223,8 @@ const SourcesEditor: FC<SourcesEditorProps> = ({
                 fieldName="meansOfAttack"
                 title="Means of attack"
                 associations={associations}
+                setSourceCell={setSourceCell}
+                cellContext={cellContext}
               />
             </FormSection>
 
@@ -207,55 +235,17 @@ const SourcesEditor: FC<SourcesEditorProps> = ({
                 fieldName="incidentType"
                 title="Type of incident"
                 associations={associations}
+                setSourceCell={setSourceCell}
+                cellContext={cellContext}
               />
             </FormSection>
             <FormSection>
               <Label>Event key</Label>
 
-              <FormSpy subscription={{ values: true }}>
-                {({ values: { oblast, town, dateOfPost } }) => {
-                  const dateChunks = dateOfPost?.split('-')
-                  const eventKey =
-                    oblast && town && dateOfPost && dateChunks.length === 3
-                      ? `${oblast}_${town}_${dateChunks[2]}-${dateChunks[1]}-${dateChunks[0]}`
-                      : ''
-
-                  return (
-                    <Flex>
-                      <Field
-                        name="eventKey"
-                        render={({ input }) => (
-                          <TextInput
-                            type="text"
-                            name={input.name}
-                            value={eventKey}
-                            disabled
-                            onChange={(
-                              event: ChangeEvent<HTMLInputElement>
-                            ) => {
-                              input.onChange(event.target.value)
-                            }}
-                          />
-                        )}
-                      />
-                      <Flex style={{ width: '4px' }} />
-                      <IconButton
-                        type="button"
-                        icon={SavedIcon}
-                        style={{ border: 'none' }}
-                        onClick={() =>
-                          setSourceCell({
-                            row: cellContext.row,
-                            column: cellContext.column,
-                            columnName: 'eventKey',
-                            value: eventKey
-                          })
-                        }
-                      />
-                    </Flex>
-                  )
-                }}
-              </FormSpy>
+              <EventKeyInput
+                setSourceCell={setSourceCell}
+                cellContext={cellContext}
+              />
             </FormSection>
           </FlexColumn>
         )
