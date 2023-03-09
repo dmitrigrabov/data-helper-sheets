@@ -1,7 +1,8 @@
 import { format } from 'date-fns-tz'
 import { dateFormat, timeFormat } from 'server/format'
+import { isValidDate } from 'server/lib/util/isValidDate'
 import { EventExport, EventModel } from 'server/model/event/types'
-
+import { parseISO } from 'date-fns'
 interface MaxCounts {
   incidentTypes: number
   meansOfAttack: number
@@ -49,15 +50,22 @@ export const exportEvents = (eventModels: EventModel[]) => {
       if (!eventModel.includeInMap) {
         return acc
       }
+      const date = parseISO(eventModel.date)
 
-      const time = format(eventModel.date, timeFormat, {
+      if (!isValidDate(date)) {
+        console.log('[ERROR] Invalid date', eventModel.date)
+        console.log('type: ', typeof eventModel.date)
+        return acc
+      }
+
+      const time = format(date, timeFormat, {
         timeZone: 'UTC'
       })
 
       const eventExport: EventExport = {
         id: eventModel.id,
         description: eventModel.description,
-        date: format(eventModel.date, dateFormat, {
+        date: format(date, dateFormat, {
           timeZone: 'UTC'
         }),
         time: time === '00:00:00' ? '' : time,

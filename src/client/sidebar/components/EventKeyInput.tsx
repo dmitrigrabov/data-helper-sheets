@@ -8,11 +8,13 @@ import { CellContext } from 'shared/types/state'
 type EventKeyInputProps = {
   setSourceCell: (cell: SetSourceCell) => Promise<boolean>
   cellContext: CellContext
+  addEventsKey: (key: string) => Promise<boolean>
 }
 
 export const EventKeyInput: FC<EventKeyInputProps> = ({
   setSourceCell,
-  cellContext
+  cellContext,
+  addEventsKey
 }) => {
   const { values } = useFormState({ subscription: { values: true } })
   const { oblast, town, dateOfPost, eventKey: originalEventKey } = values
@@ -52,14 +54,15 @@ export const EventKeyInput: FC<EventKeyInputProps> = ({
         type="button"
         icon={SavedIcon}
         style={{ border: 'none' }}
-        onClick={() =>
+        onClick={() => {
           setSourceCell({
             row: cellContext.row,
             column: cellContext.column,
             columnName: 'eventKey',
             value: eventKey
           })
-        }
+          addEventsKey(eventKey)
+        }}
       />
     </Flex>
   )

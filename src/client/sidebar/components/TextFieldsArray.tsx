@@ -1,7 +1,7 @@
-import { Flex } from 'client/sidebar/components/Layout'
+import { Flex, FlexColumn } from 'client/sidebar/components/Layout'
 import { SetSourceCell } from 'client/sidebar/types'
-import { AddIcon, IconButton, TextInput, TrashIcon } from 'evergreen-ui'
-import { ChangeEvent, FC, Fragment } from 'react'
+import { AddIcon, IconButton, Link, TextInput, TrashIcon } from 'evergreen-ui'
+import { ChangeEvent, FC } from 'react'
 import { Field } from 'react-final-form'
 import { FieldArray } from 'react-final-form-arrays'
 import { CellContext } from 'shared/types/state'
@@ -30,8 +30,10 @@ const TextFieldsArray: FC<TextFieldsArrayProps> = ({
             })
           }
 
+          const item = fields.value.find((_, i) => i === index)
+
           return (
-            <Fragment key={name}>
+            <FlexColumn key={name}>
               <Flex>
                 <Field
                   name={`${name}`}
@@ -71,7 +73,20 @@ const TextFieldsArray: FC<TextFieldsArrayProps> = ({
                 />
               </Flex>
               <Flex style={{ height: '4px' }} />
-            </Fragment>
+              <Link
+                rel="noopener noreferrer"
+                target="_blank"
+                href={item}
+                fontSize="10px"
+                title={item}
+                overflowX="hidden"
+                textOverflow="ellipsis"
+                whiteSpace="nowrap"
+              >
+                {item}
+              </Link>
+              <Flex style={{ height: '4px' }} />
+            </FlexColumn>
           )
         })}
         <Flex style={{ justifyContent: 'center' }}>

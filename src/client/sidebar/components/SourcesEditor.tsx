@@ -34,6 +34,7 @@ type SourcesEditorProps = {
   getAssociations: () => void
   setPage: (page: PageData) => void
   setSourceCell: (cell: SetSourceCell) => Promise<boolean>
+  addEventsKey: (key: string) => Promise<boolean>
 }
 
 const prepareSource = (source: SourceModel | undefined) => {
@@ -56,7 +57,8 @@ const SourcesEditor: FC<SourcesEditorProps> = ({
   setPage,
   associations,
   getAssociations,
-  setSourceCell
+  setSourceCell,
+  addEventsKey
 }) => {
   useEffect(() => {
     getSites()
@@ -245,6 +247,7 @@ const SourcesEditor: FC<SourcesEditorProps> = ({
               <EventKeyInput
                 setSourceCell={setSourceCell}
                 cellContext={cellContext}
+                addEventsKey={addEventsKey}
               />
             </FormSection>
           </FlexColumn>

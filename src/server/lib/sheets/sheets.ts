@@ -1,3 +1,4 @@
+import { parseSheet } from 'server/lib/sheets/parseSheet'
 import {
   getAssociationsSheetData,
   getCellInfo,
@@ -187,6 +188,24 @@ export const setSourceCell = (contents: SetSourceCell): boolean => {
       cell.setValue(contents.value)
       return true
     })
+}
+
+export const addEventsKey = (eventsKey: string): boolean => {
+  const eventsRows = parseSheet('Events')
+
+  if (Object.keys(eventsRows).includes(eventsKey)) {
+    return false
+  }
+
+  console.log('Adding events key', eventsKey)
+
+  try {
+    SpreadsheetApp?.getActive().getSheetByName('Events')?.appendRow([eventsKey])
+    return true
+  } catch (e) {
+    console.log('Error', e)
+    return false
+  }
 }
 
 export function setSite({ siteKey, oblast, town, latLng }: SiteModel) {

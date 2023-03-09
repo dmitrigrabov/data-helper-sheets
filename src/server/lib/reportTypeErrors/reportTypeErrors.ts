@@ -26,7 +26,7 @@ export const reportTypeErrors: ReportTypeErrors =
 
     console.log(
       [
-        `${model} ${id ? `${idFieldName} ${id}` : ''} Data Issues: `,
+        `[ERROR] ${model} ${id ? `${idFieldName} ${id}` : ''} Data Issues: `,
         report,
         ''
       ].join('\n')

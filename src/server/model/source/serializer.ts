@@ -70,11 +70,13 @@ export const toSource: ToSource = (input: unknown) => {
 
   const type = typeFromUrl(sourceUrl)
 
+  const converted =
+    typeof dateOfPost === 'string' ? dateOfPost : dateOfPost?.toISOString()
+
   const model: SourceModel = {
-    timestamp: timestamp.toUTCString(),
+    timestamp: timestamp.toISOString(),
     sourceUrl,
-    dateOfPost:
-      typeof dateOfPost === 'string' ? dateOfPost : dateOfPost?.toUTCString(),
+    dateOfPost: converted,
     oblast,
     town,
     manualLatLng: toLatLng(manualLatLng),

@@ -16,23 +16,28 @@ import { toSourceModelMap } from 'server/model/source/serializer'
 // Google Sheets to recalculate values
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const EXPORT_EVENTS = (clearCacheNum: number) => {
-  const sourceMap = parseSheet('Sources')
+  try {
+    const sourceMap = parseSheet('Sources')
 
-  const sourceModelMap = toSourceModelMap(sourceMap)
+    const sourceModelMap = toSourceModelMap(sourceMap)
 
-  const siteMap = parseSheet('Sites')
-  const siteModelMap = toSiteModelMap(siteMap)
+    const siteMap = parseSheet('Sites')
+    const siteModelMap = toSiteModelMap(siteMap)
 
-  const associationMap = parseSheet('Associations')
-  const associationModelMap = toAssociationModelMap(associationMap)
+    const associationMap = parseSheet('Associations')
+    const associationModelMap = toAssociationModelMap(associationMap)
 
-  const eventMap = parseSheet('Events')
-  const eventModelMap = toEventModelMap({
-    eventMap,
-    sourceModelMap,
-    siteModelMap,
-    associationModelMap
-  })
+    const eventMap = parseSheet('Events')
+    const eventModelMap = toEventModelMap({
+      eventMap,
+      sourceModelMap,
+      siteModelMap,
+      associationModelMap
+    })
 
-  return exportEvents(Object.values(eventModelMap))
+    return exportEvents(Object.values(eventModelMap))
+  } catch (error) {
+    console.log('[ERROR]', error)
+    return error
+  }
 }

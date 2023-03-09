@@ -15,7 +15,8 @@ import {
   getSites,
   setSite,
   getAssociations,
-  setSourceCell
+  setSourceCell,
+  addEventsKey
 } from 'server/lib/sheets/sheets'
 import { EXPORT_EVENTS } from 'server/exports/exportEvents'
 import { EXPORT_SOURCES } from 'server/exports/exportSources'
@@ -39,5 +40,6 @@ export {
   getSites,
   setSite,
   getAssociations,
-  setSourceCell
+  setSourceCell,
+  addEventsKey
 }
